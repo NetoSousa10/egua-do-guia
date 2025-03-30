@@ -1,0 +1,125 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #212121;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container da tela */
+.tutorial-container {
+  width: 100%;
+  max-width: 390px;
+  height: 100vh;
+  margin: auto;
+  background-color: #212121;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 24px;
+  justify-content: space-between;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+
+/* Logo montada com duas imagens */
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 0.5rem;
+}
+
+.logo-texto {
+    width: 7.5rem;
+}
+
+.logo-icone {
+    width: 8.125rem;
+}
+
+/* Textos */
+.textos {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.titulo, .subtitulo {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* Bolinhas de progresso */
+.paginacao {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.ponto {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: #29B6F6;
+}
+
+/* Botões */
+.botoes {
+    display: flex;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.botao {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    min-width: 8rem;
+    transition: 0.3s ease;
+}
+
+.botao.positivo {
+    background-color: #FFB300;
+    color: #000;
+}
+
+.botao.negativo {
+    background-color: #03A9F4;
+    color: #fff;
+}
+
+/* Responsividade extra */
+@media (max-width: 420px) {
+    .tutorial-container {
+        padding: 1.5rem 1rem;
+        border-radius: 0;
+    }
+    .logo-texto, .logo-icone {
+        width: 6rem;
+    }
+    .titulo, .subtitulo {
+        font-size: 1rem;
+    }
+    .botao {
+        font-size: 0.75rem;
+        padding: 0.5rem 1rem;
+    }
+}

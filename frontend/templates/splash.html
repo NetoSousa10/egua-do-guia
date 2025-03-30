@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Splash Screen</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      overflow: hidden;
+    }
+
+    video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover; /* Preenche a tela sem distorcer */
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <video id="videoMobile" playsinline autoplay muted></video>
+  <video id="videoDesktop" playsinline autoplay muted></video>
+
+  <script>
+    const isMobile = window.innerWidth <= 768;
+
+    const videoMobile = document.getElementById("videoMobile");
+    const videoDesktop = document.getElementById("videoDesktop");
+
+    if (isMobile) {
+      videoMobile.src = "{{ url_for('static', filename='assets/splash_mobile.mp4') }}";
+      videoMobile.style.display = "block";
+    } else {
+      videoDesktop.src = "{{ url_for('static', filename='assets/splash_desktop.mp4') }}";
+      videoDesktop.style.display = "block";
+    }
+
+    const video = isMobile ? videoMobile : videoDesktop;
+    video.addEventListener("ended", () => {
+      window.location.href = "/tutorial";
+    });
+  </script>
+
+</body>
+</html>

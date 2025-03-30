@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Tutorial - Égua do Guia{% endblock %}
+
+{% block content %}
+<!-- Container da tela de tutorial -->
+<div class="tutorial-container">
+
+  <!-- Logo montada com duas imagens -->
+  <div class="logo-container">
+    <img src="{{ url_for('static', filename='assets/logo_texto.png') }}" alt="Texto da logo" class="logo-texto">
+    <img src="{{ url_for('static', filename='assets/logo_icone.png') }}" alt="Ícone da logo" class="logo-icone">
+  </div>
+
+  <!-- Textos -->
+  <div class="textos">
+    <p class="titulo">Do you already know the</p>
+    <p class="subtitulo">Égua do Guia?</p>
+  </div>
+
+  <!-- Bolinhas de progresso -->
+  <div class="paginacao">
+    <span class="ponto"></span>
+    <span class="ponto"></span>
+    <span class="ponto"></span>
+    <span class="ponto"></span>
+  </div>
+
+  <!-- Botões -->
+  <div class="botoes">
+    <button class="botao positivo">Yes I know</button>
+    <button class="botao negativo">I don't know</button>
+  </div>
+
+</div>
+{% endblock %}

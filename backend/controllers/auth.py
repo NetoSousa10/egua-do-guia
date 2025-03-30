@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, session
-from utils.db import conectar
+from backend.utils.db import conectar
 from werkzeug.security import generate_password_hash, check_password_hash
 
 auth_bp = Blueprint('auth', __name__)

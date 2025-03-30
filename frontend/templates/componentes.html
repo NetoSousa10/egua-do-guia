@@ -1,0 +1,7 @@
+{% macro botao(texto, classe, rota='#') %}
+  <a href="{{ rota }}">
+    <button class="botao-componente {{ classe }}">
+      {{ texto }}
+    </button>
+  </a>
+{% endmacro %}
