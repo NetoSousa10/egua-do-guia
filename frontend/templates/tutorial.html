@@ -1,35 +1,32 @@
-{% extends "base.html" %}
-{% block title %}Tutorial - Égua do Guia{% endblock %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Égua do Guia - Tutorial</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/tutorial.css') }}">
+</head>
+<body>
 
-{% block content %}
-<!-- Container da tela de tutorial -->
-<div class="tutorial-container">
+  <img src="{{ url_for('static', filename='assets/img/logo.png') }}" alt="Logo" class="logo">
 
-  <!-- Logo montada com duas imagens -->
-  <div class="logo-container">
-    <img src="{{ url_for('static', filename='assets/logo_texto.png') }}" alt="Texto da logo" class="logo-texto">
-    <img src="{{ url_for('static', filename='assets/logo_icone.png') }}" alt="Ícone da logo" class="logo-icone">
+  <div class="question">
+    <p>Do you already know the<br><strong>Égua do Guia?</strong></p>
   </div>
 
-  <!-- Textos -->
-  <div class="textos">
-    <p class="titulo">Do you already know the</p>
-    <p class="subtitulo">Égua do Guia?</p>
+  <div class="dots">
+    <div class="dot active"></div>  <!-- ATIVO -->
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+  
+
+  <div class="buttons">
+    <button class="btn yes">Yes I know</button>
+    <button class="btn no">I don't know</button>
   </div>
 
-  <!-- Bolinhas de progresso -->
-  <div class="paginacao">
-    <span class="ponto"></span>
-    <span class="ponto"></span>
-    <span class="ponto"></span>
-    <span class="ponto"></span>
-  </div>
-
-  <!-- Botões -->
-  <div class="botoes">
-    <button class="botao positivo">Yes I know</button>
-    <button class="botao negativo">I don't know</button>
-  </div>
-
-</div>
-{% endblock %}
+</body>
+</html>

@@ -1,125 +1,157 @@
-/* Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
 body {
-    background-color: #212121;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Container da tela */
-.tutorial-container {
-  width: 100%;
-  max-width: 390px;
-  height: 100vh;
-  margin: auto;
+  margin: 0;
+  padding: 0;
   background-color: #212121;
-  border-bottom-left-radius: 40px;
-  border-bottom-right-radius: 40px;
+  font-family: 'Poppins', sans-serif;
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px 24px;
-  justify-content: space-between;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  height: 100vh;
+  border-radius: 0 0 30px 30px;
+  position: relative;
+}
+
+.logo {
+  width: 200px;
+  margin-top: 8vh;
+}
+
+.question {
+  text-align: center;
+  font-size: 1.8rem;
+  margin: 20px 20px 10px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.dots {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: auto;
+  margin-bottom: 80px;
+}
+
+.dot {
+  width: 18px;
+  height: 18px;
+  background-color: #7cc0ff;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.dot:hover {
+  background-color: #47a6f3;
+  transform: scale(1.2);
+}
+
+.dot.active {
+  background-color: #3399ff;
+  box-shadow: 0 0 8px #3399ff;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin-bottom: 60px;
+  padding-bottom: 20px;
 }
 
 
-/* Logo montada com duas imagens */
-.logo-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1rem;
-    gap: 0.5rem;
+.btn {
+  padding: 20px 32px;
+  border: none;
+  border-radius: 16px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  font-weight: 600;
+  width: 240px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
 }
 
-.logo-texto {
-    width: 7.5rem;
+.btn:hover {
+  transform: scale(1.03);
 }
 
-.logo-icone {
-    width: 8.125rem;
+.yes {
+  background-color: #f9b233;
+  color: black;
 }
 
-/* Textos */
-.textos {
-    text-align: center;
-    margin: 1rem 0;
+.no {
+  background-color: #29a6ff;
+  color: white;
 }
 
-.titulo, .subtitulo {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #ffffff;
+@media (max-width: 480px) {
+  .btn {
+    width: 140px;
+    font-size: 1rem;
+  }
+
+  .question {
+    font-size: 1.3rem;
+  }
+
+  .logo {
+    margin-top: 8vh;
+  }
 }
 
-/* Bolinhas de progresso */
-.paginacao {
-    display: flex;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
+@media (min-width: 600px) {
+  .btn {
+    width: 240px;
+    font-size: 1.3rem;
+  }
+
+  .question {
+    font-size: 1.9rem;
+    margin-bottom: 0;
+  }
+
+  .logo {
+    width: 240px;
+    margin-top: 10vh;
+  }
+
+  .dots {
+    margin-bottom: 70px;
+  }
+
+  .buttons {
+    margin-bottom: 30px;
+  }
 }
 
-.ponto {
-    width: 0.75rem;
-    height: 0.75rem;
-    border-radius: 50%;
-    background-color: #29B6F6;
-}
+@media (min-width: 1024px) {
+  body {
+    max-width: 680px;
+    margin: 0 auto;
+    border-radius: 0;
+  }
 
-/* Botões */
-.botoes {
-    display: flex;
-    gap: 1.25rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-    justify-content: center;
-}
+  .logo {
+    width: 260px;
+    margin-top: 12vh;
+  }
 
-.botao {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.875rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 0.75rem;
-    cursor: pointer;
-    min-width: 8rem;
-    transition: 0.3s ease;
-}
+  .btn {
+    width: 260px;
+    font-size: 1.4rem;
+  }
 
-.botao.positivo {
-    background-color: #FFB300;
-    color: #000;
-}
+  .question {
+    font-size: 2rem;
+  }
 
-.botao.negativo {
-    background-color: #03A9F4;
-    color: #fff;
-}
-
-/* Responsividade extra */
-@media (max-width: 420px) {
-    .tutorial-container {
-        padding: 1.5rem 1rem;
-        border-radius: 0;
-    }
-    .logo-texto, .logo-icone {
-        width: 6rem;
-    }
-    .titulo, .subtitulo {
-        font-size: 1rem;
-    }
-    .botao {
-        font-size: 0.75rem;
-        padding: 0.5rem 1rem;
-    }
+  .dot {
+    width: 20px;
+    height: 20px;
+  }
 }
