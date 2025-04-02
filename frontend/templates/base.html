@@ -1,31 +1,50 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{% block title %}Égua do Guia{% endblock %}</title>
+
+  <!-- Estilos globais -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   {% block extra_css %}{% endblock %}
+
+  <style>
+    .fade-wrapper {
+      opacity: 1;
+      transition: opacity 0.3s ease-in-out;
+    }
+    .fade-out {
+      opacity: 0;
+    }
+    .coin-float {
+      animation: float 2s infinite ease-in-out;
+    }
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0); }
+    }
+  </style>
 </head>
 <body class="fade-wrapper">
   {% block content %}{% endblock %}
 
+  <!-- Script de transição -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const links = document.querySelectorAll('a, button');
+      const links = document.querySelectorAll('a[href^="/"], button[data-href]');
 
-      links.forEach(link => {
-        link.addEventListener('click', e => {
-          const target = e.currentTarget;
-          const href = target.getAttribute('href') || target.dataset.href;
+      links.forEach(el => {
+        el.addEventListener('click', e => {
+          const href = el.getAttribute('href') || el.dataset.href;
 
-          if (href && href.startsWith('/')) {
+          if (href && !href.startsWith('http') && !el.hasAttribute('target')) {
             e.preventDefault();
             document.body.classList.add('fade-out');
-
-            setTimeout(() => {
-              window.location.href = href;
-            }, 300);
+            setTimeout(() => window.location.href = href, 300);
           }
         });
       });
