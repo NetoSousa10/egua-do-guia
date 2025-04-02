@@ -1,78 +1,8 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.fade-wrapper {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
 }
 
-html, body {
-  height: 100%;
-  background-color: #212121;
-  font-family: Arial, sans-serif;
-}
-
-.tutorial-container {
-  width: 24.375rem;              /* 390px */
-  height: 49.625rem;             /* 794px */
-  margin: auto;
-  background-color: #212121;
-  border-bottom-left-radius: 2.5rem;   /* 40px */
-  border-bottom-right-radius: 2.5rem;  /* 40px */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 2.5rem 1.25rem;       /* 40px 20px */
-  color: white;
-}
-
-.logo {
-  width: 10rem;                 /* 160px */
-  margin-top: 1.875rem;         /* 30px */
-}
-
-.tutorial-text {
-  text-align: center;
-  font-size: 1.25rem;           /* 20px */
-  font-weight: bold;
-  color: white;
-}
-
-.indicadores {
-  display: flex;
-  justify-content: center;
-  gap: 0.625rem;                /* 10px */
-  margin-top: 1.25rem;          /* 20px */
-}
-
-.indicadores span {
-  width: 0.75rem;               /* 12px */
-  height: 0.75rem;              /* 12px */
-  background-color: #29B6F6;
-  border-radius: 50%;
-}
-
-.botoes {
-  display: flex;
-  gap: 0.9375rem;              /* 15px */
-  margin-bottom: 2.5rem;       /* 40px */
-}
-
-.botao-sim,
-.botao-nao {
-  padding: 0.625rem 1.25rem;    /* 10px 20px */
-  font-size: 0.875rem;          /* 14px */
-  font-weight: bold;
-  border: none;
-  border-radius: 0.5rem;        /* 8px */
-  cursor: pointer;
-}
-
-.botao-sim {
-  background-color: #FFB300;
-  color: black;
-}
-
-.botao-nao {
-  background-color: #29B6F6;
-  color: white;
+.fade-out {
+  opacity: 0;
 }

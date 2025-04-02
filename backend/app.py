@@ -26,6 +26,10 @@ def create_app():
     @app.route("/tutorial")
     def tutorial():
         return render_template("tutorial.html")
+    
+    @app.route('/tutorial/etapa2')
+    def tutorial_etapa2():
+        return render_template('tutorial_etapa2.html')
 
     return app
 
