@@ -25,12 +25,27 @@ def create_app():
     # Rota do tutorial
     @app.route("/tutorial")
     def tutorial():
-        return render_template("tutorial.html")
+        return render_template("tutorial/tutorial.html")
     
     @app.route('/tutorial/etapa2')
     def tutorial_etapa2():
-        return render_template('tutorial_etapa2.html')
+        return render_template('tutorial/tutorial_etapa2.html')
+    
+    @app.route('/tutorial/etapa3')
+    def tutorial_etapa3():
+        return render_template('tutorial/tutorial_etapa3.html')
 
+    @app.route('/tutorial/etapa4')
+    def tutorial_etapa4():
+        return render_template('tutorial/tutorial_etapa4.html')
+    
+    @app.route("/tutorial/etapa5")
+    def tutorial_etapa5():
+        return render_template("tutorial/tutorial_etapa5.html")
+
+    @app.route("/reward")
+    def reward():
+        return render_template("reward.html")
     return app
 
 if __name__ == "__main__":

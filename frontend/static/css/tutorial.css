@@ -97,6 +97,7 @@ body {
   border-top-right-radius: 1.5rem;
 }
 
+
 @media (max-width: 480px) {
   .btn {
     width: 140px;

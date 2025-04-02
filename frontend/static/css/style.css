@@ -6,3 +6,55 @@
 .fade-out {
   opacity: 0;
 }
+.moeda-stack {
+  position: relative;
+  width: 220px; /* largura da área da pilha */
+  height: 80px;  /* altura total das moedas */
+  margin: 0 auto;
+}
+
+.moeda {
+  position: absolute;
+  top: 0;
+}
+
+.camada-1 {
+  left: 0;
+  z-index: 1;
+  transform: translateY(20px);
+}
+
+.camada-2 {
+  left: 50px;
+  z-index: 2;
+  transform: translateY(10px);
+}
+
+.camada-3 {
+  left: 100px;
+  z-index: 3;
+}
+.central-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.recompensa-titulo {
+  font-size: 2.2rem;
+  color: #FFA733;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.recompensa-msg {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
