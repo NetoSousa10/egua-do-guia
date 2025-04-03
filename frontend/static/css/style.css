@@ -40,9 +40,10 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: 100vh;
-  padding: 2rem;
+  height: 100%;  /* em vez de min-height: 100vh */
+  padding: 1rem; /* diminua se precisar */
 }
+
 
 .recompensa-titulo {
   font-size: 2.2rem;
