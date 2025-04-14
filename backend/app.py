@@ -10,7 +10,6 @@ def create_app():
         static_folder=os.path.join("..", "frontend", "static")
     )
     
-    # Configurações (caso tenha .env com secret_key etc)
     app.config.from_pyfile("config.py", silent=True)
 
     # Registrar blueprints
@@ -20,7 +19,12 @@ def create_app():
     # Rota da splash screen
     @app.route("/splash")
     def splash():
-        return render_template("splash.html")
+        return render_template("login/splash.html")
+    
+    @app.route("/start")
+    def login_start():
+        return render_template("login/login_start.html")
+
 
     # Rota do tutorial
     @app.route("/tutorial")

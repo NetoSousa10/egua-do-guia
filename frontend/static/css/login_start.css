@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+:root {
+  --primary-color: #FF5757;         /* Cor principal para botões "SOU NOVO" */
+  --accent-color:  #38B6FF;          /* Cor de destaque para títulos */
+  --background-color: #212121;       /* Cor de fundo */
+  --text-color: #000000;             /* Cor do texto */
+}
+
+/* Reset e estilos básicos para toda a página */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+}
+
+.start-screen {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 54px 20px 131px 20px;
+    gap: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  
+
+/* Para telas de tablet – aumenta a largura e ajusta espaçamentos */
+@media (min-width: 768px) {
+  .start-screen {
+    max-width: 600px;
+    padding: 60px 30px 150px 30px;
+    gap: 60px;
+  }
+}
+
+/* Para desktops – aumenta a largura e ajusta ainda mais os espaçamentos */
+@media (min-width: 1024px) {
+  .start-screen {
+    max-width: 800px;
+    padding: 80px 40px 180px 40px;
+    gap: 60px;
+  }
+}
+
+/* Estilo para o logo */
+.logo {
+  width: 150px;
+  margin-bottom: 1rem;
+}
+
+/* Título principal */
+.title {
+  font-size: 2rem;          /* Aproximadamente 32px em mobile */
+  font-weight: 700;
+  color: var(--accent-color);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+/* Container dos botões – REMOVIDO largura fixa, agora responsivo */
+.buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 19.6rem; /* Limita a largura máxima, mas permite encolher */
+  gap: 1rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Estilo base para os botões – deixam o botão ocupar 100% do container */
+.btn {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;         /* Texto em 14px */
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  color: var(--text-color);
+  width: 100%;             /* Faz o botão ocupar toda a largura do container */
+  max-width: 100%;
+}
+
+.btn:hover {
+  transform: scale(1.03);
+}
+
+/* Botão "SOU NOVO" */
+.sou-novo {
+  background-color: var(--primary-color);
+}
+
+/* Botão "JÁ TENHO UMA CONTA" */
+.tenho-conta {
+  background-color: transparent;
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+}
+
+/* Ajustes para telas muito pequenas (mobile extremo) */
+@media (max-width: 430px) {
+  .start-screen {
+    gap: 40px;
+    padding: 30px 10px 50px 10px;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+  }
+  
+  .btn {
+    font-size: 13px;
+    padding: 0.8rem 1.6rem;
+  }
+}
