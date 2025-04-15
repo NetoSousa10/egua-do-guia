@@ -32,15 +32,13 @@
 <body class="fade-wrapper">
   {% block content %}{% endblock %}
 
-  <!-- Script de transição -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // Código existente para transição de página
       const links = document.querySelectorAll('a[href^="/"], button[data-href]');
-
       links.forEach(el => {
         el.addEventListener('click', e => {
           const href = el.getAttribute('href') || el.dataset.href;
-
           if (href && !href.startsWith('http') && !el.hasAttribute('target')) {
             e.preventDefault();
             document.body.classList.add('fade-out');
@@ -48,7 +46,28 @@
           }
         });
       });
+  
+      // Novo código para efeito de clique dos botões
+      const buttons = document.querySelectorAll('.btn');
+      buttons.forEach(button => {
+        button.addEventListener('mousedown', () => {
+          // Aplica recuo e "esconde" a sombra via estilo inline
+          button.style.transform = 'scale(0.95) translateY(2px)';
+          // Se tiver sombra definida via CSS, você pode removê-la:
+          button.style.boxShadow = 'none';
+        });
+        button.addEventListener('mouseup', () => {
+          // Restaura a transformação e a sombra
+          button.style.transform = 'none';
+          button.style.boxShadow = '';
+        });
+        button.addEventListener('mouseleave', () => {
+          // Garante que a transformação seja removida se o cursor sair
+          button.style.transform = 'none';
+          button.style.boxShadow = '';
+        });
+      });
     });
-  </script>
+  </script>  
 </body>
 </html>

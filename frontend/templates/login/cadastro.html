@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastro - Égua do Guia{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cadastro.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="register-screen">
+  <img src="{{ url_for('static', filename='assets/img/logo.png') }}" alt="Logo do Égua do Guia" class="logo">
+  <h1 class="title">Crie sua Conta</h1>
+  <form action="/cadastro" method="POST">
+    <div class="input-group">
+      <label for="nome">Nome de Usuário</label>
+      <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+    </div>
+
+    <div class="input-group">
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
+    </div>
+
+    <div class="input-group">
+      <label for="senha">Senha</label>
+      <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+    </div>
+
+    <div class="input-group">
+      <label for="nacionalidade">Nacionalidade</label>
+      <select id="nacionalidade" name="nacionalidade" required>
+        <option value="" selected disabled>Selecione sua nacionalidade</option>
+        <option value="BR">Brasil</option>
+        <option value="US">Estados Unidos</option>
+        <option value="CA">Canadá</option>
+        <option value="UK">Reino Unido</option>
+        <option value="AU">Austrália</option>
+        <option value="FR">França</option>
+        <option value="DE">Alemanha</option>
+        <option value="IT">Itália</option>
+        <option value="ES">Espanha</option>
+        <option value="JP">Japão</option>
+        <option value="CN">China</option>
+        <option value="IN">Índia</option>
+        <option value="RU">Rússia</option>
+        <option value="ZA">África do Sul</option>
+        <option value="KR">Coreia do Sul</option>
+        <option value="BR2">Outros países da América Latina</option>
+        <!-- Adicione mais países conforme necessário -->
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label for="genero">Gênero</label>
+      <select id="genero" name="genero" required>
+        <option value="" selected disabled>Selecione seu gênero</option>
+        <option value="masculino">Masculino</option>
+        <option value="feminino">Feminino</option>
+        <option value="outro">Outro</option>
+      </select>
+    </div>
+
+    <div class="checkbox-group">
+      <input type="checkbox" id="idade" name="idade" required>
+      <label for="idade">Tenho idade superior a 14 anos</label>
+    </div>
+
+    <div class="checkbox-group">
+      <input type="checkbox" id="termos" name="termos" required>
+      <label for="termos">
+        Concordo com os <a href="/termos">Termos de Serviço</a> e <a href="/politica">Política de Privacidade</a>
+      </label>
+    </div>
+
+    <div class="buttons">
+      <button type="button" class="btn retornar" onclick="window.history.back()">Retornar</button>
+      <button type="submit" class="btn registrar">Registrar</button>
+    </div>
+  </form>
+  <div class="ou">OU</div>
+  <button class="btn google" onclick="window.location.href='/oauth/google'">Registrar com Google</button>
+  <button class="btn convidado" onclick="window.location.href='/home'">Entrar como Convidado</button>
+</div>
+{% endblock %}

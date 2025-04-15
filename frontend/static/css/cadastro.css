@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+:root {
+  --primary-color: #FF5757;         /* Cor principal para botões "SOU NOVO" */
+  --accent-color:  #38B6FF;          /* Cor de destaque para títulos */
+  --background-color: #212121;       /* Cor de fundo */
+  --text-color: #FFFFFF;             /* Cor do texto para contraste */
+}
+
+/* Reset e estilos básicos */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Container principal da tela de cadastro */
+.register-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 2rem 1rem;
+  background-color: var(--background-color);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Logo */
+.register-screen .logo {
+  width: 120px;
+  margin-bottom: 1.5rem;
+}
+
+/* Título da tela de cadastro */
+.register-screen .title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+}
+
+/* Formulário */
+.register-screen form {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+
+/* Grupo de entrada (input-group) */
+.register-screen .input-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.register-screen .input-group label {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  color: var(--text-color);
+}
+
+.register-screen .input-group input,
+.register-screen .input-group select {
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #000;  /* Inputs com fundo branco, texto preto para clareza */
+}
+
+/* Grupo de checkbox */
+.register-screen .checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.register-screen .checkbox-group input {
+  width: 16px;
+  height: 16px;
+}
+
+/* Container dos botões do formulário */
+.register-screen .buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Estilo base para os botões dentro do formulário */
+.register-screen .buttons .btn {
+  flex: 1;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  text-align: center;
+}
+
+.register-screen .buttons .btn:hover {
+  transform: scale(1.03);
+}
+
+/* Botão de retornar (voltar) */
+.register-screen .btn.retornar {
+  background-color: transparent;
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+}
+
+/* Botão de registrar */
+.register-screen .btn.registrar {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+/* "OU" separador */
+.register-screen .ou {
+  margin: 1rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Botões extras fora do formulário */
+.register-screen .btn.google,
+.register-screen .btn.convidado {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.register-screen .btn.google:hover,
+.register-screen .btn.convidado:hover {
+  transform: scale(1.03);
+}
+
+/* Botão de Registrar com Google: fundo branco, texto preto */
+.register-screen .btn.google {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Botão de Entrar como Convidado: transparente com borda */
+.register-screen .btn.convidado {
+  background-color: transparent;
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+}
+
+/* Responsividade para telas muito pequenas */
+@media (max-width: 430px) {
+  .register-screen {
+    padding: 1rem;
+  }
+  
+  .register-screen form {
+    max-width: 100%;
+  }
+}

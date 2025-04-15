@@ -11,8 +11,8 @@
     <img class="logo" src="{{ url_for('static', filename='assets/img/logo.png') }}" alt="Logo do Égua do Guia">
     <h1 class="title">BEM-VINDO AO SEU GUIA PARAENSE FAVORITO!</h1>
     <div class="buttons">
-      <button class="btn sou-novo" onclick="window.location.href='/cadastro'">SOU NOVO</button>
-      <button class="btn tenho-conta" onclick="window.location.href='/login'">JÁ TENHO UMA CONTA</button>
+        <button class="btn sou-novo" data-href="/cadastro">SOU NOVO</button>
+        <button class="btn tenho-conta" data-href="/login">JÁ TENHO UMA CONTA</button>        
     </div>
   </div>
 {% endblock %}
