@@ -1,183 +1,482 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
 :root {
-  --primary-color: #FF5757;         /* Cor principal para botões "SOU NOVO" */
-  --accent-color:  #38B6FF;          /* Cor de destaque para títulos */
-  --background-color: #212121;       /* Cor de fundo */
-  --text-color: #FFFFFF;             /* Cor do texto para contraste */
+  --primary-color: #FF5757;
+  --accent-color: #38B6FF;
+  --background-color: #212121;
+  --text-color: #ffffff;
 }
 
-/* Reset e estilos básicos */
-html, body {
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--background-color);
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  background-color: var(--background-color);
   color: var(--text-color);
-  font-family: 'Inter', sans-serif;
 }
 
-/* Container principal da tela de cadastro */
-.register-screen {
+.cadastro-screen {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100vh; /* Garante que ocupe a altura da tela */
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
+  justify-content: center; /* Centraliza verticalmente */
   align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  width: 100%;
-  padding: 2rem 1rem;
-  background-color: var(--background-color);
-  text-align: center;
   box-sizing: border-box;
 }
 
-/* Logo */
-.register-screen .logo {
-  width: 120px;
-  margin-bottom: 1.5rem;
+.logo {
+  width: 160px;
+  margin-bottom: 2rem;
 }
 
-/* Título da tela de cadastro */
-.register-screen .title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--accent-color);
-  margin-bottom: 1rem;
-}
-
-/* Formulário */
-.register-screen form {
+.formulario {
   width: 100%;
-  max-width: 400px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  text-align: left;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-/* Grupo de entrada (input-group) */
-.register-screen .input-group {
+.input-box {
+  position: relative;
+  width: 322px;
+  min-height: 42px; /* garante espaço fixo */
   display: flex;
   flex-direction: column;
-  text-align: left;
+  justify-content: center;
 }
 
-.register-screen .input-group label {
-  font-size: 0.9rem;
-  margin-bottom: 0.3rem;
-  color: var(--text-color);
-}
-
-.register-screen .input-group input,
-.register-screen .input-group select {
-  padding: 0.8rem;
+/* Ícone com ::before */
+.input-box::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
   font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fff;
-  color: #000;  /* Inputs com fundo branco, texto preto para clareza */
+  color: var(--accent-color);
+  position: absolute;
+  top: 12px; /* alinhamento fixo com o campo */
+  left: 14px;
+  pointer-events: none;
+}
+.input-box i {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: var(--accent-color);
+  z-index: 2;
+  pointer-events: none;
 }
 
-/* Grupo de checkbox */
-.register-screen .checkbox-group {
+/* Ícones específicos */
+.input-box:has(input[name="nome"])::before {
+  content: "\f007"; /* user */
+}
+
+.input-box:has(input[name="email"])::before {
+  content: "\f0e0"; /* envelope */
+}
+
+.input-box:has(input[name="senha"])::before {
+  content: "\f023"; /* lock */
+}
+
+.input-box input,
+.input-box select {
+  width: 100%;
+  height: 42px;
+  padding: 0.8rem 1rem 0.8rem 2.5rem;
+  background-color: transparent;
+  border: 2px solid var(--accent-color);
+  border-radius: 8px;
+  color: var(--accent-color);
+  font-size: 1rem;
+  outline: none;
+  box-sizing: border-box;
+}
+.input-box input::placeholder {
+  color: var(--accent-color); /* cor do placeholder */
+  opacity: 1; /* força a cor ser aplicada totalmente */
+}
+
+/* CHECKBOX */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  width: 322px;
+}
+
+.checkbox-group a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+.checkbox-group label {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.9rem;
-  text-align: left;
 }
 
-.register-screen .checkbox-group input {
-  width: 16px;
-  height: 16px;
-}
-
-/* Container dos botões do formulário */
-.register-screen .buttons {
+/* Estilizando o checkbox manualmente */
+.checkbox-group input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: 2px solid var(--accent-color);
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  cursor: pointer;
   display: flex;
-  justify-content: space-between;
-  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  position: relative;
 }
 
-/* Estilo base para os botões dentro do formulário */
-.register-screen .buttons .btn {
-  flex: 1;
-  padding: 1rem;
-  font-size: 1rem;
+.checkbox-group input[type="checkbox"]:checked::before {
+  content: "✔";
+  color: var(--accent-color);
+  font-size: 14px;
+  line-height: 1;
+  transform: scale(1.1);
+}
+
+/* BOTÕES */
+.botoes-principais {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  width: 322px;
+}
+
+.btn {
+  width: 100%;
+  padding: 0.8rem;
   font-weight: 700;
-  border: none;
+  font-size: 1rem;
   border-radius: 8px;
+  border: none;
   cursor: pointer;
   transition: transform 0.2s ease;
-  text-align: center;
 }
 
-.register-screen .buttons .btn:hover {
-  transform: scale(1.03);
+.btn:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+.btn--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none !important;
 }
 
-/* Botão de retornar (voltar) */
-.register-screen .btn.retornar {
+
+.sou-novo {
+  background-color: var(--primary-color);
+  color: black;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px 0 var(--accent-color);
+}
+
+.tenho-conta {
   background-color: transparent;
   color: var(--accent-color);
+  border: 0.5px solid var(--accent-color);
+  border-bottom-width: 2px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px 0 var(--accent-color);
+}
+
+.google,
+.convidado {
+  margin-top: 0.6rem;
+  background-color: transparent;
   border: 2px solid var(--accent-color);
+  color: var(--accent-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  width: 322px;
 }
 
-/* Botão de registrar */
-.register-screen .btn.registrar {
-  background-color: var(--primary-color);
-  color: var(--text-color);
+
+.google-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  margin-right: 8px; /* já dá bom espaçamento */
 }
 
-/* "OU" separador */
-.register-screen .ou {
+  
+
+.divider {
+  text-align: center;
   margin: 1rem 0;
+  color: var(--accent-color);
+  width: 322px;
+}
+
+.divider span::before,
+.divider span::after {
+  content: "";
+  display: inline-block;
+  width: 40%;
+  height: 2px;
+  background-color: var(--accent-color);
+  vertical-align: middle;
+  margin: 0 0.5rem;
+}
+
+/* SELECT2 ESTILO */
+.select2-container {
+  width: 100% !important;
+  height: 42px !important;
+}
+
+.select2-container--default .select2-selection--single {
+    background-color: #212121 !important;
+    border: 2px solid var(--accent-color) !important;
+    border-radius: 8px;
+    height: 42px !important;
+    display: flex;
+    align-items: center !important;
+    padding-left: 2.5rem;
+    box-sizing: border-box;
+}
+  
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  display: flex !important;
+  align-items: center !important;
+  height: 100% !important;
+  padding-left: 0 !important;
+  color: var(--accent-color) !important;
   font-size: 1rem;
   font-weight: 600;
+  line-height: 1;
 }
-
-/* Botões extras fora do formulário */
-.register-screen .btn.google,
-.register-screen .btn.convidado {
-  width: 100%;
-  padding: 1rem;
-  margin-bottom: 0.5rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.register-screen .btn.google:hover,
-.register-screen .btn.convidado:hover {
-  transform: scale(1.03);
-}
-
-/* Botão de Registrar com Google: fundo branco, texto preto */
-.register-screen .btn.google {
-  background-color: #fff;
-  color: #000;
-}
-
-/* Botão de Entrar como Convidado: transparente com borda */
-.register-screen .btn.convidado {
-  background-color: transparent;
-  color: var(--accent-color);
-  border: 2px solid var(--accent-color);
-}
-
-/* Responsividade para telas muito pequenas */
-@media (max-width: 430px) {
-  .register-screen {
-    padding: 1rem;
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    width: 20px;
+    height: 100%;
+    position: absolute;
+    right: 12px;
+    top: 0;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none; /* impede clique acidental */
   }
+  .select2-container--default .select2-selection--single .select2-selection__arrow b {
+    display: none !important;
+  }  
+
+
+.select2-container--default .select2-selection--single::after {
+  content: "";
+  background-image: url("/static/assets/img/seta.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 19px;
+  height: 12px;
+  position: absolute;
+  top: 15px;     /* Ajuste vertical baseado no Figma */
+  right: 12px;   /* Ajuste horizontal baseado no Figma */
+  pointer-events: none;
+}
+
   
-  .register-screen form {
-    max-width: 100%;
+.select2-results__option {
+  background-color: var(--background-color);
+  color: var(--accent-color) !important;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #2c2c2c;
+  display: flex;
+  align-items: center;
+}
+
+.select2-results__option--highlighted {
+  background-color: var(--accent-color) !important;
+  color: black !important;
+}
+
+.select2-selection__rendered img,
+.select2-results__option img {
+  width: 20px;
+  height: 14px;
+  margin-right: 8px;
+  object-fit: cover;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+  
+/* ícone do gênero e nacionalidade dentro do select2 */
+.select2-selection__rendered::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  color: var(--accent-color);
+  margin-right: 0.5rem;
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+  
+
+#nacionalidade + .select2 .select2-selection__rendered::before {
+  content: "\f024"; /* ícone de bandeira */
+}
+
+#genero + .select2 .select2-selection__rendered::before {
+  content: "\f228"; /* ícone de gênero */
+}
+.error-message {
+  position: relative;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: #ff5757;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  animation: fadeIn 0.2s ease;
+}
+
+.error-message::before {
+  content: "⚠️";
+  font-size: 0.75rem;
+}
+/* === Mensagem de erro só para checkbox === */
+.checkbox-group .error-message {
+  display: block;            /* força a mensagem a ocupar linha inteira */
+  margin: 0.25rem 0 0 28px;  /* empurra pra baixo e alinha ao texto do checkbox */
+  font-size: 0.85rem;
+  line-height: 1.2;
+  color: #ff5757;
+}
+
+.checkbox-group .error-message::before {
+  content: "⚠️";
+  margin-right: 0.4rem;
+  font-size: 0.85rem;
+}
+
+
+/* Animação de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
+#toast-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+}
+
+.toast {
+  background-color: var(--accent-color);
+  color: black;
+  padding: 1rem 1.5rem;
+  border-radius: 6px;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  margin-top: 0.5rem;
+  animation: fadeInOut 4s forwards;
+}
+
+.toast.error {
+  background-color: #ff5757;
+  color: white;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) translateX(-50%);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0) translateX(-50%);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0) translateX(-50%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px) translateX(-50%);
+  }
+}
+
+  
+/* Responsivo */
+@media (max-width: 430px) {
+  .input-box,
+  .checkbox-group,
+  .botoes-principais,
+  .google,
+  .convidado,
+  .divider {
+    width: 100%;
+  }
+}
+@media (min-width: 768px) {
+    .cadastro-screen {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 0;
+    }
+  
+    .formulario {
+      align-items: center;
+    }
+  
+    .formulario > * {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+@media (min-width: 1024px) {
+    .cadastro-screen {
+      padding: 0;
+    }
+  
+    .formulario {
+      align-items: center;
+    }
+  
+    .formulario > * {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+@media (min-width: 1200px) {
+    .cadastro-screen {
+      padding: 0;
+    }
+  
+    .formulario {
+      align-items: center;
+    }
+  
+    .formulario > * {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }  

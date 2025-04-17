@@ -1,18 +1,25 @@
 {% extends 'base.html' %}
 
-{% block title %}Bem-vindo - Égua do Guia{% endblock %}
+{% block title %}Bem‑vindo – Égua do Guia{% endblock %}
 
 {% block extra_css %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/login_start.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login_start.css') }}">
 {% endblock %}
 
 {% block content %}
-  <div class="start-screen">
-    <img class="logo" src="{{ url_for('static', filename='assets/img/logo.png') }}" alt="Logo do Égua do Guia">
-    <h1 class="title">BEM-VINDO AO SEU GUIA PARAENSE FAVORITO!</h1>
-    <div class="buttons">
-        <button class="btn sou-novo" data-href="/cadastro">SOU NOVO</button>
-        <button class="btn tenho-conta" data-href="/login">JÁ TENHO UMA CONTA</button>        
-    </div>
-  </div>
+<main class="start-screen" role="main" aria-labelledby="welcome-title">
+  <img
+    class="logo"
+    src="{{ url_for('static', filename='assets/img/logo.png') }}"
+    alt="Logotipo Égua do Guia"
+  >
+  <h1 id="welcome-title" class="title">
+    Bem‑vindo ao seu guia paraense favorito!
+  </h1>
+
+  <nav class="buttons" aria-label="Ações principais">
+    <a href="/cadastro" class="btn btn--primary">Sou novo</a>
+    <a href="/login"    class="btn btn--outline">Já tenho uma conta</a>
+  </nav>
+</main>
 {% endblock %}

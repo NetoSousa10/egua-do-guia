@@ -1,28 +1,47 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const buttons = document.querySelectorAll('.btn');
-    
-    buttons.forEach(button => {
-      // Quando o botão é pressionado
-      button.addEventListener('mousedown', function() {
-        // Aplica o efeito de recuo
-        button.style.transform = 'scale(0.95) translateY(2px)';
-        // Remove a sombra definida, se houver (caso queira que a sombra desapareça)
-        button.style.boxShadow = 'none';
-      });
-      
-      // Quando o botão é liberado
-      button.addEventListener('mouseup', function() {
-        // Restaura o estado normal
-        button.style.transform = 'none';
-        // Remove o estilo inline da box-shadow para que o CSS assuma o controle novamente
-        button.style.boxShadow = '';
-      });
-      
-      // Caso o cursor saia do botão enquanto pressionado
-      button.addEventListener('mouseleave', function() {
-        button.style.transform = 'none';
-        button.style.boxShadow = '';
-      });
-    });
+document.addEventListener('DOMContentLoaded', () => {
+  const body = document.body;
+
+  // Quando pressionar (mouse, touch, pen)
+  body.addEventListener('pointerdown', e => {
+    const btn = e.target.closest('.btn');
+    if (btn) btn.classList.add('btn--pressed');
   });
-  
+
+  // Quando soltar ou cancelar o pointer
+  body.addEventListener('pointerup',   removePress);
+  body.addEventListener('pointercancel', removePress);
+  body.addEventListener('pointerout',   removePress);
+
+  function removePress(e) {
+    const btn = e.target.closest('.btn');
+    if (btn) btn.classList.remove('btn--pressed');
+  }
+
+  // Ativar via teclado (Enter ou Space)
+  body.addEventListener('keydown', e => {
+    const btn = e.target.closest('.btn');
+    if (!btn) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      btn.classList.add('btn--pressed');
+    }
+  });
+  body.addEventListener('keyup', e => {
+    const btn = e.target.closest('.btn');
+    if (!btn) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      btn.classList.remove('btn--pressed');
+      btn.click();  // dispara o click programaticamente
+    }
+  });
+
+  // Navegação para botões com data-href (e que não sejam submit)
+  body.addEventListener('click', e => {
+    const btn = e.target.closest('.btn[data-href]');
+    if (!btn || btn.getAttribute('type') === 'submit') return;
+    e.preventDefault();
+    document.body.classList.add('fade-out');
+    setTimeout(() => {
+      window.location.href = btn.dataset.href;
+    }, 300);
+  });
+});

@@ -1,61 +1,171 @@
-.fade-wrapper {
-  opacity: 1;
-  transition: opacity 0.3s ease-in-out;
+/* === style.css (globais) === */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+:root {
+  /* Cores */
+  --color-primary:     #FF5757;
+  --color-accent:      #38B6FF;
+  --color-bg:          #212121;
+  --color-text:        #ffffff;
+
+  /* Tipografia */
+  --font-main:         'Inter', sans-serif;
+  --fs-sm:             0.875rem;
+  --fs-md:             1rem;
+  --fs-lg:             1.25rem;
+  --lh-base:           1.4;
+
+  /* Espaçamentos */
+  --sp-xs:             0.5rem;
+  --sp-sm:             1rem;
+  --sp-md:             1.5rem;
+  --sp-lg:             2rem;
+
+  /* Bordas e sombras */
+  --radius:            8px;
+  --shadow-base:       0 4px 6px rgba(0,0,0,0.1);
+  --shadow-accent:     0 4px 6px var(--color-accent);
+  --toast-duration:    2s;
 }
 
-.fade-out {
-  opacity: 0;
+/* 1) Reset básico */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-.moeda-stack {
-  position: relative;
-  width: 220px; /* largura da área da pilha */
-  height: 80px;  /* altura total das moedas */
-  margin: 0 auto;
-}
-
-.moeda {
-  position: absolute;
-  top: 0;
-}
-
-.camada-1 {
-  left: 0;
-  z-index: 1;
-  transform: translateY(20px);
+html, body {
+  width: 100%;
+  height: 100%;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: var(--fs-md);
+  line-height: var(--lh-base);
 }
 
-.camada-2 {
-  left: 50px;
-  z-index: 2;
-  transform: translateY(10px);
+/* 2) Fade-out entre páginas */
+.fade-wrapper { opacity: 1; transition: opacity .3s ease-in-out; }
+.fade-out     { opacity: 0; }
+
+/* 3) Botões genéricos */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-sm) var(--sp-md);
+  font-size: var(--fs-md);
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+  box-shadow: var(--shadow-base);
+}
+.btn:hover {
+  transform: none;
+}
+/* efeito “afundar” */
+.btn:active {
+  transform: translateY(2px);
+  box-shadow: none !important;
 }
 
-.camada-3 {
-  left: 100px;
-  z-index: 3;
+/* 3a) Variantes de botão */
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-text);
+  box-shadow: var(--shadow-accent);
 }
+.btn--outline {
+  background: transparent;
+  color: var(--color-accent);
+  border: 2px solid var(--color-accent);
+  box-shadow: var(--shadow-accent);
+}
+
+/* 4) Toaster (notificações) */
+/* container fixo */
+#toast-container {
+  position: fixed;
+  top: var(--space-md);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  z-index: 9999;
+}
+
+/* toast base */
+.toast {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--color-accent);
+  color: #212121;
+  font-weight: 600;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-base);
+  animation:
+    slideDown 0.3s ease-out,
+    fadeOut 0.5s ease-in-out var(--toast-duration) forwards;
+}
+
+/* variações */
+.toast--error {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ícone dentro do toast */
+.toast__icon {
+  font-size: 1.2em;
+}
+
+/* mensagem */
+.toast__msg {
+  line-height: 1.2;
+}
+
+/* keyframes */
+@keyframes slideDown {
+  from { transform: translate(-50%, -20px); opacity: 0; }
+  to   { transform: translate(-50%,   0  ); opacity: 1; }
+}
+@keyframes fadeOut {
+  to { opacity: 0; transform: translateY(-10px) translateX(-50%); }
+}
+
+/* 5) Pilha de moedas (tutorial/reward) */
+.moeda-stack { position: relative; width: 220px; height: 80px; margin: 0 auto; }
+.moeda { position: absolute; top: 0; }
+.camada-1 { left: 0;   z-index: 1; transform: translateY(20px); }
+.camada-2 { left: 50px; z-index: 2; transform: translateY(10px); }
+.camada-3 { left:100px; z-index: 3; }
+
+/* 6) Central box (tutorial/reward) */
 .central-box {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  height: 100%;  /* em vez de min-height: 100vh */
-  padding: 1rem; /* diminua se precisar */
+  height: 100%;
+  padding: var(--sp-sm);
 }
-
-
 .recompensa-titulo {
   font-size: 2.2rem;
   color: #FFA733;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--sp-md);
 }
-
 .recompensa-msg {
   font-size: 1.2rem;
   font-weight: 600;
-  color: white;
-  margin-top: 2rem;
-  margin-bottom: 3rem;
+  color: var(--color-text);
+  margin: var(--sp-md) 0 var(--sp-lg);
 }

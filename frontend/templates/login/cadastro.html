@@ -1,84 +1,188 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadastro – Égua do Guia</title>
 
-{% block title %}Cadastro - Égua do Guia{% endblock %}
-
-{% block extra_css %}
+  <!-- CSS Global e da tela -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/cadastro.css') }}">
-{% endblock %}
 
-{% block content %}
-<div class="register-screen">
-  <img src="{{ url_for('static', filename='assets/img/logo.png') }}" alt="Logo do Égua do Guia" class="logo">
-  <h1 class="title">Crie sua Conta</h1>
-  <form action="/cadastro" method="POST">
-    <div class="input-group">
-      <label for="nome">Nome de Usuário</label>
-      <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
-    </div>
+  <!-- Select2 e Font Awesome -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+</head>
+<body>
+  <div class="cadastro-screen">
+    <img
+      src="{{ url_for('static', filename='assets/img/logo.png') }}"
+      class="logo"
+      alt="Logo Égua do Guia"
+    />
 
-    <div class="input-group">
-      <label for="email">E-mail</label>
-      <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
-    </div>
+    <form
+      class="formulario"
+      action="{{ url_for('auth.cadastro') }}"
+      method="post"
+      novalidate
+      aria-describedby="form-instructions"
+    >
+      <div id="form-instructions" class="sr-only">
+        Todos os campos marcados são obrigatórios.
+      </div>
 
-    <div class="input-group">
-      <label for="senha">Senha</label>
-      <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
-    </div>
+      <!-- Nome de Usuário -->
+      <div class="input-box">
+        <label for="nome" class="sr-only">Nome de Usuário</label>
+        <input
+          type="text"
+          id="nome"
+          name="nome"
+          placeholder="Nome de Usuário"
+          required
+          aria-required="true"
+        />
+      </div>
 
-    <div class="input-group">
-      <label for="nacionalidade">Nacionalidade</label>
-      <select id="nacionalidade" name="nacionalidade" required>
-        <option value="" selected disabled>Selecione sua nacionalidade</option>
-        <option value="BR">Brasil</option>
-        <option value="US">Estados Unidos</option>
-        <option value="CA">Canadá</option>
-        <option value="UK">Reino Unido</option>
-        <option value="AU">Austrália</option>
-        <option value="FR">França</option>
-        <option value="DE">Alemanha</option>
-        <option value="IT">Itália</option>
-        <option value="ES">Espanha</option>
-        <option value="JP">Japão</option>
-        <option value="CN">China</option>
-        <option value="IN">Índia</option>
-        <option value="RU">Rússia</option>
-        <option value="ZA">África do Sul</option>
-        <option value="KR">Coreia do Sul</option>
-        <option value="BR2">Outros países da América Latina</option>
-        <!-- Adicione mais países conforme necessário -->
-      </select>
-    </div>
+      <!-- E-mail -->
+      <div class="input-box">
+        <label for="email" class="sr-only">E‑mail</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="E-mail"
+          required
+          aria-required="true"
+        />
+      </div>
 
-    <div class="input-group">
-      <label for="genero">Gênero</label>
-      <select id="genero" name="genero" required>
-        <option value="" selected disabled>Selecione seu gênero</option>
-        <option value="masculino">Masculino</option>
-        <option value="feminino">Feminino</option>
-        <option value="outro">Outro</option>
-      </select>
-    </div>
+      <!-- Senha -->
+      <div class="input-box">
+        <label for="senha" class="sr-only">Senha</label>
+        <input
+          type="password"
+          id="senha"
+          name="senha"
+          placeholder="Senha"
+          required
+          aria-required="true"
+        />
+      </div>
 
-    <div class="checkbox-group">
-      <input type="checkbox" id="idade" name="idade" required>
-      <label for="idade">Tenho idade superior a 14 anos</label>
-    </div>
+      <!-- Nacionalidade -->
+      <div class="input-box">
+        <label for="nacionalidade" class="sr-only">Nacionalidade</label>
+        <select
+          id="nacionalidade"
+          name="nacionalidade"
+          required
+          aria-required="true"
+        >
+          <option value="" disabled selected>
+            Selecione sua nacionalidade
+          </option>
+          <option value="br">Brasil</option>
+          <option value="us">Estados Unidos</option>
+          <option value="fr">França</option>
+          <option value="de">Alemanha</option>
+          <option value="jp">Japão</option>
+          <option value="it">Itália</option>
+          <option value="pt">Portugal</option>
+          <option value="es">Espanha</option>
+          <option value="ar">Argentina</option>
+          <option value="ca">Canadá</option>
+          <option value="mx">México</option>
+          <option value="cn">China</option>
+        </select>
+      </div>
 
-    <div class="checkbox-group">
-      <input type="checkbox" id="termos" name="termos" required>
-      <label for="termos">
-        Concordo com os <a href="/termos">Termos de Serviço</a> e <a href="/politica">Política de Privacidade</a>
-      </label>
-    </div>
+      <!-- Gênero -->
+      <div class="input-box">
+        <label for="genero" class="sr-only">Gênero</label>
+        <select
+          id="genero"
+          name="genero"
+          required
+          aria-required="true"
+        >
+          <option value="" disabled selected>Gênero</option>
+          <option value="masculino">Masculino</option>
+          <option value="feminino">Feminino</option>
+          <option value="outro">Outro</option>
+        </select>
+      </div>
 
-    <div class="buttons">
-      <button type="button" class="btn retornar" onclick="window.history.back()">Retornar</button>
-      <button type="submit" class="btn registrar">Registrar</button>
-    </div>
-  </form>
-  <div class="ou">OU</div>
-  <button class="btn google" onclick="window.location.href='/oauth/google'">Registrar com Google</button>
-  <button class="btn convidado" onclick="window.location.href='/home'">Entrar como Convidado</button>
-</div>
-{% endblock %}
+      <!-- Checkbox de idade -->
+      <div class="checkbox-group">
+        <label>
+          <input
+            type="checkbox"
+            id="maior14"
+            name="maior14"
+            required
+            aria-required="true"
+          />
+          Tenho idade superior a 14 anos de idade.
+        </label>
+      </div>
+
+      <!-- Botões principais -->
+      <div class="botoes-principais">
+        <button
+          type="button"
+          class="btn tenho-conta"
+          data-href="/start"
+        >
+          RETORNAR
+        </button>
+        <button
+          type="submit"
+          class="btn sou-novo"
+          data-href="/login"
+        >
+          REGISTRAR
+        </button>
+      </div>
+
+      <!-- Divider “OU” -->
+      <div class="divider"><span>OU</span></div>
+
+      <!-- Registro via Google -->
+      <button type="button" class="btn google">
+        <img
+          src="{{ url_for('static', filename='assets/img/google-logo.png') }}"
+          class="google-icon"
+          alt=""
+        />
+        REGISTRAR COM GOOGLE
+      </button>
+
+      <!-- Entrar como convidado -->
+      <button type="button" class="btn convidado">
+        ENTRAR COMO CONVIDADO
+      </button>
+    </form>
+  </div>
+
+  <!-- Container de toasts (global) -->
+  <div id="toast-container" role="alert" aria-live="polite"></div>
+
+  <!-- Scripts: jQuery, Select2, toast, validação e efeitos -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"
+  ></script>
+  <script src="{{ url_for('static', filename='js/toast.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/form-validation.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/select2-nacionalidade.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/buttonEffects.js') }}"></script>
+</body>
+</html>
