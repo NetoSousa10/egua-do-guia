@@ -421,6 +421,30 @@ body {
     transform: translateY(-10px) translateX(-50%);
   }
 }
+/* Botão “Esqueci minha senha” */
+.btn.forgot-password {
+  margin-top: 0.6rem;        /* mesmo espaçamento que os outros sociais */
+  width: 322px;              /* mesma largura fixa */
+  max-width: 100%;           /* para mobile ficar 100% */
+  background-color: transparent;
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
+  display: block;            /* para margin auto funcionar */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.8rem;           /* mesma altura que .google/.convidado */
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+/* responsivo: no mobile (<430px) fica 100% */
+@media (max-width: 430px) {
+  .btn.forgot-password {
+    width: 100%;
+  }
+}
 
   
 /* Responsivo */
