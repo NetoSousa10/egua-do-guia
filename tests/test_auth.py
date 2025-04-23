@@ -1,5 +1,3 @@
-# tests/test_auth.py
-
 import pytest
 
 def test_cadastro_e_login(client):
