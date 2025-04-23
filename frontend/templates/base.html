@@ -8,6 +8,11 @@
   <!-- Estilos globais -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='assets/img/logo.png') }}"
+      sizes="32x32">
+
 
   {% block extra_css %}{% endblock %}
 
@@ -30,6 +35,18 @@
   </style>
 </head>
 <body class="fade-wrapper">
+
+  {# bloco de flashes/toasts #}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-container">
+        {% for category, msg in messages %}
+          <div class="flash {{ category }}">{{ msg }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
   {% block content %}{% endblock %}
 
   <script>
@@ -46,7 +63,7 @@
           }
         });
       });
-  
+
       // Novo código para efeito de clique dos botões
       const buttons = document.querySelectorAll('.btn');
       buttons.forEach(button => {
@@ -68,6 +85,23 @@
         });
       });
     });
-  </script>  
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.querySelector('.flash-container');
+      if (!container) return;
+  
+      // Após 4 segundos, aplica fade-out
+      setTimeout(() => {
+        container.classList.add('fade-out');
+  
+        // Depois de mais meio segundo (tempo da transição), remove do DOM
+        setTimeout(() => {
+          container.remove();
+        }, 500);
+      }, 4000);
+    });
+  </script>
+  
 </body>
 </html>

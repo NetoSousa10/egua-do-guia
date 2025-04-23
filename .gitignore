@@ -1,4 +1,12 @@
-venv/
 __pycache__/
+*.py[cod]
+*$py.class
+venv/
 .env
-*.sqlite3
+.vscode/
+.idea/
+.pytest_cache/
+pytest-report.html
+.coverage
+htmlcov/
+static/*.map

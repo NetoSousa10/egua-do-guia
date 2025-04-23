@@ -10,8 +10,8 @@ def create_app():
         static_folder=os.path.join("..", "frontend", "static")
     )
 
-    # SECRET_KEY para sessões (troque por uma variável de ambiente em produção!)
-    app.secret_key = os.environ.get("SECRET_KEY", "troque_isto_em_producao")
+    # SECRET_KEY para sessões (hard-coded diretamente no código)
+    app.secret_key = os.getenv("SECRET_KEY", "troque_em_producao")
 
     # Registra blueprints de API com prefixos
     app.register_blueprint(auth_bp, url_prefix="/auth")
