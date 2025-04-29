@@ -8,33 +8,25 @@
   <!-- Estilos globais -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="icon"
-      type="image/png"
-      href="{{ url_for('static', filename='assets/img/logo.png') }}"
-      sizes="32x32">
 
+  <!-- Favicon -->
+  <link rel="icon"
+        type="image/png"
+        href="{{ url_for('static', filename='assets/img/logo.png') }}"
+        sizes="32x32">
 
   {% block extra_css %}{% endblock %}
 
-  <style>
-    .fade-wrapper {
-      opacity: 1;
-      transition: opacity 0.3s ease-in-out;
-    }
-    .fade-out {
-      opacity: 0;
-    }
-    .coin-float {
-      animation: float 2s infinite ease-in-out;
-    }
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-      100% { transform: translateY(0); }
-    }
-  </style>
 </head>
 <body class="fade-wrapper">
+
+  {# Progressive profiling banner #}
+  {% if g.profile_incomplete %}
+    <div class="profile-banner">
+      🎯 Complete seu perfil para aproveitar todos os recursos:
+      <a href="{{ url_for('auth.complete_profile') }}">Completar meu perfil</a>
+    </div>
+  {% endif %}
 
   {# bloco de flashes/toasts #}
   {% with messages = get_flashed_messages(with_categories=true) %}
@@ -51,7 +43,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Código existente para transição de página
+      // Transição de página
       const links = document.querySelectorAll('a[href^="/"], button[data-href]');
       links.forEach(el => {
         el.addEventListener('click', e => {
@@ -64,44 +56,31 @@
         });
       });
 
-      // Novo código para efeito de clique dos botões
+      // Efeito de clique nos botões
       const buttons = document.querySelectorAll('.btn');
       buttons.forEach(button => {
-        button.addEventListener('mousedown', () => {
-          // Aplica recuo e "esconde" a sombra via estilo inline
-          button.style.transform = 'scale(0.95) translateY(2px)';
-          // Se tiver sombra definida via CSS, você pode removê-la:
-          button.style.boxShadow = 'none';
+        button.addEventListener('pointerdown', () => {
+          button.classList.add('btn--pressed');
         });
-        button.addEventListener('mouseup', () => {
-          // Restaura a transformação e a sombra
-          button.style.transform = 'none';
-          button.style.boxShadow = '';
-        });
-        button.addEventListener('mouseleave', () => {
-          // Garante que a transformação seja removida se o cursor sair
-          button.style.transform = 'none';
-          button.style.boxShadow = '';
-        });
+        ['pointerup','pointercancel','pointerout'].forEach(evt =>
+          button.addEventListener(evt, () => button.classList.remove('btn--pressed'))
+        );
       });
     });
   </script>
+
   <script>
+    // Fade-out automático das flashes
     document.addEventListener('DOMContentLoaded', () => {
       const container = document.querySelector('.flash-container');
       if (!container) return;
-  
-      // Após 4 segundos, aplica fade-out
       setTimeout(() => {
         container.classList.add('fade-out');
-  
-        // Depois de mais meio segundo (tempo da transição), remove do DOM
-        setTimeout(() => {
-          container.remove();
-        }, 500);
+        setTimeout(() => container.remove(), 500);
       }, 4000);
     });
   </script>
-  
+
+  {% block extra_js %}{% endblock %}
 </body>
 </html>

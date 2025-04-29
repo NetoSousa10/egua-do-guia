@@ -89,6 +89,7 @@
           name="senha"
           placeholder="Senha"
           required
+          minlength="6"
           aria-required="true"
         />
       </div>
@@ -171,14 +172,17 @@
       <div class="divider"><span>OU</span></div>
 
       <!-- Registro via Google -->
-      <button type="button" class="btn google">
-        <img
-          src="{{ url_for('static', filename='assets/img/google-logo.png') }}"
-          class="google-icon"
-          alt=""
-        />
-        REGISTRAR COM GOOGLE
-      </button>
+    <a href="{{ url_for('oauth.login_google') }}"
+      class="btn google">
+    <img
+      src="{{ url_for('static', filename='assets/img/google-logo.png') }}"
+      class="google-icon"
+      alt="Google"
+      />
+      REGISTRAR COM GOOGLE
+    </a>
+   
+
 
       <!-- Entrar como convidado -->
       <button type="button" class="btn convidado">

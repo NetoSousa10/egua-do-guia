@@ -1,21 +1,43 @@
 import os
+from dotenv import load_dotenv
 from flask import Flask, render_template
-from backend.controllers.auth import auth_bp
+from backend.controllers.auth   import auth_bp
 from backend.controllers.lugares import lugares_bp
+from backend.controllers.oauth   import oauth_bp, oauth
 
 def create_app():
+    load_dotenv()
+
     app = Flask(
         __name__,
         template_folder=os.path.join("..", "frontend", "templates"),
         static_folder=os.path.join("..", "frontend", "static")
     )
 
-    # SECRET_KEY para sessões (hard-coded diretamente no código)
+    oauth.init_app(app)
     app.secret_key = os.getenv("SECRET_KEY", "troque_em_producao")
-
-    # Registra blueprints de API com prefixos
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(lugares_bp, url_prefix="/lugares")
+    app.register_blueprint(oauth_bp)
+
+    @app.before_request
+    def check_profile_completion():
+        g.profile_incomplete = False
+        user_id = session.get('user_id')
+        if user_id:
+            conn = conectar()
+            cur  = conn.cursor()
+            cur.execute(
+                "SELECT nacionalidade, genero FROM usuarios WHERE id = %s",
+                (user_id,)
+            )
+            row = cur.fetchone()
+            cur.close()
+            conn.close()
+            if row:
+                nacional, genero = row
+                if not nacional or not genero:
+                    g.profile_incomplete = True
 
     # Rotas de GET só para renderizar templates
     @app.route("/splash", methods=["GET"])

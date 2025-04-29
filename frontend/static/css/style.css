@@ -46,10 +46,6 @@ html, body {
   line-height: var(--lh-base);
 }
 
-/* 2) Fade-out entre páginas */
-.fade-wrapper { opacity: 1; transition: opacity .3s ease-in-out; }
-.fade-out     { opacity: 0; }
-
 /* 3) Botões genéricos */
 .btn {
   display: inline-flex;
@@ -202,4 +198,37 @@ html, body {
 /* Classe que faz o fade-out */
 .flash-container.fade-out {
   opacity: 0;
+}
+.fade-wrapper {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+.fade-out {
+  opacity: 0;
+}
+.coin-float {
+  animation: float 2s infinite ease-in-out;
+}
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+/* Banner de perfil incompleto */
+.profile-banner {
+  background-color: #f39c12;
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.profile-banner a {
+  color: #ffffff;
+  text-decoration: underline;
+  margin-left: 0.5rem;
+}
+.profile-banner a:hover {
+  opacity: 0.8;
 }
