@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask, render_template
+from flask import Flask, render_template, g, session, redirect, url_for
 from backend.controllers.auth   import auth_bp
 from backend.controllers.lugares import lugares_bp
 from backend.controllers.oauth   import oauth_bp, oauth

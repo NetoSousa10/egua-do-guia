@@ -9,6 +9,7 @@ def criar_tabelas():
         return
 
     cur = conn.cursor()
+    cur.execute("""DROP TABLE IF EXISTS usuarios CASCADE;""")
     cur.execute("""
     CREATE TABLE usuarios (
       id SERIAL PRIMARY KEY,

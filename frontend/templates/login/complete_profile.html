@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Complete seu Perfil{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{{ url_for('static','css/auth.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="cadastro-screen">
+  <h2>👉 Faltam só mais dois passos:</h2>
+  <form method="post" novalidate class="formulario">
+    <!-- Nacionalidade -->
+    <div class="input-box">
+      <label for="nacionalidade">Nacionalidade</label>
+      <select id="nacionalidade" name="nacionalidade" required>
+        <option value="" disabled selected>Selecione sua nacionalidade</option>
+          <option value="br">Brasil</option>
+          <option value="us">Estados Unidos</option>
+          <option value="fr">França</option>
+          <option value="de">Alemanha</option>
+          <option value="jp">Japão</option>
+          <option value="it">Itália</option>
+          <option value="pt">Portugal</option>
+          <option value="es">Espanha</option>
+          <option value="ar">Argentina</option>
+          <option value="ca">Canadá</option>
+          <option value="mx">México</option>
+          <option value="cn">China</option>
+      </select>
+    </div>
+
+    <!-- Gênero -->
+    <div class="input-box">
+      <label for="genero">Gênero</label>
+      <select id="genero" name="genero" required>
+        <option value="" disabled selected>Selecione seu gênero</option>
+        <option value="masculino">Masculino</option>
+        <option value="feminino">Feminino</option>
+        <option value="outro">Outro</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn sou-novo">Atualizar Perfil</button>
+  </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{{ url_for('static','js/form-validation.js') }}"></script>
+{% endblock %}

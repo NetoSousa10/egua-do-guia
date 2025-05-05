@@ -25,7 +25,7 @@ def login_google():
 @oauth_bp.route('/auth/google/callback')
 def auth_callback():
     # 1) troca código por token
-    token     = oauth.google.authorize_access_token()
+    token = oauth.google.authorize_access_token()
     # 2) busca dados do usuário
     user_info = oauth.google.userinfo()  
 
