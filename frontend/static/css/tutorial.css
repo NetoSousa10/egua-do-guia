@@ -1,50 +1,51 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
+/* Container principal centralizado */
 body {
   margin: 0;
   padding: 0;
   background-color: #ECECEC;
   font-family: 'Poppins', sans-serif;
-  color: white;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  height: 100vh;
-  border-radius: 0 0 30px 30px;
-  position: relative;
+  min-height: 100vh;
 }
 
-/* novo container para posicionar os botões via absolute */
+/* Tela de tutorial ocupa largura responsiva */
 .tutorial-screen {
   position: relative;
-  min-height: 100vh;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 8vh;      /* espaço para o logo */
-  padding-bottom: 100px; /* espaço para a área dos botões */
 }
 
+/* Logo elevada */
 .logo {
-  width: 200px;
-  margin-top: 8vh;
+  width: 220px;
+  margin-top: 0;
+  margin-bottom: 2rem;   /* separação fixa abaixo da logo */
 }
 
+/* Pergunta com espaçamento controlado */
 .question {
   text-align: center;
   font-size: 1.8rem;
-  margin: 20px 20px 10px;
+  margin: 0 1.5rem 2rem;  /* zero acima, 2rem abaixo */
   font-weight: 500;
   line-height: 1.5;
   color: #212121;
 }
 
+/* Dots próximos à pergunta e aos botões */
 .dots {
   display: flex;
   gap: 12px;
   justify-content: center;
-  margin-top: auto;
-  margin-bottom: 80px;
+  margin: 0 0 1.5rem;     /* zero acima, 1.5rem abaixo */
 }
 
 .dot {
@@ -54,106 +55,332 @@ body {
   border-radius: 50%;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
-
 .dot:hover {
   background-color: #47a6f3;
   transform: scale(1.2);
 }
-
 .dot.active {
   background-color: #BD5151;
   box-shadow: 0 0 8px #BD5151;
 }
 
-/* botões fixos no rodapé da tela, centralizados e responsivos */
+/* Botões fixos no rodapé da tela, centralizados */
 .buttons {
   position: absolute;
-  bottom: 40px;    /* ajuste até ficar no mesmo “pé” do design */
-  left: 0;
-  right: 0;
+  bottom: 24px;                 /* afasta do final da curva */
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  gap: 16px;       /* espaço entre os botões */
-  padding: 0 16px; /* 16px de margem interna em cada lado */
+  gap: 16px;
+  width: calc(100% - 48px);     /* margem lateral de 24px cada */
+  max-width: 752px;             /* 800px - 48px */
   box-sizing: border-box;
 }
 
-/* cada botão ocupa igualmente o espaço disponível */
+/* Cada botão em pílula, altura fixa e texto multi-linha */
 .buttons .btn {
   flex: 1;
-  height: 50px;            /* igual à altura do design */
-  padding: 0;              /* zera padding extra */
-  border-radius: 10px;     /* pílula arredondada */
+  height: 48px;         /* altura do design */
+  border-radius: 24px;  /* metade da altura */
   display: flex;
-  align-items: center;     /* vertical center */
-  justify-content: center; /* horizontal center */
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  white-space: normal;     /* permite quebra de linha */
-  line-height: 1.2;        /* um pouco de espaçamento de linha */
-  font-size: 1rem;         /* ajuste pro texto caber bem */
+  white-space: normal;
+  line-height: 1.2;
+  font-size: 1rem;
+  padding: 0 16px;      /* respiração interna */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+}
+.buttons .btn:hover {
+  transform: scale(1.03);
 }
 
-/* mantém as cores que você já definiu */
-.btn.yes { background-color: #f9b233; color: #212121; }
-.btn.no  { background-color: #FF8585; color: #FFF; }
-
-.map-img {
-  width: 100%;
-  height: 35vh;
-  object-fit: cover;
-  margin: 0;
-  border-top-left-radius: 1.5rem;
-  border-top-right-radius: 1.5rem;
+/* Cores dos botões */
+.btn.yes {
+  background-color: #f9b233;
+  color: #212121;
+}
+.btn.no {
+  background-color: #FF8585;
+  color: #FFFFFF;
 }
 
-
+/* Mobile (xs) */
 @media (max-width: 480px) {
-  .btn {
-    font-size: 1rem;
+  .tutorial-screen {
+    padding-top: 12vh;
+    padding-bottom: 80px;
   }
-  .buttons {
-    gap: 16px;
-    padding: 0 16px;
+  .logo {
+    width: 180px;
+    margin-bottom: 1.5rem;
   }
   .question {
     font-size: 1.3rem;
+    margin-bottom: 1.5rem;
   }
-  .logo {
-    margin-top: 8vh;
+  .dots {
+    gap: 8px;
+    margin-bottom: 1rem;
+  }
+  .buttons {
+    bottom: 16px;
+    width: calc(100% - 32px);
+    gap: 12px;
+  }
+  .buttons .btn {
+    height: 40px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    padding: 0 12px;
   }
 }
 
-@media (min-width: 600px) {
-  .btn {
-    font-size: 1.3rem;
+/* Small tablets / phablets (sm) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .tutorial-screen {
+    padding-top: 14vh;
+    padding-bottom: 90px;
+  }
+  .logo {
+    width: 200px;
+    margin-bottom: 1.75rem;
+  }
+  .question {
+    font-size: 1.5rem;
+    margin-bottom: 1.75rem;
+  }
+  .dots {
+    gap: 10px;
+    margin-bottom: 1.25rem;
+  }
+  .buttons {
+    bottom: 20px;
+    width: calc(100% - 40px);
+    gap: 14px;
+  }
+  .buttons .btn {
+    height: 44px;
+    border-radius: 8px;
+    font-size: 1rem;
+    padding: 0 14px;
+  }
+}
+
+/* Tablets médios (md) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .tutorial-screen {
+    padding-top: 16vh;
+    padding-bottom: 100px;
+  }
+  .logo {
+    width: 220px;
+    margin-bottom: 2rem;
+  }
+  .question {
+    font-size: 1.7rem;
+    margin-bottom: 2rem;
+  }
+  .dots {
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+  .buttons {
+    bottom: 24px;
+    width: calc(100% - 48px);
+    gap: 16px;
+  }
+  .buttons .btn {
+    height: 46px;
+    border-radius: 12px;
+    font-size: 1rem;
+    padding: 0 16px;
+  }
+}
+
+/* Tablets grandes / pequenos desktops (lg) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .tutorial-screen {
+    padding-top: 18vh;
+    padding-bottom: 110px;
+  }
+  .logo {
+    width: 230px;
+    margin-bottom: 2.25rem;
   }
   .question {
     font-size: 1.9rem;
-    margin-bottom: 0;
+    margin-bottom: 3rem;
   }
-  .logo {
-    width: 240px;
-    margin-top: 10vh;
+  .dots {
+    gap: 12px;
+    margin-bottom: 2rem;
+  }
+  .buttons {
+    bottom: 28px;
+    width: calc(100% - 56px);
+    gap: 18px;
+  }
+  .buttons .btn {
+    height: 48px;
+    border-radius: 16px;
+    font-size: 1.05rem;
+    padding: 0 18px;
   }
 }
 
-@media (min-width: 1024px) {
-  body {
-    max-width: 680px;
-    margin: 0 auto;
-    border-radius: 0;
+/* Desktops comuns (xl) */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .tutorial-screen {
+    max-width: 600px;
+    padding-top: 20vh;
+    padding-bottom: 120px;
   }
   .logo {
-    width: 260px;
-    margin-top: 12vh;
-  }
-  .btn {
-    font-size: 1.4rem;
+    width: 240px;
+    margin-bottom: 2.5rem;
   }
   .question {
     font-size: 2rem;
+    margin-bottom: 4rem;
   }
-  .dot {
-    width: 20px;
-    height: 20px;
+  .dots {
+    margin-bottom: 2.5rem;
+  }
+  .buttons {
+    bottom: 32px;
+    width: calc(100% - 64px);
+    gap: 20px;
+  }
+  .buttons .btn {
+    height: 50px;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    padding: 0 20px;
+  }
+}
+
+/* Monitores grandes (xxl) */
+@media (min-width: 1440px) {
+  .tutorial-screen {
+    max-width: 680px;
+    padding-top: 22vh;
+    padding-bottom: 140px;
+  }
+  .logo {
+    width: 260px;
+    margin-bottom: 3rem;
+  }
+  .question {
+    font-size: 2.2rem;
+    margin-bottom: 5rem;
+  }
+  .dots {
+    margin-bottom: 3rem;
+  }
+  .buttons {
+    bottom: 36px;
+    width: calc(100% - 72px);
+    gap: 24px;
+  }
+  .buttons .btn {
+    height: 52px;
+    border-radius: 26px;
+    font-size: 1.2rem;
+    padding: 0 24px;
+  }
+}
+
+/* ——— Passo 2 específico (não afeta o passo 1) ——— */
+.tutorial-screen.tutorial-step2 {
+  /* ajustes padrão para passo 2 */
+  padding-top: 8vh;
+  padding-bottom: 100px;
+}
+.tutorial-screen.tutorial-step2 .map-img {
+  height: 45vh;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  object-fit: cover;
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
+}
+.tutorial-screen.tutorial-step2 .question {
+  margin-bottom: 1.5rem;
+}
+.tutorial-screen.tutorial-step2 .dots {
+  margin: 0 0 1.5rem;
+}
+.tutorial-screen.tutorial-step2 .buttons {
+  bottom: 16px;
+}
+
+/* —— Responsividade para o passo 2 —— */
+@media (max-width: 480px) {
+  .tutorial-screen.tutorial-step2 {
+    padding-top: 10vh;
+    padding-bottom: 80px;
+  }
+  .tutorial-screen.tutorial-step2 .map-img {
+    height: 30vh;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+@media (min-width: 481px) and (max-width: 767px) {
+  .tutorial-screen.tutorial-step2 {
+    padding-top: 12vh;
+    padding-bottom: 90px;
+  }
+  .tutorial-screen.tutorial-step2 .map-img {
+    height: 35vh;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .tutorial-screen.tutorial-step2 {
+    padding-top: 14vh;
+    padding-bottom: 100px;
+  }
+  .tutorial-screen.tutorial-step2 .map-img {
+    height: 40vh;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .tutorial-screen.tutorial-step218 {
+    padding-top: 16vh;
+    padding-bottom: 110px;
+  }
+  .tutorial-screen.tutorial-step2 .map-img {
+    height: 45vh;
+    margin-top: 1.75rem;
+    margin-bottom: 1.75rem;
+  }
+}
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .tutorial-screen.tutorial-step2 {
+    padding-top: 18vh;
+    padding-bottom: 120px;
+  }
+  .tutorial-screen.tutorial-step2 .map-img {
+    height: 50vh;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+@media (min-width: 1440px) {
+  .tutorial-screen.tutorial-step2 {
+    padding-top: 20vh;
+    padding-bottom: 140px;
+  }
+  .tutorial-screen.tutorial-step2 .map-img {
+    height: 55vh;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
   }
 }

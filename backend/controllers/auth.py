@@ -144,38 +144,3 @@ def login():
 
     flash(success_msg, "success")
     return redirect(url_for("tutorial"))
-
-@auth_bp.route('/auth/complete-profile', methods=['GET', 'POST'])
-def complete_profile():
-    user_id = session.get('user_id')
-    if not user_id:
-        flash("Faça login para completar seu perfil.", "error")
-        return redirect(url_for('login_form'))
-
-    if request.method == 'POST':
-        nacional = request.form.get('nacionalidade', '').strip()
-        genero   = request.form.get('genero', '').strip()
-
-        # validação simples
-        if not nacional or not genero:
-            flash("Selecione nacionalidade e gênero.", "error")
-            return redirect(url_for('auth.complete_profile'))
-
-        # atualiza no banco
-        conn = conectar()
-        cur  = conn.cursor()
-        cur.execute("""
-            UPDATE usuarios
-               SET nacionalidade = %s,
-                   genero        = %s
-             WHERE id = %s
-        """, (nacional, genero, user_id))
-        conn.commit()
-        cur.close()
-        conn.close()
-
-        flash("Perfil atualizado com sucesso!", "success")
-        return redirect(url_for("tutorial"))
-
-    # GET: renderiza o form
-    return render_template('login/complete_profile.html')

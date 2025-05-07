@@ -1,32 +1,51 @@
+{# frontend/templates/tutorial/tutorial_etapa2.html #}
 {% extends 'base.html' %}
 
-{% block title %}Tutorial - Etapa 2{% endblock %}
+{% block title %}Tutorial – Etapa 2{% endblock %}
 
 {% block extra_css %}
   <link rel="stylesheet" href="{{ url_for('static', filename='css/tutorial.css') }}">
 {% endblock %}
 
 {% block content %}
-  <img src="{{ url_for('static', filename='assets/img/mapaComIcones.jpg') }}" alt="Mapa ilustrativo" class="map-img">
+  <div class="tutorial-screen tutorial-step2">
+    <img
+      src="{{ url_for('static', filename='assets/img/mapaComIcones.jpg') }}"
+      alt="Mapa ilustrativo"
+      class="map-img"
+    />
 
-  <div class="question">
-    <h2>Good Location</h2>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquet blandit justo dictum viverra.<br>
-      Pellentesque sed pretium dolor, porttitor fermentum magna
-    </p>
-  </div>
+    <div class="question">
+      <h2>Good Location</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquet blandit justo dictum viverra.<br>
+        Pellentesque sed pretium dolor, porttitor fermentum magna.
+      </p>
+    </div>
 
-  <div class="dots">
-    <div class="dot"></div>
-    <div class="dot active"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-  </div>
+    <div class="dots">
+      <div class="dot"></div>
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
 
-  <div class="buttons">
-    <button class="btn yes" onclick="window.location.href='/tutorial'">Back</button>
-    <button class="btn no" onclick="window.location.href='/tutorial/etapa3'">Next</button>
+    <div class="buttons">
+      <button
+        type="button"
+        class="btn yes"
+        onclick="window.location.href='/tutorial'"
+      >
+        Back
+      </button>
+      <button
+        type="button"
+        class="btn no"
+        onclick="window.location.href='/tutorial/etapa3'"
+      >
+        Next
+      </button>
+    </div>
   </div>
 {% endblock %}
