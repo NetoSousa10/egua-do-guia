@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask, render_template, g, session, redirect, url_for
+from flask import Flask, render_template, session, redirect, url_for
 from backend.utils.db import conectar
 from backend.controllers.auth   import auth_bp
 from backend.controllers.lugares import lugares_bp
@@ -18,26 +18,7 @@ def create_app():
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(lugares_bp, url_prefix="/lugares")
 
-    @app.before_request
-    def check_profile_completion():
-        g.profile_incomplete = False
-        user_id = session.get('user_id')
-        if user_id:
-            conn = conectar()
-            cur  = conn.cursor()
-            cur.execute(
-                "SELECT nacionalidade, genero FROM usuarios WHERE id = %s",
-                (user_id,)
-            )
-            row = cur.fetchone()
-            cur.close()
-            conn.close()
-            if row:
-                nacional, genero = row
-                if not nacional or not genero:
-                    g.profile_incomplete = True
-
-    # Rotas de GET só para renderizar templates
+    @app.route("/", methods=["GET"])
     @app.route("/splash", methods=["GET"])
     def splash():
         return render_template("login/splash.html")

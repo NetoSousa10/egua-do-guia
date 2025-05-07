@@ -9,42 +9,47 @@
 
 {% block content %}
   <div class="tutorial-screen tutorial-step2">
+    <!-- 1) Mapa ilustrativo -->
     <img
       src="{{ url_for('static', filename='assets/img/mapaComIcones.jpg') }}"
       alt="Mapa ilustrativo"
       class="map-img"
     />
 
-    <div class="question">
+    <!-- 2) Caixa coral com título e parágrafo -->
+    <div class="question question--highlight">
       <h2>Good Location</h2>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquet blandit justo dictum viverra.<br>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquet
+        blandit justo dictum viverra.<br />
         Pellentesque sed pretium dolor, porttitor fermentum magna.
       </p>
     </div>
 
+    <!-- 3) Dots: segunda ativo -->
     <div class="dots">
-      <div class="dot"></div>
-      <div class="dot active"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
+      <span class="dot"></span>
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
     </div>
 
+    <!-- 4) Botões alinhados e estilizados -->
     <div class="buttons">
       <button
         type="button"
         class="btn yes"
         onclick="window.location.href='/tutorial'"
       >
-        Back
+        BACK
       </button>
       <button
         type="button"
         class="btn no"
         onclick="window.location.href='/tutorial/etapa3'"
       >
-        Next
+        NEXT
       </button>
     </div>
   </div>
