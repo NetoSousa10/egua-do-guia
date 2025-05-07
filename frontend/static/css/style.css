@@ -162,7 +162,7 @@ html, body {
 .recompensa-msg {
   font-size: 1.2rem;
   font-weight: 600;
-  color: var(--color-text);
+  color: #FFA733;
   margin: var(--sp-md) 0 var(--sp-lg);
 }
 /* container das mensagens de flash */

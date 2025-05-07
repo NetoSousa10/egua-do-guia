@@ -3,7 +3,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #212121;
+  background-color: #ECECEC;
   font-family: 'Poppins', sans-serif;
   color: white;
   display: flex;
@@ -12,6 +12,17 @@ body {
   height: 100vh;
   border-radius: 0 0 30px 30px;
   position: relative;
+}
+
+/* novo container para posicionar os botões via absolute */
+.tutorial-screen {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 8vh;      /* espaço para o logo */
+  padding-bottom: 100px; /* espaço para a área dos botões */
 }
 
 .logo {
@@ -25,6 +36,7 @@ body {
   margin: 20px 20px 10px;
   font-weight: 500;
   line-height: 1.5;
+  color: #212121;
 }
 
 .dots {
@@ -38,7 +50,7 @@ body {
 .dot {
   width: 18px;
   height: 18px;
-  background-color: #7cc0ff;
+  background-color: #FF8585;
   border-radius: 50%;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
@@ -49,45 +61,41 @@ body {
 }
 
 .dot.active {
-  background-color: #3399ff;
-  box-shadow: 0 0 8px #3399ff;
+  background-color: #BD5151;
+  box-shadow: 0 0 8px #BD5151;
 }
 
+/* botões fixos no rodapé da tela, centralizados e responsivos */
 .buttons {
+  position: absolute;
+  bottom: 40px;    /* ajuste até ficar no mesmo “pé” do design */
+  left: 0;
+  right: 0;
   display: flex;
-  justify-content: center;
-  gap: 28px;
-  margin-bottom: 60px;
-  padding-bottom: 20px;
+  gap: 16px;       /* espaço entre os botões */
+  padding: 0 16px; /* 16px de margem interna em cada lado */
+  box-sizing: border-box;
 }
 
-
-.btn {
-  padding: 20px 32px;
-  border: none;
-  border-radius: 16px;
-  font-size: 1.3rem;
-  cursor: pointer;
-  font-weight: 600;
-  width: 240px;
+/* cada botão ocupa igualmente o espaço disponível */
+.buttons .btn {
+  flex: 1;
+  height: 50px;            /* igual à altura do design */
+  padding: 0;              /* zera padding extra */
+  border-radius: 10px;     /* pílula arredondada */
+  display: flex;
+  align-items: center;     /* vertical center */
+  justify-content: center; /* horizontal center */
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease;
+  white-space: normal;     /* permite quebra de linha */
+  line-height: 1.2;        /* um pouco de espaçamento de linha */
+  font-size: 1rem;         /* ajuste pro texto caber bem */
 }
 
-.btn:hover {
-  transform: scale(1.03);
-}
+/* mantém as cores que você já definiu */
+.btn.yes { background-color: #f9b233; color: #212121; }
+.btn.no  { background-color: #FF8585; color: #FFF; }
 
-.yes {
-  background-color: #f9b233;
-  color: black;
-}
-
-.no {
-  background-color: #29a6ff;
-  color: white;
-}
 .map-img {
   width: 100%;
   height: 35vh;
@@ -100,14 +108,15 @@ body {
 
 @media (max-width: 480px) {
   .btn {
-    width: 140px;
     font-size: 1rem;
   }
-
+  .buttons {
+    gap: 16px;
+    padding: 0 16px;
+  }
   .question {
     font-size: 1.3rem;
   }
-
   .logo {
     margin-top: 8vh;
   }
@@ -115,26 +124,15 @@ body {
 
 @media (min-width: 600px) {
   .btn {
-    width: 240px;
     font-size: 1.3rem;
   }
-
   .question {
     font-size: 1.9rem;
     margin-bottom: 0;
   }
-
   .logo {
     width: 240px;
     margin-top: 10vh;
-  }
-
-  .dots {
-    margin-bottom: 70px;
-  }
-
-  .buttons {
-    margin-bottom: 30px;
   }
 }
 
@@ -144,21 +142,16 @@ body {
     margin: 0 auto;
     border-radius: 0;
   }
-
   .logo {
     width: 260px;
     margin-top: 12vh;
   }
-
   .btn {
-    width: 260px;
     font-size: 1.4rem;
   }
-
   .question {
     font-size: 2rem;
   }
-
   .dot {
     width: 20px;
     height: 20px;
