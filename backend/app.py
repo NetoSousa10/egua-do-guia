@@ -78,6 +78,10 @@ def create_app():
     def reward():
         return render_template("reward.html")
 
+    @app.route("/menu/home", methods=["GET"])
+    def home():
+        return render_template("menu/home.html")
+
     # Exemplo de handler de erro (opcional)
     @app.errorhandler(404)
     def not_found(e):
