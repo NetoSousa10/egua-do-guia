@@ -1,6 +1,5 @@
 # backend/controllers/auth.py
-
-import os
+import logging
 from flask import (
     Blueprint, request, jsonify, session,
     redirect, url_for, flash, render_template
@@ -10,12 +9,20 @@ from backend.utils.db import conectar
 from werkzeug.security import generate_password_hash, check_password_hash
 
 auth_bp = Blueprint('auth', __name__)
+logger = logging.getLogger(__name__)
+
+def _error_response(message, status=400):
+    """Retorna JSON ou flash+redirect conforme o Content-Type."""
+    if request.is_json:
+        return jsonify({"erro": message}), status
+    flash(message, "error")
+    return redirect(url_for("login_form"))
 
 @auth_bp.route("/cadastro", methods=["POST"])
 def cadastro():
     dados      = request.get_json(silent=True) or request.form
     nome       = dados.get("nome",     "").strip()
-    email      = dados.get("email",    "").strip()
+    email     = dados.get("email",    "").strip().lower()
     senha_raw  = dados.get("senha",    "").strip()
     nacional   = dados.get("nacionalidade", "").strip()
     genero     = dados.get("genero",   "").strip()
@@ -32,7 +39,7 @@ def cadastro():
     # 2) validação de formato de e-mail usando email-validator
     try:
         valid = validate_email(email)
-        email = valid.email
+        email = valid.email.lower()
     except EmailNotValidError:
         msg = "E-mail inválido."
         if request.is_json:
@@ -81,64 +88,62 @@ def cadastro():
 
 @auth_bp.route("/login", methods=["POST"])
 def login():
-    dados     = request.get_json(silent=True) or request.form
-    email     = dados.get("email", "").strip()
-    senha_raw = dados.get("senha", "").strip()
+    # 1) Extrai payload (JSON ou form-data)
+    data = request.get_json(silent=True) or request.form
+    email = (data.get("email") or "").strip().lower()
+    senha = (data.get("senha") or "").strip()
 
-    # 1) campos obrigatórios
-    if not email or not senha_raw:
-        msg = "E-mail e senha são obrigatórios."
-        if request.is_json:
-            return jsonify({"erro": msg}), 400
-        flash(msg, "error")
-        return redirect(url_for("login_form"))
-
-    # 2) validação de formato de e-mail usando email-validator
+    # 2) Validações iniciais
+    if not email:
+        return _error_response("E-mail é obrigatório.")
+    if not senha:
+        return _error_response("Senha é obrigatória.")
     try:
+        # normaliza e valida formato de e-mail
         valid = validate_email(email)
-        email = valid.email
+        email = valid.email.lower()
     except EmailNotValidError:
-        msg = "E-mail inválido."
-        if request.is_json:
-            return jsonify({"erro": msg}), 400
-        flash(msg, "error")
-        return redirect(url_for("login_form"))
+        return _error_response("E-mail inválido.")
 
-    # 3) senha mínima
-    if len(senha_raw) < 6:
-        msg = "Senha deve ter ao menos 6 caracteres."
-        if request.is_json:
-            return jsonify({"erro": msg}), 400
-        flash(msg, "error")
-        return redirect(url_for("login_form"))
+    if len(senha) < 6:
+        return _error_response("Senha deve ter ao menos 6 caracteres.")
 
-    # 4) busca usuário no DB
-    conn = conectar()
-    cur  = conn.cursor()
-    cur.execute("SELECT id, nome, senha FROM usuarios WHERE email = %s", (email,))
-    row = cur.fetchone()
-    cur.close()
-    conn.close()
+    # 3) Tentativa de autenticação
+    try:
+        conn = conectar()
+        cur  = conn.cursor()
+        cur.execute(
+            "SELECT id, nome, senha FROM usuarios WHERE email = %s",
+            (email,)
+        )
+        row = cur.fetchone()
+    except Exception as e:
+        logger.exception("Erro ao buscar usuário para login")
+        return _error_response("Erro interno ao processar login.", 500)
+    finally:
+        try:
+            cur.close()
+            conn.close()
+        except:
+            pass
 
-    # 5) valida credenciais
-    if not row or not check_password_hash(row[2], senha_raw):
-        msg = "Credenciais inválidas."
-        if request.is_json:
-            return jsonify({"erro": msg}), 401
-        flash(msg, "error")
-        return redirect(url_for("login_form"))
+    # 4) Verifica usuário e senha
+    if not row or not check_password_hash(row[2], senha):
+        # Mensagem genérica para não revelar qual campo está errado
+        return _error_response("Credenciais inválidas.", 401)
 
-    # 6) sucesso: inicia sessão
+    # 5) Sucesso: inicia sessão
     session.clear()
     session["user_id"]   = row[0]
     session["user_nome"] = row[1]
 
-    sucesso = "Login realizado com sucesso!"
+    # 6) Resposta final
+    success_msg = "Login realizado com sucesso!"
     if request.is_json:
-        return jsonify({"mensagem": sucesso, "user": {"id": row[0], "nome": row[1]}}), 200
-    flash(sucesso, "success")
-    return redirect(url_for("tutorial"))
+        return jsonify({"mensagem": success_msg, "user": {"id": row[0], "nome": row[1]}}), 200
 
+    flash(success_msg, "success")
+    return redirect(url_for("tutorial"))
 
 @auth_bp.route('/auth/complete-profile', methods=['GET', 'POST'])
 def complete_profile():
