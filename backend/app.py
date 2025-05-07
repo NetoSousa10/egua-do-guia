@@ -4,7 +4,6 @@ from flask import Flask, render_template, g, session, redirect, url_for
 from backend.utils.db import conectar
 from backend.controllers.auth   import auth_bp
 from backend.controllers.lugares import lugares_bp
-from backend.controllers.oauth   import oauth_bp, oauth
 
 def create_app():
     load_dotenv()
@@ -15,11 +14,9 @@ def create_app():
         static_folder=os.path.join("..", "frontend", "static")
     )
 
-    oauth.init_app(app)
     app.secret_key = os.getenv("SECRET_KEY", "troque_em_producao")
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(lugares_bp, url_prefix="/lugares")
-    app.register_blueprint(oauth_bp)
 
     @app.before_request
     def check_profile_completion():
