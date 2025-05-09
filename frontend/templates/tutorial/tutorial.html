@@ -8,40 +8,45 @@
 {% endblock %}
 
 {% block content %}
-  <div class="tutorial-screen">
-    <img
-      src="{{ url_for('static', filename='assets/img/logo.png') }}"
-      alt="Logo Égua do Guia"
-      class="logo"
-    >
-
-    <div class="question question--highlight">
-      Do you already know the<br><strong>Égua do Guia?</strong>
+  <div class="top-container">
+    <div class="logo-wrapper">
+      <img src="{{ url_for('static', filename='assets/img/logo.png') }}"
+           alt="Logo Égua do Guia"
+           class="logo">
     </div>
-
-    <div class="dots">
-      <span class="dot active"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-    </div>
-
-    <div class="buttons">
-      <button
-        type="button"
-        class="btn yes"
-        onclick="window.location.href='/menu/home'"
-      >
-        I KNOW
-      </button>
-      <button
-        type="button"
-        class="btn no"
-        onclick="window.location.href='/tutorial/etapa2'"
-      >
-        I DONT KNOW
-      </button>
+    
+    <div class="texto-container">
+      <div class="texto">
+        <strong>Você conhece o</strong>
+        <strong>Égua do Guia?</strong>
+      </div>
     </div>
   </div>
+
+  <div class="down-container">
+  <div class="dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+
+  <div class="buttons">
+    <button
+      type="button"
+      class="btn yes"
+      onclick="window.location.href='/menu/home'"
+    >
+      Eu sei
+    </button>
+    <button
+      type="button"
+      class="btn no"
+      onclick="window.location.href='/tutorial/etapa2'"
+    >
+      Não sei
+    </button>
+  </div>
+</div>
 {% endblock %}

@@ -8,25 +8,29 @@
 {% endblock %}
 
 {% block content %}
-  <div class="tutorial-screen tutorial-step2">
-    <!-- 1) Mapa ilustrativo -->
-    <img
-      src="{{ url_for('static', filename='assets/img/mapaComIcones.jpg') }}"
-      alt="Mapa ilustrativo"
-      class="map-img"
-    />
-
-    <!-- 2) Caixa coral com título e parágrafo -->
-    <div class="question question--highlight">
-      <h2>Good Location</h2>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquet
-        blandit justo dictum viverra.<br />
-        Pellentesque sed pretium dolor, porttitor fermentum magna.
-      </p>
+  <!-- top-container: imagem + texto em coluna -->
+  <div class="top-container tutorial-step2">
+    <div class="img-wrapper">
+      <img
+        src="{{ url_for('static', filename='assets/img/mapaComIcones.jpg') }}"
+        alt="Mapa ilustrativo"
+        class="img"
+      >
     </div>
+    <div class="texto-container">
+      <div class="texto">
+        <h2>Good Location</h2>
+        <p>
+          Aqui no Égua do Guia você poderá
+          desbravar várias áreas de Belém, como os melhores 
+          e mais bem avaliados restaurantes, hotéis e muito mais!
+        </p>
+      </div>
+    </div>
+  </div>
 
-    <!-- 3) Dots: segunda ativo -->
+  <!-- down-container: dots + botões -->
+  <div class="down-container">
     <div class="dots">
       <span class="dot"></span>
       <span class="dot active"></span>
@@ -34,8 +38,6 @@
       <span class="dot"></span>
       <span class="dot"></span>
     </div>
-
-    <!-- 4) Botões alinhados e estilizados -->
     <div class="buttons">
       <button
         type="button"
