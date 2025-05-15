@@ -63,12 +63,48 @@ def create_app():
     def home():
         return render_template("menu/home.html")
 
-    # Exemplo de handler de erro (opcional)
+    @app.route("/menu/puzzle", methods=["GET"])
+    def puzzle():
+        return render_template("menu/puzzle.html")
+
+    @app.route("/menu/perfil", methods=["GET"])
+    def perfil_overview():
+        return render_template("menu/profile_overview.html")
+
+    @app.route("/menu/locais", methods=["GET"])
+    def locais():
+        return render_template("menu/locais.html")
+
+    @app.route("/menu/lojas", methods=["GET"])
+    def lojas():
+        return render_template("menu/lojas.html")
+
+    @app.route("/menu/perfil/comentarios", methods=["GET"])
+    def perfil_comments():
+        comments = [
+            {
+                'user_avatar': 'avatar1.jpg',
+                'place_name':  'Rede Andrade Hangar Hotel',
+                'text':        'Achei o lugar muito confortável e agradável...',
+                'place_img':   'hotel1.jpg'
+            },
+        ]
+        return render_template("menu/profile_comments.html", comments=comments)
+
+    @app.route("/menu/perfil/seguindo", methods=["GET"])
+    def perfil_follows():
+        follows = [
+            {'avatar': 'renata.jpg', 'name': 'Renata Cariana', 'subtitle': 'Paraense'},
+            {'avatar': 'olivia.jpg', 'name': 'Olivia Marquês', 'subtitle': 'Americana'},
+        ]
+        return render_template("menu/profile_follows.html", follows=follows)
+
     @app.errorhandler(404)
     def not_found(e):
         return render_template("404.html"), 404
 
     return app
+
 
 if __name__ == "__main__":
     app = create_app()

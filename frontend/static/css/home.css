@@ -3,7 +3,6 @@
     position: relative;
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
   }
   
   /* mapa ocupa tudo acima da nav */
@@ -14,17 +13,19 @@
   }
   
   /* bottom nav */
-  .bottom-nav {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 60px;
-    background: #fff;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
-    z-index: 900;
-  }
+.bottom-nav {
+  position: fixed;                     /* mudou de absolute para fixed */
+  bottom: env(safe-area-inset-bottom); /* garante espaço em iPhones X+ */
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+  z-index: 900;
+}
   .bottom-nav .nav-btn {
     background: none;
     border: none;
@@ -164,6 +165,43 @@
   transform: scale(1.2);
   z-index: 1000 !important;   /* garante que fique acima */
   filter: drop-shadow(0 6px 12px rgba(0,0,0,0.5));
+}
+.category-panel {
+  position: absolute;
+  top: 50%;
+  left: 1rem;           /* move para o lado esquerdo */
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 1100;        /* acima do mapa */
+}
+.category-panel button img {
+  width: 26px;
+  height: 26px;
+  margin-right: 0.5rem;
+}
+
+.category-panel button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.category-panel button.active,
+.category-panel button:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.category-panel img {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 6px;
 }
 
 

@@ -1,0 +1,159 @@
+/* static/css/profile.css */
+
+/* ── RESET/OVERRIDES ── */
+body,
+.profile-screen {
+  background: #ffffff;         /* fundo branco */
+  color: #212121;              /* texto escuro */
+}
+.profile-screen {
+  min-height: 100vh;
+  padding-bottom: env(safe-area-inset-bottom, 60px); /* espaço para bottom-nav */
+}
+
+/* ── CABEÇALHO ── */
+.profile-header {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: #ffffff;
+}
+.avatar-wrap {
+  position: relative;
+}
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #FF8585;
+}
+.edit-avatar {
+  position: absolute;
+  bottom: 0; right: 0;
+  background: #ffffff;
+  border: none;
+  border-radius: 50%;
+  padding: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.username {
+  margin: 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  flex-grow: 1;
+}
+.social-counts span {
+  margin-right: 1rem;
+  color: #666666;
+  font-size: 0.9rem;
+}
+.settings {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #333333;
+  cursor: pointer;
+}
+
+/* ── ESTATÍSTICAS ── */
+.stats-row {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 1rem 1rem;
+}
+.stat {
+  background: #FF8585;
+  color: #212121;
+  border-radius: 12px;
+  flex: 1;
+  margin: 0 0.5rem;
+  padding: 1rem;
+  text-align: center;
+}
+.stat strong {
+  display: block;
+  font-size: 1.5rem;
+}
+.stat span {
+  font-size: 0.9rem;
+}
+
+/* ── VISÃO GERAL ── */
+.section-title {
+  margin: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.overview-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0 1rem 2rem;
+}
+
+/* Cartão “Lugar Favorito” */
+.favorite-place {
+  display: flex;
+  background: #FF8585;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.favorite-place .card-content {
+  padding: 1rem;
+  flex: 1;
+}
+.favorite-place .label {
+  font-size: 0.9rem;
+}
+.favorite-place h3 {
+  margin: 0.25rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.favorite-place .stars {
+  color: #FFD700; /* dourado */
+  font-size: 1rem;
+  margin: 0.25rem 0;
+}
+.favorite-place .subtitle {
+  font-size: 0.9rem;
+}
+.favorite-place img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+/* Cartões pequenos: “Comentou” e “Rank” */
+.small-card {
+  display: flex;
+  align-items: center;
+  background: #FF8585;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  color: #212121;
+}
+.small-card .icon {
+  font-size: 1.5rem;
+  margin-right: 0.75rem;
+}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav {
+  position: fixed;
+  bottom: env(safe-area-inset-bottom);
+  left: 0; right: 0;
+  height: 60px;
+  background: #ffffff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+.bottom-nav .nav-btn img {
+  width: 35px;
+  height: 35px;
+}

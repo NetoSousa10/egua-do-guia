@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block title %}Meus Comentários – Égua do Guia{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="comments-screen">
+  <h2 class="section-title">Meus Comentários</h2>
+  <ul class="comments-list">
+    <li class="comment-card">
+      <img
+        class="avatar-sm"
+        src="{{ url_for('static', filename='assets/img/avatar1.jpg') }}"
+        alt=""
+      >
+      <div class="comment-content">
+        <h3 class="place-name">Rede Andrade Hangar Hotel</h3>
+        <p class="text">
+          “Achei o lugar muito confortável e agradável, só recomendo a limpeza diária dos quartos”
+        </p>
+      </div>
+      <img
+        class="comment-img"
+        src="{{ url_for('static', filename='assets/img/hotel1.jpg') }}"
+        alt=""
+      >
+    </li>
+    <li class="comment-card">
+      <img
+        class="avatar-sm"
+        src="{{ url_for('static', filename='assets/img/avatar2.jpg') }}"
+        alt=""
+      >
+      <div class="comment-content">
+        <h3 class="place-name">Restaurante Open Bar do José</h3>
+        <p class="text">
+          “música legal e comida ótima, voltarei novamente! atmosfera maravilhosa”
+        </p>
+      </div>
+      <img
+        class="comment-img"
+        src="{{ url_for('static', filename='assets/img/restaurante1.jpg') }}"
+        alt=""
+      >
+    </li>
+    <li class="comment-card">
+      <img
+        class="avatar-sm"
+        src="{{ url_for('static', filename='assets/img/avatar3.jpg') }}"
+        alt=""
+      >
+      <div class="comment-content">
+        <h3 class="place-name">Praça Brasil</h3>
+        <p class="text">
+          “Ambiente bonito e agradável, recomendo limpar a área gramada, às vezes tem muito lixo”
+        </p>
+      </div>
+      <img
+        class="comment-img"
+        src="{{ url_for('static', filename='assets/img/praca1.jpg') }}"
+        alt=""
+      >
+    </li>
+    <li class="comment-card">
+      <img
+        class="avatar-sm"
+        src="{{ url_for('static', filename='assets/img/avatar4.jpg') }}"
+        alt=""
+      >
+      <div class="comment-content">
+        <h3 class="place-name">Comércio Ver-o-Peso</h3>
+        <p class="text">
+          “Descobri um negócio muito legal, a cultura está em todo lugar, sem falar na quantidade de souvenirs…”
+        </p>
+      </div>
+      <img
+        class="comment-img"
+        src="{{ url_for('static', filename='assets/img/loja1.jpg') }}"
+        alt=""
+      >
+    </li>
+  </ul>
+</div>
+{% endblock %}
+
+{% block extra_js %}{% endblock %}

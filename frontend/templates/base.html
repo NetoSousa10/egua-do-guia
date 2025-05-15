@@ -8,6 +8,11 @@
   <!-- Estilos globais -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- CSS do Leaflet Routing Machine -->
+  <link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"
+  />
 
   <!-- Favicon -->
   <link rel="icon"
@@ -80,7 +85,9 @@
       }, 4000);
     });
   </script>
-
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>  
+  <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
   {% block extra_js %}{% endblock %}
 </body>
 </html>

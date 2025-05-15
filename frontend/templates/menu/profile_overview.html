@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}Perfil – Égua do Guia{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-screen">
+  <!-- Cabeçalho -->
+  <div class="profile-header">
+    <div class="avatar-wrap">
+      <img
+        class="avatar"
+        src="{{ url_for('static', filename='assets/img/meu-avatar.jpg') }}"
+        alt="Avatar"
+      >
+      <button class="edit-avatar"><i class="fas fa-pencil-alt"></i></button>
+    </div>
+    <h1 class="username">Lucas Andrey</h1>
+    <div class="social-counts">
+      <span>29 Following</span>
+      <span>20 Followers</span>
+    </div>
+    <button class="btn settings"><i class="fas fa-cog"></i></button>
+  </div>
+
+  <!-- Estatísticas -->
+  <div class="stats-row">
+    <div class="stat">
+      <strong>14</strong>
+      <span>Lugares</span>
+    </div>
+    <div class="stat">
+      <strong>48</strong>
+      <span>Quiz</span>
+    </div>
+    <div class="stat">
+      <strong>189</strong>
+      <span>Total XP</span>
+    </div>
+  </div>
+
+  <!-- Visão Geral -->
+  <h2 class="section-title">Visão Geral</h2>
+  <div class="overview-cards">
+    <div class="card favorite-place">
+      <div class="card-content">
+        <div class="label">Lugar Favorito</div>
+        <h3>Estação das Docas</h3>
+        <div class="stars">★★★★★</div>
+        <div class="subtitle">Visitou 12 vezes</div>
+      </div>
+      <img
+        src="{{ url_for('static', filename='assets/img/estacao.jpg') }}"
+        alt="Estação das Docas"
+      >
+    </div>
+    <div class="card small-card commented">
+      <div class="icon"><i class="fas fa-comment"></i></div>
+      <div>
+        <strong>Comentou</strong>
+        <span>172</span>
+      </div>
+    </div>
+    <div class="card small-card rank">
+      <div class="icon"><i class="fas fa-trophy"></i></div>
+      <div>
+        <strong>Rank</strong>
+        <span>Prata</span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}{% endblock %}

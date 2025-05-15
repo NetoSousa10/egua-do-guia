@@ -18,6 +18,28 @@
 
 {% block content %}
 <div class="home-screen">
+  <div id="category-panel" class="category-panel">
+    <button data-category="hotel" class="active">
+      <img src="{{ url_for('static', filename='icons/hotel.svg') }}" alt="Hotéis">
+      Hotéis
+    </button>
+    <button data-category="restaurant">
+      <img src="{{ url_for('static', filename='icons/restaurant.svg') }}" alt="Restaurantes">
+      Restaurantes
+    </button>
+    <button data-category="praca">
+      <img src="{{ url_for('static', filename='icons/praca.svg') }}" alt="Praças">
+      Praças
+    </button>
+    <button data-category="cultura">
+      <img src="{{ url_for('static', filename='icons/cultura.svg') }}" alt="Cultura">
+      Cultura
+    </button>
+    <button data-category="loja">
+      <img src="{{ url_for('static', filename='icons/loja.svg') }}" alt="Lojas">
+      Lojas
+    </button>
+  </div>
   <!-- Mapa ocupa toda a tela acima da barra inferior -->
   <div id="map" class="map-container"></div>
 
@@ -62,28 +84,50 @@
 
   <!-- Navegação inferior fixa com 5 ícones -->
   <nav class="bottom-nav">
-    <button class="nav-btn active" aria-label="Mapa">
+    <button
+      class="nav-btn active"
+      aria-label="Mapa"
+      data-href="{{ url_for('home') }}"
+    >
       <img src="{{ url_for('static', filename='icons/icon-map.svg') }}" alt="Mapa">
     </button>
-    <button class="nav-btn" aria-label="Categorias">
+  
+    <button
+      class="nav-btn"
+      aria-label="Puzzle"
+      data-href="{{ url_for('puzzle') }}"
+    >
       <img src="{{ url_for('static', filename='icons/puzzle.svg') }}" alt="Categorias">
     </button>
-    <button class="nav-btn" aria-label="Locais">
+  
+    <button
+      class="nav-btn"
+      aria-label="Locais"
+      data-href="{{ url_for('locais') }}"
+    >
       <img src="{{ url_for('static', filename='icons/locais.svg') }}" alt="Locais">
     </button>
-    <button class="nav-btn" aria-label="Lojas">
+  
+    <button
+      class="nav-btn"
+      aria-label="Lojas"
+      data-href="{{ url_for('lojas') }}"
+    >
       <img src="{{ url_for('static', filename='icons/store.svg') }}" alt="Lojas">
     </button>
-    <button class="nav-btn" aria-label="Perfil">
+  
+    <button
+      class="nav-btn"
+      aria-label="Perfil"
+      data-href="{{ url_for('perfil_overview') }}"
+    >
       <img src="{{ url_for('static', filename='icons/perfil.svg') }}" alt="Perfil">
     </button>
-  </nav>
+  </nav>  
 </div>
 {% endblock %}
 
 {% block extra_js %}
-  <!-- JS do Leaflet -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <!-- Seu script de inicialização do mapa e sidebar -->
   <script src="{{ url_for('static', filename='js/home.js') }}"></script>
 {% endblock %}
