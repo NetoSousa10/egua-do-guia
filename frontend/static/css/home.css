@@ -13,37 +13,7 @@
   }
   
   /* bottom nav */
-.bottom-nav {
-  position: fixed;                     /* mudou de absolute para fixed */
-  bottom: env(safe-area-inset-bottom); /* garante espaço em iPhones X+ */
-  left: 0;
-  right: 0;
-  height: 60px;
-  background: #fff;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
-  z-index: 900;
-}
-  .bottom-nav .nav-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  .bottom-nav .nav-btn img {
-    width: 35px; height: 35px;
-    opacity: 0.6;
-    transition: opacity .2s, filter .2s;
-  }
-  .bottom-nav .nav-btn.active img,
-  .bottom-nav .nav-btn:hover img {
-    opacity: 1;
-  }
-  .bottom-nav .nav-btn.active img {
-    filter: invert(61%) sepia(64%) saturate(628%) hue-rotate(322deg)
-            brightness(98%) contrast(90%);
-  }
+
   
   /* ── SIDEBAR ── */
   #sidebar {
