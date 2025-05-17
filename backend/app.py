@@ -66,6 +66,42 @@ def create_app():
     @app.route("/menu/puzzle", methods=["GET"])
     def puzzle():
         return render_template("menu/puzzle.html")
+    
+    @app.route('/quiz/festivais', methods=['GET'])
+    def quiz_festivais():
+        return render_template('quiz/festivais.html')
+    
+    @app.route('/quiz/musical', methods=['GET'])
+    def quiz_musical():
+        return render_template('quiz/musical.html')
+
+    @app.route('/quiz/folclore', methods=['GET'])
+    def quiz_folclore():
+        return render_template('quiz/folclore.html')
+
+    @app.route('/quiz/artesanato', methods=['GET'])
+    def quiz_artesanato():
+        return render_template('quiz/artesanato.html')
+    
+    @app.route('/quiz/maritima', methods=['GET'])
+    def quiz_maritima():
+        return render_template('quiz/maritima.html')
+    
+    @app.route('/quiz/peixes', methods=['GET'])
+    def quiz_peixes():
+        return render_template('quiz/peixes.html')
+    
+    @app.route('/quiz/frutas', methods=['GET'])
+    def quiz_frutas():
+        return render_template('quiz/frutas.html')
+
+    @app.route('/quiz/teatros', methods=['GET'])
+    def quiz_teatros():
+        return render_template('quiz/teatros.html')
+    
+    @app.route('/quiz/bairros', methods=['GET'])
+    def quiz_bairros():
+        return render_template('quiz/bairros.html')
 
     @app.route("/menu/perfil", methods=["GET"])
     def perfil_overview():

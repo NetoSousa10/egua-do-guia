@@ -1,0 +1,338 @@
+/* cores principais */
+:root {
+  --bg: #FAFAFA;
+  --accent: #FF8585;
+  --dark: #212121;
+  --text: #212121;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.activities-screen {
+  padding-bottom: 80px; /* espaço para bottom-nav */
+}
+
+/* cabeçalho */
+.activities-header {
+  padding: 16px;
+  text-align: center;
+}
+.activities-header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: var(--dark);
+}
+
+/* banner */
+.banner {
+  position: relative;
+  margin: 0 16px 16px;
+  padding: 16px;
+  background: rgba(33, 33, 33, 0.8);
+  border-radius: 8px;
+  color: #fff;
+}
+.banner-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+}
+.banner-text {
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+.banner-cta {
+  background-color: var(--accent);
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* tabs */
+.tabs {
+  display: flex;
+  margin: 0 16px 8px;
+}
+.tab-btn {
+  flex: 1;
+  padding: 10px 0;
+  background-color: var(--dark);
+  color: #fff;
+  border: none;
+  border-radius: 4px 4px 0 0;
+  margin-right: 4px;
+  cursor: pointer;
+}
+.tab-btn.active {
+  background-color: var(--accent);
+}
+.tab-btn:last-child {
+  margin-right: 0;
+}
+
+/* lista de atividades */
+.activities-list {
+  margin: 0;
+  padding: 0;
+}
+.activity-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--accent);
+  color: var(--dark);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 0 16px 12px;
+}
+.activity-image {
+  width: 40px;
+  height: 40px;
+  background: #eee;
+  border-radius: 4px;
+  margin-right: 12px;
+}
+.activity-title {
+  flex: 1;
+  font-weight: bold;
+}
+/* botão/ícone de seta */
+.arrow-btn,
+.arrow-btn:link,
+.arrow-btn:visited {
+  display: inline-flex;             /* flex para centralizar a seta */
+  align-items: center;
+  justify-content: center;
+  
+  width: 50px;                      /* tamanho quadrado */
+  height: 50px;
+  
+  background-color: var(--dark);    /* cor de fundo escura */
+  color: var(--pink);               /* seta em rosa */
+  
+  font-size: 1.5rem;                /* tamanho do símbolo “→” */
+  text-decoration: none;            /* remove underline se for <a> */
+  
+  border: none;                     /* sem borda */
+  border-radius: 4px;               /* cantos arredondados */
+  
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+/* efeito de hover */
+.arrow-btn:hover {
+  background-color: rgba(33, 33, 33, 0.8);
+  transform: translateY(-2px);
+}
+
+/* estado ativo/pressionado */
+.arrow-btn:active {
+  transform: translateY(0);
+}
+
+/* se quiser um foco mais visível */
+.arrow-btn:focus {
+  outline: 2px solid var(--pink);
+  outline-offset: 2px;
+}
+
+
+/* bottom-nav */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #ddd;
+}
+.nav-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.nav-btn img {
+  width: 24px;
+  height: 24px;
+  opacity: 0.6;
+}
+.nav-btn.active img {
+  opacity: 1;
+}
+
+.activity-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  /* justify-content removido intencionalmente */
+
+  height: 120px;
+  padding: 0 16px;
+  margin: 0 16px 12px;
+  border-radius: 8px;
+
+  /* background genérico (substituído por cada subtipo abaixo) */
+  background:
+    linear-gradient(
+      to left,
+      rgba(255, 133, 133, 0.85) 20px,
+      rgba(255, 133, 133, 0.6) 50%,
+      rgba(255, 133, 133, 0)
+    );
+  color: var(--dark);
+}
+
+/* festivas */
+.activity-item.festivais {
+  background:
+    linear-gradient(
+      to left,
+      rgba(255, 133, 133, 0.85) 20px,
+      rgba(255, 133, 133, 0.6) 50%,
+      rgba(255, 133, 133, 0)
+    ),
+    url("../assets/img/festivaisPuzzle.png") no-repeat center/cover;
+}
+
+/* musical */
+.activity-item.musical {
+  background:
+    linear-gradient(
+      to left,
+      rgba(255, 133, 133, 0.85) 20px,
+      rgba(255, 133, 133, 0.6) 50%,
+      rgba(255, 133, 133, 0)
+    ),
+    url("../assets/img/musicalPuzzle.jpg") no-repeat center/cover;
+}
+
+/* folclore */
+.activity-item.folclore {
+  background:
+    linear-gradient(
+      to left,
+      rgba(255, 133, 133, 0.85) 20px,
+      rgba(255, 133, 133, 0.6) 50%,
+      rgba(255, 133, 133, 0)
+    ),
+    url("../assets/img/folclorePuzzle.jpg") no-repeat center/cover;
+}
+
+/* artesanato */
+.activity-item.artesanato {
+  background:
+    linear-gradient(
+      to left,
+      rgba(255, 133, 133, 0.85) 20px,
+      rgba(255, 133, 133, 0.6) 50%,
+      rgba(255, 133, 133, 0)
+    ),
+    url("../assets/img/artesanatoPuzzle.jpg") no-repeat center/cover;
+}
+
+/* título centralizado e maior */
+.activity-item .activity-title {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: bold;
+}
+
+/* seta à direita */
+.activity-item .arrow-btn {
+  position: relative;
+  z-index: 1;
+  background-color: var(--dark);
+  border: none;
+  border-radius: 4px;
+  color: #FF8585;
+  font-size: 1.5rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Gastronomias */
+.activity-item.maritima {
+  background:
+    linear-gradient(
+      to left,
+      rgba(255, 133, 133, 0.85) 20px,
+      rgba(255, 133, 133, 0.6) 50%,
+      rgba(255, 133, 133, 0)
+    ),
+    url("../assets/img/maritimaPuzzle.jpg") no-repeat center/cover;
+}
+
+.activity-item.peixes {
+  background:
+    linear-gradient(
+      to left,
+      rgba(255, 133, 133, 0.85) 20px,
+      rgba(255, 133, 133, 0.6) 50%,
+      rgba(255, 133, 133, 0)
+    ),
+    url("../assets/img/peixesPuzzle.png") no-repeat center/cover;
+}
+
+.activity-item.frutas {
+  background:
+    linear-gradient(
+      to left,
+      rgba(255, 133, 133, 0.85) 20px,
+      rgba(255, 133, 133, 0.6) 50%,
+      rgba(255, 133, 133, 0)
+    ),
+    url("../assets/img/frutasPuzzle.jpg") no-repeat center/cover;
+}
+
+/* Patrimônios */
+.activity-item.teatros {
+  background:
+    linear-gradient(
+      to left,
+      rgba(255, 133, 133, 0.85) 20px,
+      rgba(255, 133, 133, 0.6) 50%,
+      rgba(255, 133, 133, 0)
+    ),
+    url("../assets/img/teatrosPuzzle.jpg") no-repeat center/cover;
+}
+
+.activity-item.bairros {
+  background:
+    linear-gradient(
+      to left,
+      rgba(255, 133, 133, 0.85) 20px,
+      rgba(255, 133, 133, 0.6) 50%,
+      rgba(255, 133, 133, 0)
+    ),
+    url("../assets/img/bairrosPuzzle.jpg") no-repeat center/cover;
+}
+
+
+
+

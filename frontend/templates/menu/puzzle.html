@@ -1,0 +1,160 @@
+{# frontend/templates/menu/puzzle.html #}
+{% extends 'base.html' %}
+
+{% block title %}Atividades – Égua do Guia{% endblock %}
+
+{% block extra_css %}
+  <!-- CSS personalizado da Puzzle/Atividades -->
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/puzzle.css') }}"
+  />
+{% endblock %}
+
+{% block content %}
+<div class="activities-screen">
+  <!-- Cabeçalho -->
+  <header class="activities-header">
+    <h1>Atividades</h1>
+  </header>
+
+  <!-- Banner dismissível -->
+  <div class="banner" id="activities-banner">
+    <button class="banner-close" id="banner-close-btn">x</button>
+    <div class="banner-text">
+      Você acha mesmo que conhece Belém? Que tal um desafio para testar sua
+      capacidade de conhecimento sobre essa terra amazônica?
+    </div>
+    <button class="banner-cta" id="banner-cta-btn">Start +15XP</button>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs" id="activities-tabs">
+    <button class="tab-btn active" data-tab="tradicoes">Tradições</button>
+    <button class="tab-btn" data-tab="gastronomias">Gastronomias</button>
+    <button class="tab-btn" data-tab="patrimonios">Patrimônios</button>
+  </div>
+
+  <!-- Lista de atividades -->
+<div class="activities-list" id="activities-list">
+  <!-- Festivais -->
+  <div class="activity-item festivais" data-tab="tradicoes">
+    <div class="activity-title">FESTIVAIS</div>
+    <a
+      class="arrow-btn"
+      href="{{ url_for('quiz_festivais') }}"
+      aria-label="Começar Quiz de Festivais"
+    >→</a>
+  </div>
+
+  <!-- Musical -->
+  <div class="activity-item musical" data-tab="tradicoes">
+    <div class="activity-title">MUSICAL</div>
+    <a
+      class="arrow-btn"
+      href="{{ url_for('quiz_musical') }}"
+      aria-label="Começar Quiz Musical"
+    >→</a>
+  </div>
+
+
+  <!-- Folclore -->
+  <div class="activity-item folclore" data-tab="tradicoes">
+    <div class="activity-title">FOLCLORE</div>
+    <a
+      class="arrow-btn"
+      href="{{ url_for('quiz_folclore') }}"
+      aria-label="Começar Quiz de Folclore"
+    >→</a>
+  </div>
+
+
+  <!-- Artesanato -->
+  <div class="activity-item artesanato" data-tab="tradicoes">
+    <div class="activity-title">ARTESANATO</div>
+    <a
+      class="arrow-btn"
+      href="{{ url_for('quiz_artesanato') }}"
+      aria-label="Começar Quiz de Artesanato"
+    >→</a>
+  </div>
+
+
+    <!-- Gastronômia Marítima -->
+  <div class="activity-item maritima" data-tab="gastronomias">
+    <div class="activity-title">MARÍTIMA</div>
+      <a
+    class="arrow-btn"
+    href="{{ url_for('quiz_maritima') }}"
+    aria-label="Começar Quiz Marítima"
+    >→</a>
+  </div>
+
+  <!-- Gastronômia Peixes -->
+  <div class="activity-item peixes" data-tab="gastronomias">
+    <div class="activity-title">PEIXES</div>
+    <a
+      class="arrow-btn"
+      href="{{ url_for('quiz_peixes') }}"
+      aria-label="Começar Quiz de Peixes"
+    >→</a>
+  </div>
+
+
+  <!-- Gastronômia Frutas -->
+  <div class="activity-item frutas" data-tab="gastronomias">
+    <div class="activity-title">FRUTAS</div>
+    <a
+      class="arrow-btn"
+      href="{{ url_for('quiz_frutas') }}"
+      aria-label="Começar Quiz de Frutas"
+    >→</a>
+  </div>
+
+
+    <!-- Patrimônios: Teatros -->
+  <div class="activity-item teatros" data-tab="patrimonios">
+    <div class="activity-title">TEATROS</div>
+    <a
+      class="arrow-btn"
+      href="{{ url_for('quiz_teatros') }}"
+      aria-label="Começar Quiz de Teatros"
+    >→</a>
+  </div>
+
+
+  <!-- Patrimônios: Bairros -->
+  <div class="activity-item bairros" data-tab="patrimonios">
+    <div class="activity-title">BAIRROS</div>
+    <a
+      class="arrow-btn"
+      href="{{ url_for('quiz_bairros') }}"
+      aria-label="Começar Quiz de Bairros"
+    >→</a>
+  </div>
+
+</div>
+
+<nav class="bottom-nav">
+  <button class="nav-btn" aria-label="Mapa" data-href="{{ url_for('home') }}">
+    <img src="{{ url_for('static', filename='icons/icon-map.svg') }}" alt="Mapa">
+  </button>
+  <button class="nav-btn active" aria-label="Atividades" data-href="{{ url_for('puzzle') }}">
+    <img src="{{ url_for('static', filename='icons/puzzle.svg') }}" alt="Atividades">
+  </button>
+  <button class="nav-btn" aria-label="Locais" data-href="{{ url_for('locais') }}">
+    <img src="{{ url_for('static', filename='icons/locais.svg') }}" alt="Locais">
+  </button>
+  <button class="nav-btn" aria-label="Lojas" data-href="{{ url_for('lojas') }}">
+    <img src="{{ url_for('static', filename='icons/store.svg') }}" alt="Lojas">
+  </button>
+  <button class="nav-btn" aria-label="Perfil" data-href="{{ url_for('perfil_overview') }}">
+    <img src="{{ url_for('static', filename='icons/perfil.svg') }}" alt="Perfil">
+  </button>
+</nav>
+{% endblock %}
+
+{% block extra_js %}
+  <!-- JS personalizado da Puzzle/Atividades -->
+  <script src="{{ url_for('static', filename='js/puzzle.js') }}"></script>
+{% endblock %}
