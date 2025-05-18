@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, session, redirect, url_for
 from backend.utils.db import conectar
 from backend.controllers.auth   import auth_bp
-from backend.controllers.lugares import lugares_bp
 
 def create_app():
     load_dotenv()
@@ -16,7 +15,6 @@ def create_app():
 
     app.secret_key = os.getenv("SECRET_KEY", "troque_em_producao")
     app.register_blueprint(auth_bp, url_prefix="/auth")
-    app.register_blueprint(lugares_bp, url_prefix="/lugares")
 
     @app.route("/", methods=["GET"])
     @app.route("/splash", methods=["GET"])

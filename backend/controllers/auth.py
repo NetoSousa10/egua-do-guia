@@ -27,7 +27,7 @@ def cadastro():
     nacional   = dados.get("nacionalidade", "").strip()
     genero     = dados.get("genero",   "").strip()
     maior14    = bool(dados.get("maior14"))
-
+ 
     # 1) campos obrigatórios
     if not all([nome, email, senha_raw, nacional, genero, maior14]):
         msg = "Todos os campos são obrigatórios e você deve ter mais de 14 anos."
