@@ -3,10 +3,10 @@
 
 :root {
   /* Cores */
-  --color-primary:     #FF5757;
-  --color-accent:      #38B6FF;
-  --color-bg:          #212121;
-  --color-text:        #ffffff;
+  --color-primary: #FF8585;  /* rosa-coral usado nos cards */
+  --color-accent:  #212121;  /* preto/escuro para textos e botões */
+  --color-bg:      #FFFFFF;  /* fundo branco das telas */
+  --color-text:    #212121;  /* texto escuro */
 
   /* Tipografia */
   --font-main:         'Inter', sans-serif;
@@ -16,10 +16,10 @@
   --lh-base:           1.4;
 
   /* Espaçamentos */
-  --sp-xs:             0.5rem;
-  --sp-sm:             1rem;
-  --sp-md:             1.5rem;
-  --sp-lg:             2rem;
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
 
   /* Bordas e sombras */
   --radius:            8px;

@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <!-- CSS do Leaflet Routing Machine -->
   <link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"
   />
 
   <!-- Favicon -->
@@ -21,7 +21,6 @@
         sizes="32x32">
 
   {% block extra_css %}{% endblock %}
-
 </head>
 <body class="fade-wrapper">
 
@@ -33,7 +32,7 @@
     </div>
   {% endif %}
 
-  {# bloco de flashes/toasts #}
+  {# Flashes/toasts #}
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       <div class="flash-container">
@@ -46,11 +45,11 @@
 
   {% block content %}{% endblock %}
 
+  <!-- Scripts comuns e handlers -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Transição de página
-      const links = document.querySelectorAll('a[href^="/"], button[data-href]');
-      links.forEach(el => {
+      // 1) Transição suave de páginas
+      document.querySelectorAll('a[href^="/"], button[data-href]').forEach(el => {
         el.addEventListener('click', e => {
           const href = el.getAttribute('href') || el.dataset.href;
           if (href && !href.startsWith('http') && !el.hasAttribute('target')) {
@@ -61,33 +60,35 @@
         });
       });
 
-      // Efeito de clique nos botões
-      const buttons = document.querySelectorAll('.btn');
-      buttons.forEach(button => {
-        button.addEventListener('pointerdown', () => {
-          button.classList.add('btn--pressed');
-        });
+      // 2) Efeito “afundar” nos botões
+      document.querySelectorAll('.btn').forEach(btn => {
+        btn.addEventListener('pointerdown',  () => btn.classList.add('btn--pressed'));
         ['pointerup','pointercancel','pointerout'].forEach(evt =>
-          button.addEventListener(evt, () => button.classList.remove('btn--pressed'))
+          btn.addEventListener(evt, () => btn.classList.remove('btn--pressed'))
         );
       });
+
+      // 3) Marca o botão da bottom-nav correspondente à URL atual
+      const path = window.location.pathname;
+      document.querySelectorAll('.bottom-nav .nav-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.href === path);
+      });
+
+      // 4) Fade-out automático das flashes
+      const flashContainer = document.querySelector('.flash-container');
+      if (flashContainer) {
+        setTimeout(() => {
+          flashContainer.classList.add('fade-out');
+          setTimeout(() => flashContainer.remove(), 500);
+        }, 4000);
+      }
     });
   </script>
 
-  <script>
-    // Fade-out automático das flashes
-    document.addEventListener('DOMContentLoaded', () => {
-      const container = document.querySelector('.flash-container');
-      if (!container) return;
-      setTimeout(() => {
-        container.classList.add('fade-out');
-        setTimeout(() => container.remove(), 500);
-      }, 4000);
-    });
-  </script>
+  <!-- Leaflet cores e roteamento (uma carga apenas) -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>  
   <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
   {% block extra_js %}{% endblock %}
 </body>
 </html>
