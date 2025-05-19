@@ -9,50 +9,10 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
+  <a href="{{ url_for('perfil_follower') }}" class="back-btn">←</a>
+
   <!-- container vazio; os cards serão injetados por JS -->
   <div id="atividade-container"></div>
-<!-- Navegação inferior fixa com 5 ícones -->
-<nav class="bottom-nav">
-  <button
-    class="nav-btn active"
-    aria-label="Mapa"
-    data-href="{{ url_for('home') }}"
-  >
-    <img src="{{ url_for('static', filename='icons/icon-map.svg') }}" alt="Mapa">
-  </button>
-
-  <button
-    class="nav-btn"
-    aria-label="Puzzle"
-    data-href="{{ url_for('puzzle') }}"
-  >
-    <img src="{{ url_for('static', filename='icons/puzzle.svg') }}" alt="Categorias">
-  </button>
-
-  <button
-    class="nav-btn"
-    aria-label="Locais"
-    data-href="{{ url_for('locais') }}"
-  >
-    <img src="{{ url_for('static', filename='icons/locais.svg') }}" alt="Locais">
-  </button>
-
-  <button
-    class="nav-btn"
-    aria-label="Lojas"
-    data-href="{{ url_for('lojas') }}"
-  >
-    <img src="{{ url_for('static', filename='icons/store.svg') }}" alt="Lojas">
-  </button>
-
-  <button
-    class="nav-btn"
-    aria-label="Perfil"
-    data-href="{{ url_for('perfil_overview') }}"
-  >
-    <img src="{{ url_for('static', filename='icons/perfil.svg') }}" alt="Perfil">
-  </button>
-</nav>  
   <script>
     // Exemplo de JSON em que todos os src são URLs externas:
     const atividades = [

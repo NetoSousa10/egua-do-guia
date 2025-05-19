@@ -96,3 +96,14 @@ body {
   flex-shrink: 0;
 }
 
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5em;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: inherit;
+  /* e todo o styling de botão que quiser aqui */
+}
+
