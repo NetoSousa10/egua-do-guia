@@ -84,30 +84,3 @@ body {
 .btn-atividade:hover {
   background-color: #333;
 }
-
-.bottom-nav {
-  position: fixed;
-  bottom: env(safe-area-inset-bottom);
-  left: 0; right: 0;
-  height: 60px;
-  background: #ffffff;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
-  z-index: 1000;
-}
-.bottom-nav .nav-btn img {
-  width: 35px;
-  height: 35px;
-}
-
-.container-seguidores-perfil{
-  display: flex;
-  flex-direction: row;
-  justify-content:space-between;
-}
-.seguidore-perfil{
-  font-weight: bold; 
-  margin-right: 1em;   /* negrito */
-}
