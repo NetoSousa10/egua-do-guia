@@ -10,7 +10,47 @@
 <body>
   <!-- container vazio que receberá os cards -->
   <div id="followers-container"></div>
-
+  <nav class="bottom-nav">
+    <button
+      class="nav-btn active"
+      aria-label="Mapa"
+      data-href="{{ url_for('home') }}"
+    >
+      <img src="{{ url_for('static', filename='icons/icon-map.svg') }}" alt="Mapa">
+    </button>
+  
+    <button
+      class="nav-btn"
+      aria-label="Puzzle"
+      data-href="{{ url_for('puzzle') }}"
+    >
+      <img src="{{ url_for('static', filename='icons/puzzle.svg') }}" alt="Categorias">
+    </button>
+  
+    <button
+      class="nav-btn"
+      aria-label="Locais"
+      data-href="{{ url_for('locais') }}"
+    >
+      <img src="{{ url_for('static', filename='icons/locais.svg') }}" alt="Locais">
+    </button>
+  
+    <button
+      class="nav-btn"
+      aria-label="Lojas"
+      data-href="{{ url_for('lojas') }}"
+    >
+      <img src="{{ url_for('static', filename='icons/store.svg') }}" alt="Lojas">
+    </button>
+  
+    <button
+      class="nav-btn"
+      aria-label="Perfil"
+      data-href="{{ url_for('perfil_overview') }}"
+    >
+      <img src="{{ url_for('static', filename='icons/perfil.svg') }}" alt="Perfil">
+    </button>
+  </nav>  
   <script>
     // EXEMPLO DE JSON (ver abaixo o bloco puro)
     const followers = [
