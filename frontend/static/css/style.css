@@ -47,43 +47,59 @@ html, body {
   line-height: var(--lh-base);
 }
 
-/* 3) Botões genéricos */
+/* 3) Botões genéricos — estrutura apenas */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+<<<<<<< HEAD
+=======
   padding: var(--space-sm) var(--space-md);
   font-size: var(--fs-md);
   font-weight: 700;
   border: none;
   border-radius: var(--radius);
+>>>>>>> bf1ea55f12591ba1196d22ab1830cfe178b230e2
   cursor: pointer;
   transition: transform .2s ease, box-shadow .2s ease;
-  box-shadow: var(--shadow-base);
+  border: none;
+  background: transparent;
+  color: inherit;
 }
 .btn:hover {
   transform: none;
 }
-/* efeito “afundar” */
 .btn:active {
   transform: translateY(2px);
   box-shadow: none !important;
 }
 
-/* 3a) Variantes de botão */
+/* 3a) Variantes de botão — padding, cores e sombra */
 .btn--primary {
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--fs-md);
+  font-weight: 700;
+  border-radius: var(--radius);
   background: var(--color-primary);
   color: var(--color-text);
   box-shadow: var(--shadow-accent);
 }
 .btn--outline {
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--fs-md);
+  font-weight: 700;
+  border-radius: var(--radius);
   background: transparent;
   color: var(--color-accent);
   border: 2px solid var(--color-accent);
   box-shadow: var(--shadow-accent);
 }
 
+<<<<<<< HEAD
+/* bottom nav */
+=======
 /* 4) Bottom navigation */
+>>>>>>> bf1ea55f12591ba1196d22ab1830cfe178b230e2
 .bottom-nav {
   position: fixed;
   bottom: env(safe-area-inset-bottom);
@@ -97,6 +113,29 @@ html, body {
   box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
   z-index: 900;
 }
+<<<<<<< HEAD
+.bottom-nav .nav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.bottom-nav .nav-btn img {
+  width: 35px;
+  height: 35px;
+  opacity: 0.6;
+  transition: opacity .2s, filter .2s;
+}
+.bottom-nav .nav-btn.active img,
+.bottom-nav .nav-btn:hover img {
+  opacity: 1;
+}
+.bottom-nav .nav-btn.active img {
+  filter: invert(61%) sepia(64%) saturate(628%) hue-rotate(322deg)
+          brightness(98%) contrast(90%);
+}
+
+/* 4) Toaster (notificações) */
+=======
   .bottom-nav .nav-btn {
     background: none;
     border: none;
@@ -118,6 +157,7 @@ html, body {
   }
 
 /* 5) Toaster (notificações) */
+>>>>>>> bf1ea55f12591ba1196d22ab1830cfe178b230e2
 #toast-container {
   position: fixed;
   top: var(--space-md);
@@ -160,6 +200,14 @@ html, body {
   to { opacity: 0; transform: translateY(-10px) translateX(-50%); }
 }
 
+<<<<<<< HEAD
+/* 5) Pilha de moedas (tutorial/reward) */
+.moeda-stack { position: relative; width: 220px; height: 80px; margin: 0 auto; }
+.moeda       { position: absolute; top: 0; }
+.camada-1    { left: 0;   z-index: 1; transform: translateY(20px); }
+.camada-2    { left: 50px; z-index: 2; transform: translateY(10px); }
+.camada-3    { left:100px; z-index: 3; }
+=======
 /* 6) Pilha de moedas (tutorial/reward) */
 .moeda-stack {
   position: relative;
@@ -174,6 +222,7 @@ html, body {
 .camada-1 { left:   0;  z-index: 1; transform: translateY(20px); }
 .camada-2 { left:  50px; z-index: 2; transform: translateY(10px); }
 .camada-3 { left: 100px; z-index: 3; }
+>>>>>>> bf1ea55f12591ba1196d22ab1830cfe178b230e2
 
 /* 7) Central box (tutorial/reward) */
 .central-box {
@@ -198,7 +247,11 @@ html, body {
   margin: var(--space-md) 0 var(--space-lg);
 }
 
+<<<<<<< HEAD
+/* flash */
+=======
 /* 8) Flash messages */
+>>>>>>> bf1ea55f12591ba1196d22ab1830cfe178b230e2
 .flash-container {
   position: fixed;
   top: 1rem;
@@ -214,6 +267,14 @@ html, body {
   font-weight: bold;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
+<<<<<<< HEAD
+.flash.error   { background-color: #e74c3c; }
+.flash.success { background-color: #2ecc71; }
+.flash-container.fade-out { opacity: 0; }
+.fade-wrapper, .fade-out { transition: opacity 0.3s ease-in-out; }
+
+/* coin animation */
+=======
 .flash.error { background-color: #e74c3c; }
 .flash.success { background-color: #2ecc71; }
 .flash-container.fade-out { opacity: 0; }
@@ -221,6 +282,7 @@ html, body {
 .fade-out { opacity: 0; }
 
 /* 9) Coin float animation */
+>>>>>>> bf1ea55f12591ba1196d22ab1830cfe178b230e2
 .coin-float {
   animation: float 2s infinite ease-in-out;
 }
@@ -230,7 +292,11 @@ html, body {
   100% { transform: translateY(0); }
 }
 
+<<<<<<< HEAD
+/* Profile banner */
+=======
 /* 10) Banner de perfil incompleto */
+>>>>>>> bf1ea55f12591ba1196d22ab1830cfe178b230e2
 .profile-banner {
   background-color: #f39c12;
   color: #ffffff;
