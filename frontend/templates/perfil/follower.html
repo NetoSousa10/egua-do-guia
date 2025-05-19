@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seguidores</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-perfil-follower.css') }}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <!-- container vazio que receberá os cards -->
+  <div id="followers-container"></div>
+
+  <script>
+    // EXEMPLO DE JSON (ver abaixo o bloco puro)
+    const followers = [
+      {
+        src: "https://cdn.discordapp.com/attachments/524749551526084620/1373834109872246874/fdfcefc24e58a4e3ed4dd6099d530353.png?ex=682bda38&is=682a88b8&hm=cb327de5cf937759a91c9d5e7b3951d3bb8d22efa5049f9712d93abb32b4b93e&",
+        nome: "Renata Cariana",
+        nacionalidade: "Paraense"
+      },
+      {
+        src: "https://cdn.discordapp.com/attachments/524749551526084620/1373834144806867036/pexels-photo-2876486.png?ex=682bda40&is=682a88c0&hm=5c7d398165ec9bdcb385ade5c12c26d7959cf7cd4d9371a379e84dbc46ec13a9&",
+        nome: "João Silva",
+        nacionalidade: "Paulista"
+      },
+      {
+        src: "https://cdn.discordapp.com/attachments/524749551526084620/1373834174146023445/17124052466014.png?ex=682bda47&is=682a88c7&hm=054c32a79be197eb350f6b9edcc8e474acd78844fc7916ccadb03a714ed5a6f9&",
+        nome: "Maria Souza",
+        nacionalidade: "Carioca"
+      }
+    ];
+
+    function renderFollowers(list, containerId) {
+      const container = document.getElementById(containerId);
+      list.forEach(f => {
+        const card = document.createElement("div");
+        card.className = "perfil-follower";
+        card.innerHTML = `
+          <div class="follower-left">
+            <img class="avatar" src="${f.src}" alt="Avatar de ${f.nome}">
+            <div class="follower-info">
+              <p class="follower-name">${f.nome}</p>
+              <p class="follower-location">${f.nacionalidade}</p>
+            </div>
+          </div>
+          <button class="btn-atividade">Ver atividade</button>
+        `;
+        card.querySelector(".btn-atividade")
+            .addEventListener("click", () => {
+              window.location.href = "/perfil/atividade";
+            });
+        container.appendChild(card);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderFollowers(followers, "followers-container");
+    });
+  </script>
+</body>
+</html>

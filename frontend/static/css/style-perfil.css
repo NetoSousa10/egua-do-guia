@@ -1,0 +1,280 @@
+p{
+  margin: 0;
+}
+
+body{
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+.perfil-card{
+  display: flex;
+  flex-direction: row;
+}
+
+.content-perfil-card{
+  display: flex;             /* ativa o flex layout */
+  flex-direction: column;    /* empilha os filhos em coluna */
+  justify-content: start;
+  align-items: start;
+}
+
+.container-seguidores-perfil{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+}
+
+.button-config-perfil {
+  display: inline-flex;         /* encolhe ao conteúdo */
+  align-items: center;          /* centra verticalmente */
+  justify-content: center;      /* centra horizontalmente */
+  padding: 0;      
+  padding-right: 0.4em;             /* sem espaçamento extra */
+  margin: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  
+  /* define o tamanho do ícone */
+  font-size: 32px;              /* ajuste para o tamanho desejado */
+  
+  /* largura e altura iguais a 1em (32px aqui) */
+  width: 1em;
+  height: 1em;
+  
+  line-height: 1;               /* evita espaçamentos extras */
+}
+
+.button-config-perfil .material-icons {
+  font-size: inherit;           /* herda os 32px do botão */
+  line-height: 1;
+  display: block;               /* remove possíveis gaps de inline */
+}
+
+.button-config-perfil:focus {
+  box-shadow: 0 0 0 3px rgba(100, 181, 246, 0.6);
+}
+
+.button-config-perfil:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.button-config-perfil .material-icons {
+  font-size: 32px;       /* ajuste o tamanho que quiser */
+  color: #000000;        /* cor do ícone */
+  transition: color 0.2s, transform 0.2s;
+}
+
+.button-config-perfil:hover .material-icons {
+  color: #81c784;
+  transform: scale(1.1);
+}
+
+.nome-perfil{
+  font-weight: bold;    /* negrito */
+  font-size: 1.7em;
+  margin-bottom: 0.5em;
+}
+
+.seguidore-perfil{
+  font-weight: bold; 
+  margin-right: 1em;   /* negrito */
+}
+
+.container-status-perfil{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 1em;
+  margin-bottom: 2rem;
+}
+
+.content-status-perfil {
+  display: flex;
+  flex-direction: column;
+  height: 2.9rem;
+  width: 5.5rem;
+  display: flex;
+  flex-direction: column;
+  background-color: #FF8585;
+  border-radius: 16px;
+  justify-content: center;
+  align-items: center;
+  margin-right:0.5vw ;
+
+}
+
+
+.status-pontos-perfil .status-descricao-perfil .numero-bold{
+  font-weight: bold; 
+}
+.status-pontos-perfil{
+  font-size: 1.2em;
+}
+
+.container-titulo-perfil{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.titulo-perfil{
+  font-size: 1.5em;
+}
+
+.image-wrapper {
+  position: relative;    /* contexto para posicionamento absoluto */
+  display: inline-block; /* encolhe ao tamanho da imagem */
+  margin-right: 2em;
+}
+
+/* sua imagem redonda continua igual, só tiramos o margin-right */
+.profile-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 4px solid #28a745;
+  object-fit: cover;
+  display: block;
+}
+
+/* o botão por cima da imagem */
+.icon-overlay {
+  position: absolute;
+  top: 4px;              /* ajuste a distância do topo */
+  right: 4px;            /* ajuste a distância da direita */
+  width: 24px;           /* tamanho do círculo do ícone */
+  height: 24px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  z-index: 1;            /* garante que fique acima da imagem */
+}
+
+.icon-overlay .material-icons {
+  font-size: 16px;       /* tamanho do ícone dentro do círculo */
+  color: #444;
+}
+.icon-overlay:hover {
+  background: #f0f0f0;
+}
+
+.container-lugar-favorito{
+  display: flex;
+  flex-direction: row;
+  height: 15vw;
+  width: 100%;
+  max-width: 1000px;
+  background-color: #FF8585;
+  border-radius: 5px;
+  justify-content:space-between;
+  margin-right:0.5em ;
+  margin-top: 1rem;
+}
+.img-lugares-favoritos{
+  height: 15vw;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.quantidade-vezes-visitadas{
+  display: flex;
+  flex-direction: row;
+}
+.nome-visao-geral-texto{
+  margin-left: 0.5em;
+}
+.mr-sm{
+  margin-right: 10px;
+}
+
+.container-descricao-favorito{
+  margin-top: 0.5em;
+  padding-bottom: 1em;
+  margin-right: 1em;
+}
+.container-img-descricao{
+  display: flex;
+  flex-direction: row;
+}
+
+.content-descricao-menores{
+  display: flex;
+  flex-direction: row;
+  height: 15vw;
+  width: 45%;
+  max-width: 1000px;
+  background-color: #FF8585;
+  border-radius: 5px;
+  justify-content:space-between;
+  margin-right:0.5vw ;
+  padding-left:0.5em ;
+}
+.material-icons.img-comentarios{
+font-size: 4rem;}
+
+.container-descricao-menores{
+  display: flex;
+  flex-direction: row;
+  margin-top: 1.2rem;
+  justify-content: space-between;
+}
+.content-descricao-menores-texto{
+  display: flex;
+  flex-direction: column;
+
+}
+.rank-perfil{
+  font-size: 32px;
+  color: #A4ADB2;
+}
+.rating {
+  --size: 15px;
+  --mask: conic-gradient(from -18deg at 61% 34.5%, #00000000 108deg, #000 0) 0 / var(--size),
+      conic-gradient(from 270deg at 39% 34.5%, #0000 108deg, #000 0) 0 / var(--size),
+      conic-gradient(from 54deg at 68% 56%, #0000 108deg, #000 0) 0 / var(--size),
+      conic-gradient(from 198deg at 32% 56%, #0000 108deg, #000 0) 0 / var(--size),
+      conic-gradient(from 126deg at 50% 69%, #0000 108deg, #000 0) 0 / var(--size);
+  --bg: linear-gradient(90deg, #FFD700 calc(var(--size) * var(--val)), #FF8585 0);
+  height: var(--size);
+  width: calc(var(--size) * 5);
+  border: 0; /* Firefox adds a default border to ranges */
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #FF8585 ;
+  
+  /* Chrome and Safari */
+  &::-webkit-slider-runnable-track {
+    height: 100%;
+    mask: var(--mask);
+    mask-composite: intersect;
+    background: var(--bg);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  &::-webkit-slider-thumb {
+    opacity: 0;
+  }
+  
+  /* Firefox */
+  &::-moz-range-track {
+    height: 100%;
+    mask: var(--mask);
+    mask-composite: intersect;
+    background: var(--bg);
+    print-color-adjust: exact;
+  }
+  
+  &::-moz-range-thumb {
+    opacity: 0;
+  }
+}
+

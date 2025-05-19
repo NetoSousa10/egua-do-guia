@@ -63,6 +63,18 @@ def create_app():
     def home():
         return render_template("menu/home.html")
 
+    @app.route("/perfil")
+    def perfil():
+        return render_template("perfil/home-perfil.html")
+
+    @app.route("/perfil/follower", methods=["GET"])
+    def perfilFollower():
+        return render_template("perfil/follower.html")
+
+    @app.route("/perfil/atividade", methods=["GET"])
+    def perfilAtividade():
+        return render_template("perfil/atividade-perfil.html")
+
     # Exemplo de handler de erro (opcional)
     @app.errorhandler(404)
     def not_found(e):
