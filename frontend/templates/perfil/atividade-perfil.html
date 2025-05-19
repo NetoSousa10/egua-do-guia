@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atividades</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-perfil-atividade.css') }}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <!-- container vazio; os cards serão injetados por JS -->
+  <div id="atividade-container"></div>
+
+  <script>
+    // Exemplo de JSON em que todos os src são URLs externas:
+    const atividades = [
+      {
+        avatarSrc: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&fit=crop&w=40&q=60",
+        title: "Rede Andrade Hangar Hotel",
+        review: "“Achei o lugar muito confortável e agradável, só recomendo a limpeza diária dos quartos.”",
+        imageSrc: "https://cdn.discordapp.com/attachments/524749551526084620/1373833941441581086/lugares-para-conhecer-no-brasil-1024x542-minbntrhhdgfhdfg.png?ex=682bda10&is=682a8890&hm=f511f24dc048fa366b03666e539510d71baeccec30661d565c34f8f6cbaa266c&"
+      },
+      {
+        avatarSrc: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=40&q=60",
+        title: "Restaurante Open Bar do José",
+        review: "“Música legal e comida ótima, voltarei novamente! Atmosfera maravilhosa.”",
+        imageSrc: "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        avatarSrc: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=crop&w=40&q=60",
+        title: "Praça Brasil",
+        review: "“Ambiente bonito e agradável, recomendo limpar a área gramada, às vezes tem muito lixo.”",
+        imageSrc: "https://cdn.discordapp.com/attachments/524749551526084620/1373833907295748127/premium_photo-1661913022485-f5931b1f4d56.png?ex=682bda08&is=682a8888&hm=aa9ea075ae46215232e76ad50d2b744f584bbd2f84bc352d9c9b281d81cc1653&"
+      },
+      {
+        avatarSrc: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=40&q=60",
+        title: "Comércio Ver-o-Peso",
+        review: "“Descobri um negócio muito legal, a cultura está em todo lugar, sem falar na quantidade de souvenirs que você pode comprar, mas é sujo em todo lugar.”",
+        imageSrc: "https://cdn.discordapp.com/attachments/524749551526084620/1373833867177361459/cj6mryoqn9otslfywira.png?ex=682bd9fe&is=682a887e&hm=7d7fe50ed9dd2a7870b298b6aaf30980170763eef1932ec01f57b6e2c4d4e1e6&"
+      }
+    ];
+
+    function renderAtividades(list) {
+      const container = document.getElementById("atividade-container");
+      list.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "atividade-card";
+        card.innerHTML = `
+          <div class="card-left">
+            <h2 class="card-title">${item.title}</h2>
+            <div class="card-content">
+              <img class="avatar" src="${item.avatarSrc}" alt="Avatar de ${item.title}">
+              <p class="card-text">${item.review}</p>
+            </div>
+          </div>
+          <img class="card-image" src="${item.imageSrc}" alt="Foto de ${item.title}">
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderAtividades(atividades);
+    });
+  </script>
+</body>
+</html>

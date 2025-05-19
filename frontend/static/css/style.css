@@ -4,7 +4,7 @@
 :root {
   /* Cores */
   --color-primary: #FF8585;  /* rosa-coral usado nos cards */
-  --color-accent:  #212121;  /* preto/escuro para textos e botões */
+  --color-accent:  #38B6FF;  /* azul de destaque */
   --color-bg:      #FFFFFF;  /* fundo branco das telas */
   --color-text:    #212121;  /* texto escuro */
 
@@ -36,6 +36,7 @@
   margin: 0;
   padding: 0;
 }
+
 html, body {
   width: 100%;
   height: 100%;
@@ -51,6 +52,14 @@ html, body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+<<<<<<< HEAD
+=======
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--fs-md);
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius);
+>>>>>>> bf1ea55f12591ba1196d22ab1830cfe178b230e2
   cursor: pointer;
   transition: transform .2s ease, box-shadow .2s ease;
   border: none;
@@ -86,7 +95,11 @@ html, body {
   box-shadow: var(--shadow-accent);
 }
 
+<<<<<<< HEAD
 /* bottom nav */
+=======
+/* 4) Bottom navigation */
+>>>>>>> bf1ea55f12591ba1196d22ab1830cfe178b230e2
 .bottom-nav {
   position: fixed;
   bottom: env(safe-area-inset-bottom);
@@ -100,6 +113,7 @@ html, body {
   box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
   z-index: 900;
 }
+<<<<<<< HEAD
 .bottom-nav .nav-btn {
   background: none;
   border: none;
@@ -121,6 +135,29 @@ html, body {
 }
 
 /* 4) Toaster (notificações) */
+=======
+  .bottom-nav .nav-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .bottom-nav .nav-btn img {
+    width: 35px;
+    height: 35px;
+    opacity: 0.6;
+    transition: opacity .2s, filter .2s;
+  }
+  .bottom-nav .nav-btn.active img,
+  .bottom-nav .nav-btn:hover img {
+    opacity: 1;
+  }
+  .bottom-nav .nav-btn.active img {
+    filter: invert(61%) sepia(64%) saturate(628%) hue-rotate(322deg)
+            brightness(98%) contrast(90%);
+  }
+
+/* 5) Toaster (notificações) */
+>>>>>>> bf1ea55f12591ba1196d22ab1830cfe178b230e2
 #toast-container {
   position: fixed;
   top: var(--space-md);
@@ -163,14 +200,31 @@ html, body {
   to { opacity: 0; transform: translateY(-10px) translateX(-50%); }
 }
 
+<<<<<<< HEAD
 /* 5) Pilha de moedas (tutorial/reward) */
 .moeda-stack { position: relative; width: 220px; height: 80px; margin: 0 auto; }
 .moeda       { position: absolute; top: 0; }
 .camada-1    { left: 0;   z-index: 1; transform: translateY(20px); }
 .camada-2    { left: 50px; z-index: 2; transform: translateY(10px); }
 .camada-3    { left:100px; z-index: 3; }
+=======
+/* 6) Pilha de moedas (tutorial/reward) */
+.moeda-stack {
+  position: relative;
+  width: 220px;
+  height: 80px;
+  margin: 0 auto;
+}
+.moeda {
+  position: absolute;
+  top: 0;
+}
+.camada-1 { left:   0;  z-index: 1; transform: translateY(20px); }
+.camada-2 { left:  50px; z-index: 2; transform: translateY(10px); }
+.camada-3 { left: 100px; z-index: 3; }
+>>>>>>> bf1ea55f12591ba1196d22ab1830cfe178b230e2
 
-/* 6) Central box (tutorial/reward) */
+/* 7) Central box (tutorial/reward) */
 .central-box {
   display: flex;
   flex-direction: column;
@@ -193,7 +247,11 @@ html, body {
   margin: var(--space-md) 0 var(--space-lg);
 }
 
+<<<<<<< HEAD
 /* flash */
+=======
+/* 8) Flash messages */
+>>>>>>> bf1ea55f12591ba1196d22ab1830cfe178b230e2
 .flash-container {
   position: fixed;
   top: 1rem;
@@ -209,12 +267,22 @@ html, body {
   font-weight: bold;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
+<<<<<<< HEAD
 .flash.error   { background-color: #e74c3c; }
 .flash.success { background-color: #2ecc71; }
 .flash-container.fade-out { opacity: 0; }
 .fade-wrapper, .fade-out { transition: opacity 0.3s ease-in-out; }
 
 /* coin animation */
+=======
+.flash.error { background-color: #e74c3c; }
+.flash.success { background-color: #2ecc71; }
+.flash-container.fade-out { opacity: 0; }
+.fade-wrapper { opacity: 1; transition: opacity 0.3s ease-in-out; }
+.fade-out { opacity: 0; }
+
+/* 9) Coin float animation */
+>>>>>>> bf1ea55f12591ba1196d22ab1830cfe178b230e2
 .coin-float {
   animation: float 2s infinite ease-in-out;
 }
@@ -224,7 +292,11 @@ html, body {
   100% { transform: translateY(0); }
 }
 
+<<<<<<< HEAD
 /* Profile banner */
+=======
+/* 10) Banner de perfil incompleto */
+>>>>>>> bf1ea55f12591ba1196d22ab1830cfe178b230e2
 .profile-banner {
   background-color: #f39c12;
   color: #ffffff;

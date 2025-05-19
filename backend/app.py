@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from flask import Flask, render_template, session, redirect, url_for
 from backend.utils.db import conectar
-from backend.controllers.auth   import auth_bp
+from backend.controllers.auth import auth_bp
 
 def create_app():
     load_dotenv()
@@ -64,43 +64,58 @@ def create_app():
     @app.route("/menu/puzzle", methods=["GET"])
     def puzzle():
         return render_template("menu/puzzle.html")
-    
-    @app.route('/quiz/festivais', methods=['GET'])
+
+    # Quiz routes
+    @app.route("/quiz/festivais", methods=["GET"])
     def quiz_festivais():
-        return render_template('quiz/festivais.html')
-    
-    @app.route('/quiz/musical', methods=['GET'])
+        return render_template("quiz/festivais.html")
+
+    @app.route("/quiz/musical", methods=["GET"])
     def quiz_musical():
-        return render_template('quiz/musical.html')
+        return render_template("quiz/musical.html")
 
-    @app.route('/quiz/folclore', methods=['GET'])
+    @app.route("/quiz/folclore", methods=["GET"])
     def quiz_folclore():
-        return render_template('quiz/folclore.html')
+        return render_template("quiz/folclore.html")
 
-    @app.route('/quiz/artesanato', methods=['GET'])
+    @app.route("/quiz/artesanato", methods=["GET"])
     def quiz_artesanato():
-        return render_template('quiz/artesanato.html')
-    
-    @app.route('/quiz/maritima', methods=['GET'])
+        return render_template("quiz/artesanato.html")
+
+    @app.route("/quiz/maritima", methods=["GET"])
     def quiz_maritima():
-        return render_template('quiz/maritima.html')
-    
-    @app.route('/quiz/peixes', methods=['GET'])
+        return render_template("quiz/maritima.html")
+
+    @app.route("/quiz/peixes", methods=["GET"])
     def quiz_peixes():
-        return render_template('quiz/peixes.html')
-    
-    @app.route('/quiz/frutas', methods=['GET'])
+        return render_template("quiz/peixes.html")
+
+    @app.route("/quiz/frutas", methods=["GET"])
     def quiz_frutas():
-        return render_template('quiz/frutas.html')
+        return render_template("quiz/frutas.html")
 
-    @app.route('/quiz/teatros', methods=['GET'])
+    @app.route("/quiz/teatros", methods=["GET"])
     def quiz_teatros():
-        return render_template('quiz/teatros.html')
-    
-    @app.route('/quiz/bairros', methods=['GET'])
-    def quiz_bairros():
-        return render_template('quiz/bairros.html')
+        return render_template("quiz/teatros.html")
 
+    @app.route("/quiz/bairros", methods=["GET"])
+    def quiz_bairros():
+        return render_template("quiz/bairros.html")
+
+    # Perfil routes
+    @app.route("/perfil", methods=["GET"])
+    def perfil():
+        return render_template("perfil/home-perfil.html")
+
+    @app.route("/perfil/follower", methods=["GET"])
+    def perfil_follower():
+        return render_template("perfil/follower.html")
+
+    @app.route("/perfil/atividade", methods=["GET"])
+    def perfil_atividade():
+        return render_template("perfil/atividade-perfil.html")
+
+    # Menu/Profile subroutes
     @app.route("/menu/perfil", methods=["GET"])
     def perfil_overview():
         return render_template("menu/profile_overview.html")
