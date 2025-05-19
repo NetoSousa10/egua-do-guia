@@ -1,0 +1,64 @@
+{# frontend/templates/quiz/base_quiz.html #}
+{% extends 'base.html' %}
+
+{% block extra_css %}
+  {{ super() }}
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/quiz.css') }}"
+  />
+{% endblock %}
+
+{% block content %}
+<div class="quiz-container">
+  <!-- HEADER -->
+  <header class="quiz-header">
+    <button id="back-btn" class="back-btn">←</button>
+    <h1 class="quiz-title">{% block quiz_title %}{% endblock %}</h1>
+  </header>
+
+  <!-- PROGRESSO -->
+  <div class="quiz-progress">
+    <span id="progress-text">0 de 0</span>
+    <div class="progress-bar">
+      <div id="progress-fill" class="progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- CARTÃO DE PERGUNTA -->
+  <div class="quiz-card">
+    <div id="xp-display" class="xp-display">0XP</div>
+    <div id="question-text" class="question-text">Pergunta aqui</div>
+  </div>
+
+  <!-- OPÇÕES (preenchido por JS) -->
+  <div class="options-container"></div>
+
+    <!-- FEEDBACK MODAL -->
+    <div id="feedback-modal" class="feedback-modal hidden">
+    <div id="feedback-card" class="feedback-card">
+        <!-- Aqui vai só o texto e o botão juntos -->
+        <div id="feedback-text" class="feedback-text"></div>
+        <button id="continue-btn" class="continue-btn">Continuar</button>
+    </div>
+    </div>
+
+    <!-- END-OF-QUIZ POPUP -->
+    <div id="end-modal" class="feedback-modal hidden">
+    <div id="end-card" class="feedback-card">
+        <div id="end-text" class="feedback-text"></div>
+        <button id="end-continue-btn" class="continue-btn">
+        Continuar
+        </button>
+    </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block extra_js %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/quiz/base_quiz.js') }}"></script>
+  {% block quiz_js %}{% endblock %}
+{% endblock %}

@@ -1,0 +1,109 @@
+/* static/css/locais.css */
+
+/* 1) Container geral branco */
+.locais-screen {
+  background: #ffffff;
+  min-height: calc(100vh - 60px);
+  padding-top: 1rem;
+  padding-bottom: env(safe-area-inset-bottom, 60px);
+}
+
+/* 2) Barra de filtros */
+.locais-filters {
+  display: flex;
+  flex-wrap: wrap;          /* permite quebra em várias linhas */
+  justify-content: center;  /* centra na horizontal */
+  gap: 0.5rem;
+  padding: 0 1rem 1rem;
+  overflow-x: auto;
+  background: #fff;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+.locais-filters button {
+  flex-shrink: 0;
+  background: #212121;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  transition: transform .2s, background .2s;
+}
+.locais-filters button.active {
+  background: #FF8585;
+  color: #212121;
+}
+.locais-filters button:not(.active):hover {
+  transform: scale(1.05);
+}
+
+/* 3) Lista de cards */
+.locais-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+/* 4) Cada cartão */
+.place-card {
+  display: flex;
+  background: #FF8585;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.place-card .place-img {
+  width: 120px;
+  object-fit: cover;
+}
+.place-card .place-info {
+  flex: 1;
+  padding: 1rem;
+  color: #212121;
+  display: flex;
+  flex-direction: column;
+}
+.place-card .place-title {
+  margin: 0 0 .25rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.place-card .place-rating {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+.place-card .place-rating .reviews {
+  margin-left: 0.5rem;
+  font-size: 0.85rem;
+  color: rgba(33,33,33,0.7);
+}
+.place-card .place-features {
+  margin-top: auto;
+  list-style: none;
+  padding: 0;
+  font-size: 0.85rem;
+}
+.place-card .place-features li {
+  margin-bottom: 0.25rem;
+}
+
+/* 5) Botão de oferta */
+.offer-btn {
+  background: #212121;
+  color: #FF8585;
+  border: none;
+  border-radius: 0 12px 12px 0;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  align-self: center;
+  transition: background .2s;
+}
+.offer-btn:hover {
+  background: #000000;
+}

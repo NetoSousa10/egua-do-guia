@@ -3,29 +3,29 @@
 
 :root {
   /* Cores */
-  --color-primary:     #FF8585;
-  --color-accent:      #38B6FF;
-  --color-bg:          #212121;
-  --color-text:        #ffffff;
+  --color-primary: #FF8585;  /* rosa-coral usado nos cards */
+  --color-accent:  #38B6FF;  /* azul de destaque */
+  --color-bg:      #FFFFFF;  /* fundo branco das telas */
+  --color-text:    #212121;  /* texto escuro */
 
   /* Tipografia */
-  --font-main:         'Inter', sans-serif;
-  --fs-sm:             0.875rem;
-  --fs-md:             1rem;
-  --fs-lg:             1.25rem;
-  --lh-base:           1.4;
+  --font-main: 'Inter', sans-serif;
+  --fs-sm:     0.875rem;
+  --fs-md:     1rem;
+  --fs-lg:     1.25rem;
+  --lh-base:   1.4;
 
   /* Espaçamentos */
-  --sp-xs:             0.5rem;
-  --sp-sm:             1rem;
-  --sp-md:             1.5rem;
-  --sp-lg:             2rem;
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
 
   /* Bordas e sombras */
-  --radius:            8px;
-  --shadow-base:       0 4px 6px rgba(0,0,0,0.1);
-  --shadow-accent:     0 4px 6px var(--color-accent);
-  --toast-duration:    2s;
+  --radius:        8px;
+  --shadow-base:   0 4px 6px rgba(0,0,0,0.1);
+  --shadow-accent: 0 4px 6px var(--color-accent);
+  --toast-duration: 2s;
 }
 
 /* 1) Reset básico */
@@ -36,6 +36,7 @@
   margin: 0;
   padding: 0;
 }
+
 html, body {
   width: 100%;
   height: 100%;
@@ -51,7 +52,7 @@ html, body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--sp-sm) var(--sp-md);
+  padding: var(--space-sm) var(--space-md);
   font-size: var(--fs-md);
   font-weight: 700;
   border: none;
@@ -82,8 +83,41 @@ html, body {
   box-shadow: var(--shadow-accent);
 }
 
-/* 4) Toaster (notificações) */
-/* container fixo */
+/* 4) Bottom navigation */
+.bottom-nav {
+  position: fixed;
+  bottom: env(safe-area-inset-bottom);
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+  z-index: 900;
+}
+  .bottom-nav .nav-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .bottom-nav .nav-btn img {
+    width: 35px;
+    height: 35px;
+    opacity: 0.6;
+    transition: opacity .2s, filter .2s;
+  }
+  .bottom-nav .nav-btn.active img,
+  .bottom-nav .nav-btn:hover img {
+    opacity: 1;
+  }
+  .bottom-nav .nav-btn.active img {
+    filter: invert(61%) sepia(64%) saturate(628%) hue-rotate(322deg)
+            brightness(98%) contrast(90%);
+  }
+
+/* 5) Toaster (notificações) */
 #toast-container {
   position: fixed;
   top: var(--space-md);
@@ -94,8 +128,6 @@ html, body {
   gap: var(--space-xs);
   z-index: 9999;
 }
-
-/* toast base */
 .toast {
   display: inline-flex;
   align-items: center;
@@ -110,24 +142,16 @@ html, body {
     slideDown 0.3s ease-out,
     fadeOut 0.5s ease-in-out var(--toast-duration) forwards;
 }
-
-/* variações */
 .toast--error {
   background-color: var(--color-primary);
   color: #fff;
 }
-
-/* ícone dentro do toast */
 .toast__icon {
   font-size: 1.2em;
 }
-
-/* mensagem */
 .toast__msg {
   line-height: 1.2;
 }
-
-/* keyframes */
 @keyframes slideDown {
   from { transform: translate(-50%, -20px); opacity: 0; }
   to   { transform: translate(-50%,   0  ); opacity: 1; }
@@ -136,14 +160,22 @@ html, body {
   to { opacity: 0; transform: translateY(-10px) translateX(-50%); }
 }
 
-/* 5) Pilha de moedas (tutorial/reward) */
-.moeda-stack { position: relative; width: 220px; height: 80px; margin: 0 auto; }
-.moeda { position: absolute; top: 0; }
-.camada-1 { left: 0;   z-index: 1; transform: translateY(20px); }
-.camada-2 { left: 50px; z-index: 2; transform: translateY(10px); }
-.camada-3 { left:100px; z-index: 3; }
+/* 6) Pilha de moedas (tutorial/reward) */
+.moeda-stack {
+  position: relative;
+  width: 220px;
+  height: 80px;
+  margin: 0 auto;
+}
+.moeda {
+  position: absolute;
+  top: 0;
+}
+.camada-1 { left:   0;  z-index: 1; transform: translateY(20px); }
+.camada-2 { left:  50px; z-index: 2; transform: translateY(10px); }
+.camada-3 { left: 100px; z-index: 3; }
 
-/* 6) Central box (tutorial/reward) */
+/* 7) Central box (tutorial/reward) */
 .central-box {
   display: flex;
   flex-direction: column;
@@ -151,21 +183,22 @@ html, body {
   justify-content: center;
   text-align: center;
   height: 100%;
-  padding: var(--sp-sm);
+  padding: var(--space-sm);
 }
 .recompensa-titulo {
   font-size: 2.2rem;
   color: #FFA733;
   font-weight: 700;
-  margin-bottom: var(--sp-md);
+  margin-bottom: var(--space-md);
 }
 .recompensa-msg {
   font-size: 1.2rem;
   font-weight: 600;
   color: #FFA733;
-  margin: var(--sp-md) 0 var(--sp-lg);
+  margin: var(--space-md) 0 var(--space-lg);
 }
-/* container das mensagens de flash */
+
+/* 8) Flash messages */
 .flash-container {
   position: fixed;
   top: 1rem;
@@ -173,8 +206,6 @@ html, body {
   z-index: 1000;
   transition: opacity 0.5s ease-in-out;
 }
-
-/* estilo base das flashes */
 .flash {
   margin-bottom: 0.5rem;
   padding: 0.75rem 1rem;
@@ -183,39 +214,23 @@ html, body {
   font-weight: bold;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
+.flash.error { background-color: #e74c3c; }
+.flash.success { background-color: #2ecc71; }
+.flash-container.fade-out { opacity: 0; }
+.fade-wrapper { opacity: 1; transition: opacity 0.3s ease-in-out; }
+.fade-out { opacity: 0; }
 
-/* variações por categoria */
-.flash.error {
-  background-color: #e74c3c;
-}
-
-.flash.success {
-  background-color: #2ecc71;
-}
-/* Já existe .flash-container e .flash */
-
-
-/* Classe que faz o fade-out */
-.flash-container.fade-out {
-  opacity: 0;
-}
-.fade-wrapper {
-  opacity: 1;
-  transition: opacity 0.3s ease-in-out;
-}
-.fade-out {
-  opacity: 0;
-}
+/* 9) Coin float animation */
 .coin-float {
   animation: float 2s infinite ease-in-out;
 }
 @keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-8px); }
   100% { transform: translateY(0); }
 }
 
-/* Banner de perfil incompleto */
+/* 10) Banner de perfil incompleto */
 .profile-banner {
   background-color: #f39c12;
   color: #ffffff;

@@ -1,0 +1,10 @@
+{% extends 'quiz/base_quiz.html' %}
+
+{% block title %}Quiz – Festivais{% endblock %}
+
+{% block quiz_title %}Quiz de Festivais{% endblock %}
+
+{% block quiz_js %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/quiz/festivais.js') }}"></script>
+{% endblock %}
