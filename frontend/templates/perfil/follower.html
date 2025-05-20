@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
+  <a href="{{ url_for('perfil_overview') }}" class="back-btn">←</a>
   <!-- container vazio que receberá os cards -->
   <div id="followers-container"></div>
   <nav class="bottom-nav">
@@ -98,6 +99,7 @@
     document.addEventListener("DOMContentLoaded", () => {
       renderFollowers(followers, "followers-container");
     });
+    
   </script>
 </body>
 </html>
