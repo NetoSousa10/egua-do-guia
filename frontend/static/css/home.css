@@ -12,7 +12,6 @@
     bottom: 60px;
   }
   
-  /* bottom nav */
 
   
   /* ── SIDEBAR ── */
@@ -54,6 +53,11 @@
 }
 #sidebar .close-btn:hover {
   background: rgba(0, 0, 0, 0.7);
+}
+
+/* ✔️ Oculta o painel de filtros quando a sidebar está aberta */
+body.sidebar-open .category-panel {
+  display: none !important;
 }
   /* título e imagem */
   .sidebar-title {

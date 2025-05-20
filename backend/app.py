@@ -1,21 +1,38 @@
+# backend/app.py
 import os
 from dotenv import load_dotenv
-from flask import Flask, render_template, session, redirect, url_for
+from flask import (
+    Flask, render_template, jsonify, session, redirect,
+    url_for, request
+)
 from backend.utils.db import conectar
 from backend.controllers.auth import auth_bp
+from backend.controllers.api import api as api_bp   # Blueprint unificado com /api/routes
+
+# Define caminhos absolutos
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FRONTEND_DIR = os.path.join(BASE_DIR, '..', 'frontend')
+
+# Configura o Flask com caminhos absolutos para templates e estáticos
+app = Flask(
+    __name__,
+    template_folder=os.path.join(FRONTEND_DIR, 'templates'),
+    static_folder=os.path.join(FRONTEND_DIR, 'static'),
+    static_url_path='/static'
+)
+
 
 def create_app():
     load_dotenv()
-
-    app = Flask(
-        __name__,
-        template_folder=os.path.join("..", "frontend", "templates"),
-        static_folder=os.path.join("..", "frontend", "static")
-    )
-
     app.secret_key = os.getenv("SECRET_KEY", "troque_em_producao")
+
+    # ——— Autenticação ———
     app.register_blueprint(auth_bp, url_prefix="/auth")
 
+    # ——— Todas as rotas de API (places, rating, comment, favorite, XP) ———
+    app.register_blueprint(api_bp)
+
+    # ——— Rotas públicas ———
     @app.route("/", methods=["GET"])
     @app.route("/splash", methods=["GET"])
     def splash():
@@ -33,6 +50,7 @@ def create_app():
     def login_form():
         return render_template("login/login.html")
 
+    # ——— Tutorial ———
     @app.route("/tutorial", methods=["GET"])
     def tutorial():
         return render_template("tutorial/tutorial.html")
@@ -57,6 +75,7 @@ def create_app():
     def reward():
         return render_template("reward.html")
 
+    # ——— Menu principal ———
     @app.route("/menu/home", methods=["GET"])
     def home():
         return render_template("menu/home.html")
@@ -65,7 +84,15 @@ def create_app():
     def puzzle():
         return render_template("menu/puzzle.html")
 
-    # Quiz routes
+    @app.route("/menu/locais", methods=["GET"])
+    def locais():
+        return render_template("menu/locais.html")
+
+    @app.route("/menu/lojas", methods=["GET"])
+    def lojas():
+        return render_template("menu/lojas.html")
+
+    # ——— Quiz ———
     @app.route("/quiz/festivais", methods=["GET"])
     def quiz_festivais():
         return render_template("quiz/festivais.html")
@@ -102,7 +129,7 @@ def create_app():
     def quiz_bairros():
         return render_template("quiz/bairros.html")
 
-    # Perfil routes
+    # ——— Perfil ———
     @app.route("/perfil", methods=["GET"])
     def perfil():
         return render_template("perfil/home-perfil.html")
@@ -115,37 +142,71 @@ def create_app():
     def perfil_atividade():
         return render_template("perfil/atividade-perfil.html")
 
-    # Menu/Profile subroutes
+    # ——— Menu ➔ Perfil ———
     @app.route("/menu/perfil", methods=["GET"])
     def perfil_overview():
         return render_template("menu/profile_overview.html")
 
-    @app.route("/menu/locais", methods=["GET"])
-    def locais():
-        return render_template("menu/locais.html")
-
-    @app.route("/menu/lojas", methods=["GET"])
-    def lojas():
-        return render_template("menu/lojas.html")
-
     @app.route("/menu/perfil/comentarios", methods=["GET"])
     def perfil_comments():
+        user_id = session.get('user_id')
+        if not user_id:
+            return redirect(url_for('login_form'))
+
+        conn = conectar()
+        cur  = conn.cursor()
+        cur.execute("""
+          SELECT
+            p.title    AS place_name,
+            p.img_url  AS place_img,
+            c.content  AS text,
+            c.criado_em
+          FROM comments c
+          JOIN places   p ON p.id = c.place_id
+          WHERE c.user_id = %s
+          ORDER BY c.criado_em DESC;
+        """, (user_id,))
         comments = [
             {
-                'user_avatar': 'avatar1.jpg',
-                'place_name':  'Rede Andrade Hangar Hotel',
-                'text':        'Achei o lugar muito confortável e agradável...',
-                'place_img':   'hotel1.jpg'
-            },
+                'place_name': row[0],
+                'place_img':  row[1],
+                'text':       row[2],
+                'date':       row[3].strftime("%d/%m/%Y %H:%M")
+            }
+            for row in cur.fetchall()
         ]
+        cur.close()
+        conn.close()
         return render_template("menu/profile_comments.html", comments=comments)
 
     @app.route("/menu/perfil/seguindo", methods=["GET"])
     def perfil_follows():
+        user_id = session.get('user_id')
+        if not user_id:
+            return redirect(url_for('login_form'))
+
+        conn = conectar()
+        cur  = conn.cursor()
+        cur.execute("""
+          SELECT
+            u.id,
+            u.nome           AS name,
+            u.nacionalidade  AS subtitle
+          FROM followers f
+          JOIN usuarios   u ON u.id = f.followee_id
+          WHERE f.follower_id = %s
+          ORDER BY u.nome;
+        """, (user_id,))
         follows = [
-            {'avatar': 'renata.jpg', 'name': 'Renata Cariana', 'subtitle': 'Paraense'},
-            {'avatar': 'olivia.jpg', 'name': 'Olivia Marquês', 'subtitle': 'Americana'},
+            {
+                'id':       row[0],
+                'name':     row[1],
+                'subtitle': row[2],
+            }
+            for row in cur.fetchall()
         ]
+        cur.close()
+        conn.close()
         return render_template("menu/profile_follows.html", follows=follows)
 
     @app.errorhandler(404)
@@ -156,5 +217,4 @@ def create_app():
 
 
 if __name__ == "__main__":
-    app = create_app()
-    app.run(debug=True)
+    create_app().run(debug=True)
