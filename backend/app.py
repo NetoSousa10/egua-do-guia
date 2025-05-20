@@ -107,10 +107,7 @@ def create_app():
     def perfil_overview():
         return render_template("menu/profile_overview.html")
 
-    @app.route("/menu/locais", methods=["GET"])
-    def locais():
-        return render_template("menu/locais.html")
-
+    
     @app.route("/menu/lojas", methods=["GET"])
     def lojas():
         return render_template("menu/lojas.html")
@@ -134,6 +131,39 @@ def create_app():
             {'avatar': 'olivia.jpg', 'name': 'Olivia Marquês', 'subtitle': 'Americana'},
         ]
         return render_template("menu/profile_follows.html", follows=follows)
+    
+    @app.route("/menu/locais", methods=["GET"])
+    def locais():
+        locais_data = [
+            {
+                "nome": "Restaurante Open Bar do José",
+                "imagem": "artesanatoPuzzle.jpg",
+                "avaliacao": "★ ★ ☆ ☆ ☆ (3.576)",
+                "descricao": "<ul><li>Open bar</li><li>Wi-fi gratuito</li><li>Ar-condicionado</li></ul>",
+                "url": "restaurante"
+            },
+            {
+                "nome": "Rodízio do Fidalgo",
+                "imagem": "musicalPuzzle.jpg",
+                "avaliacao": "★ ★ ☆ ☆ ☆ (3.576)",
+                "descricao": "<ul><li>Rodízio 24H</li><li>Wi-fi</li><li>Open-Bar nas sextas ás 20:00</li></ul>",
+                "url": "fidalgo"
+
+            }
+            # Adicionar mais locais aqui
+        ]
+        return render_template("menu/locais.html", locais=locais_data)
+    
+    @app.route("/menu/locais/<nome_local>")
+    def pagina_local(nome_local):
+        try:
+            return render_template(f"menu/locais/conteudo_dos_cards/{nome_local}.html")
+        except:
+            return render_template("404.html"), 404
+
+
+   
+
 
     @app.errorhandler(404)
     def not_found(e):
@@ -141,6 +171,8 @@ def create_app():
 
     return app
 
+    
+    
 
 if __name__ == "__main__":
     app = create_app()

@@ -1,0 +1,90 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #fff;
+  padding: 20px;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.filtros button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  background: #333;
+  color: white;
+  cursor: pointer;
+}
+
+.filtros .ativo {
+  background: #ff5c5c;
+}
+
+.card {
+  display: flex;
+  gap: 16px;
+  background: #FF8585;
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.info {
+  flex: 1;
+}
+
+.titulo {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.estrelas {
+  color: white;
+  ;
+}
+
+.detalhes {
+  font-size: 0.9em;
+  margin: 6px 0;
+}
+
+.oferta {
+  background: black;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-weight: bold;
+  align-self: start;
+}
+
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-link .titulo {
+  color: #000;
+  text-decoration: none;
+}
+
+.detalhes {
+  font-size: 1.1em; 
+}
