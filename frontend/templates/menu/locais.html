@@ -1,41 +1,58 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Locais</title>
-  <link rel="stylesheet" href="/static/css/puzzle.css">
-  <link rel="stylesheet" href="/static/css/locais.css">
-</head>
-<body>
-  <h1>Locais</h1>
+{% extends 'base.html' %}
+{% block title %}Locais – Égua do Guia{% endblock %}
 
-  <div class="filtros">
-    <button>Hotel</button>
-    <button class="ativo">Restaurante</button>
-    <button>Praças</button>
-    <button>Comércios</button>
-    <button>Shoppings</button>
-    <button>Cultural</button>
-    <button>Populares</button>
-  </div>
+{% block extra_css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/locais.css') }}">
+{% endblock %}
 
-  {% for local in locais %}
-    <a href="/menu/locais/{{ local.url }}" class="card-link">
-    <div class="card">
-    <img src="/static/assets/img/{{ local.imagem }}" alt="{{ local.nome }}">
-    <div class="info">
-      <div class="titulo">{{ local.nome }}</div>
-      <div class="estrelas">{{ local.avaliacao }}</div>
-      <div class="detalhes">{{ local.descricao | safe }}</div>
-    </div>
-    <div class="oferta">OFERTA %</div>
-  </div>
-</a>
+{% block content %}
+<div class="locais-screen">
 
-  {% endfor %}
+  <!-- filtros -->
+  <nav class="locais-filters">
+    <button data-cat="all"      class="active">Todos</button>
+    <button data-cat="hotel">Hotel</button>
+    <button data-cat="restaurant">Restaurante</button>
+    <button data-cat="praca">Praças</button>
+    <button data-cat="loja">Comércios</button>
+    <button data-cat="mall">Shoppings</button>
+    <button data-cat="cultura">Cultural</button>
+    <button data-cat="popular">Populares</button>
+  </nav>
 
-  
+  <!-- cards serão injetados aqui -->
+  <div class="locais-list"></div>
 
+  <!-- barra inferior -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-href="{{ url_for('home') }}" aria-label="Mapa">
+      <img src="{{ url_for('static', filename='icons/icon-map.svg') }}" alt="Mapa">
+    </button>
+    <button class="nav-btn" data-href="{{ url_for('puzzle') }}" aria-label="Puzzle">
+      <img src="{{ url_for('static', filename='icons/puzzle.svg') }}" alt="Categorias">
+    </button>
+    <button class="nav-btn" data-href="{{ url_for('locais') }}" aria-label="Locais">
+      <img src="{{ url_for('static', filename='icons/locais.svg') }}" alt="Locais">
+    </button>
+    <button class="nav-btn" data-href="{{ url_for('lojas') }}" aria-label="Lojas">
+      <img src="{{ url_for('static', filename='icons/store.svg') }}" alt="Lojas">
+    </button>
+    <button class="nav-btn" data-href="{{ url_for('perfil_overview') }}" aria-label="Perfil">
+      <img src="{{ url_for('static', filename='icons/perfil.svg') }}" alt="Perfil">
+    </button>
+  </nav>
 
-</body>
-</html>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    // Isso vira, por exemplo, "/static/" no HTML gerado:
+    window.STATIC_URL = "{{ url_for('static', filename='') }}";
+  </script>
+  <!-- 1) places.js define window.PLACES -->
+  <script src="{{ url_for('static', filename='js/places.js') }}"></script>
+  <!-- 2) locais.js renderiza e filtra -->
+  <script src="{{ url_for('static', filename='js/locais.js') }}"></script>
+{% endblock %}

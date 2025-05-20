@@ -16,17 +16,28 @@
     <div class="avatar-wrap">
       <img
         class="avatar"
-        src="{{ url_for('static', filename='assets/img/meu-avatar.jpg') }}"
+        src="https://cdn.discordapp.com/attachments/524749551526084620/1373834174146023445/17124052466014.png?ex=682bda47&is=682a88c7&hm=054c32a79be197eb350f6b9edcc8e474acd78844fc7916ccadb03a714ed5a6f9&"
         alt="Avatar"
       >
       <button class="edit-avatar"><i class="fas fa-pencil-alt"></i></button>
     </div>
     <h1 class="username">Lucas Andrey</h1>
-    <div class="social-counts">
-      <span>29 Following</span>
-      <span>20 Followers</span>
-    </div>
-    <button class="btn settings"><i class="fas fa-cog"></i></button>
+    <div class="container-seguidores-perfil">
+      <p
+      class="seguidore-perfil"
+      style="cursor: pointer;"
+      onclick="window.location.href='/perfil/follower'"
+    >
+      30 Seguidores
+    </p>
+    <p
+    class="seguidore-perfil"
+    style="cursor: pointer;"
+    onclick="window.location.href='/perfil/follower'"
+  >
+    10 seguindo
+  </p>
+  </div>
   </div>
 
   <!-- Estatísticas -->
@@ -52,11 +63,22 @@
       <div class="card-content">
         <div class="label">Lugar Favorito</div>
         <h3>Estação das Docas</h3>
-        <div class="stars">★★★★★</div>
-        <div class="subtitle">Visitou 12 vezes</div>
+        <input
+        type="range"
+        min="0.5"
+        max="5"
+        step="0.5"
+        value="2.5"
+        class="rating"
+        style="--val:2.5;"
+        oninput="this.style.setProperty('--val', this.value)"
+        disabled
+      >
+
+      <div class="subtitle">Visitou 12 vezes</div>
       </div>
       <img
-        src="{{ url_for('static', filename='assets/img/estacao.jpg') }}"
+        src="https://cdn.discordapp.com/attachments/524749551526084620/1373448142053314581/estacaodasdocas.png?ex=682bc442&is=682a72c2&hm=31f86b6214e38dcbfb9344f3ffa862656bb2e7444f121f3f69f77417f0d93bca&"
         alt="Estação das Docas"
       >
     </div>

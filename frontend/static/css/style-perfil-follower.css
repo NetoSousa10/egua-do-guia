@@ -1,0 +1,97 @@
+/* style-perfil-follower.css */
+
+/* 1) Box‐sizing para todos os elementos */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2) Reset básico */
+p {
+  margin: 0;
+}
+
+/* 3) Espaçamento da página */
+body {
+  margin: 0;
+  padding: 0 0.5em;
+  margin-top: 1em;
+}
+
+/* 4) Container que agrupa todos os cards */
+#followers-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;            /* espaço entre os cards */
+  align-items: center;  /* centraliza horizontalmente */
+}
+
+/* 5) Card principal */
+.perfil-follower {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;         /* ocupa toda a largura disponível */
+  max-width: 1000px;   /* mas não ultrapassa 1000px */
+  padding: 1rem;       /* espaçamento interno */
+  background-color: #FF8585;
+  border-radius: 5px;
+}
+
+/* 6) Lado esquerdo: avatar + infos */
+.follower-left {
+  display: flex;
+  align-items: center;
+}
+
+/* 7) Avatar do usuário */
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+/* 8) Nome e nacionalidade */
+.follower-info .follower-name {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #000;
+}
+
+.follower-info .follower-location {
+  font-weight: bold;
+  font-size: 0.875rem;
+  color: #000;
+}
+
+/* 9) Botão "Ver atividade" */
+.btn-atividade {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: background-color 0.2s;
+}
+
+.btn-atividade:hover {
+  background-color: #333;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5em;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: inherit;
+  /* e todo o styling de botão que quiser aqui */
+}

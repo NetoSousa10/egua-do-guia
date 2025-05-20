@@ -1,0 +1,109 @@
+/* static/css/style-perfil-atividade.css */
+
+/* 1) box-sizing global */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2) reset básico */
+body, h2, p {
+  margin: 0;
+  padding: 0;
+}
+
+/* 3) estilos do body */
+body {
+  padding: 0.5em;
+  font-family: Arial, sans-serif;
+  background: #fafafa;
+}
+
+/* 4) container de todos os cards */
+#atividade-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* removido: gap: 1rem; */
+}
+
+/* 5) cada card, agora com margin-bottom para espaçar */
+.atividade-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+
+  width: 100%;
+  max-width: 1000px;
+  background-color: #FF8585;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+
+  margin-bottom: 1rem;   /* aqui sim o “gap” entre cards */
+}
+
+/* 6) tira margem do último, pra não sobrar vazio ao final */
+.atividade-card:last-child {
+  margin-bottom: 0;
+}
+
+/* 7) lado esquerdo (título + comentário) */
+.card-left {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  flex: 1;
+}
+
+/* 8) título */
+.card-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #000;
+}
+
+/* 9) comentário com avatar */
+.card-content {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* 10) avatar com tamanho fixo e distorcendo se preciso */
+.avatar {
+  width: 48px;
+  height: 48px;
+  object-fit: fill;
+  border: 2px solid #28a745;
+  border-radius: 50%;
+  margin-right: 0.75rem;
+}
+
+/* 11) texto da avaliação */
+.card-text {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #000;
+}
+
+/* 12) imagem à direita ocupando 100% da altura do card */
+.card-image {
+  width: 120px;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5em;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: inherit;
+  /* e todo o styling de botão que quiser aqui */
+}
+

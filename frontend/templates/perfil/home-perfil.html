@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-perfil.css') }}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <div class="perfil-card">
+    <div class="image-wrapper">
+      <button class="icon-overlay">
+        <span class="material-icons">edit</span>
+      </button>      
+      <img class="profile-image" src="https://cdn.discordapp.com/attachments/524749551526084620/1369503412311294012/image.png?ex=68289f31&is=68274db1&hm=7d31ae3b96727722ffff361093e4995a152128575df08b8e66c293cf443e48de&" alt=""> 
+
+    </div>
+    <div class="content-perfil-card">
+      <p class="nome-perfil">Lucas Andrey</p>
+      <div class="container-seguidores-perfil">
+        <p
+        class="seguidore-perfil"
+        style="cursor: pointer;"
+        onclick="window.location.href='/perfil/follower'"
+      >
+        30 Seguidores
+      </p>
+      <p
+      class="seguidore-perfil"
+      style="cursor: pointer;"
+      onclick="window.location.href='/perfil/follower'"
+    >
+      10 seguindo
+    </p>
+          </div>
+    </div>
+  </div>
+
+  <div class="container-status-perfil">
+
+    <div class="content-status-perfil">
+      <p class="status-pontos-perfil">102</p>
+      <p class="status-descricao-perfil">Lugares</p>
+    </div>
+    <div class="content-status-perfil">
+      <p class="status-pontos-perfil">53</p>
+      <p class="status-descricao-perfil">Quiz</p>
+    </div>
+    <div class="content-status-perfil">
+      <p class="status-pontos-perfil">10</p>
+      <p class="status-descricao-perfil">Total XP</p>
+    </div>
+  </div>
+  <div class="visao-geral-container">
+    <p class="titulo-perfil">Visao Geral</p>
+    <div>
+
+    </div>
+    <div class="container-lugar-favorito">
+      <p class="nome-visao-geral-texto">lugar favorio</p>
+      <div class="container-img-descricao">
+        <div class="container-descricao-favorito">
+          <p class="nome-lugar-favorito">Estacao das docas</p>
+          <input
+          type="range"
+          min="0.5"
+          max="5"
+          step="0.5"
+          value="2.5"
+          class="rating"
+          style="--val:2.5;"
+          oninput="this.style.setProperty('--val', this.value)"
+        >
+        <div class="quantidade-vezes-visitadas">
+          <p class=" mr-sm">Visitou</p>
+          <p class="numero-bold">12 vezes</p>
+        </div>
+        </div>
+        <img class="img-lugares-favoritos" src="https://cdn.discordapp.com/attachments/524749551526084620/1373448142053314581/estacaodasdocas.png?ex=682a72c2&is=68292142&hm=c16e19183128fa009a9f32600af4e665cf126fe5fdf7f6b0835586ffec50aa0f&" alt="">
+      </div>
+    </div>
+    <div class="container-descricao-menores">
+      <div class="content-descricao-menores">
+        <div class="quantidade-vezes-visitadas">
+          <p class=" mr-sm">Comentou</p>
+          <p class="numero-bold">40</p>
+        </div>
+        <span class="img-comentarios material-icons">chat</span>
+      </div>
+
+      <div class="content-descricao-menores">
+        <div class="content-descricao-menores-texto">
+          <div class="quantidade-vezes-visitadas">
+            <p class="mr-sm">Rank</p>
+            <p class="numero-bold">40</p>
+          </div>
+          <p class="rank-perfil">Prata</p>
+        </div>
+        <span class="img-comentarios material-icons">trophy</span>
+      </div>
+    </div>
+  </div>
+  <!-- Navegação inferior fixa com 5 ícones -->
+  <nav class="bottom-nav">
+    <button
+      class="nav-btn active"
+      aria-label="Mapa"
+      data-href="{{ url_for('home') }}"
+    >
+      <img src="{{ url_for('static', filename='icons/icon-map.svg') }}" alt="Mapa">
+    </button>
+  
+    <button
+      class="nav-btn"
+      aria-label="Puzzle"
+      data-href="{{ url_for('puzzle') }}"
+    >
+      <img src="{{ url_for('static', filename='icons/puzzle.svg') }}" alt="Categorias">
+    </button>
+  
+    <button
+      class="nav-btn"
+      aria-label="Locais"
+      data-href="{{ url_for('locais') }}"
+    >
+      <img src="{{ url_for('static', filename='icons/locais.svg') }}" alt="Locais">
+    </button>
+  
+    <button
+      class="nav-btn"
+      aria-label="Lojas"
+      data-href="{{ url_for('lojas') }}"
+    >
+      <img src="{{ url_for('static', filename='icons/store.svg') }}" alt="Lojas">
+    </button>
+  
+    <button
+      class="nav-btn"
+      aria-label="Perfil"
+      data-href="{{ url_for('perfil') }}"
+    >
+      <img src="{{ url_for('static', filename='icons/perfil.svg') }}" alt="Perfil">
+    </button>
+  </nav>  
+</body>
+</html>

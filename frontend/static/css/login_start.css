@@ -2,13 +2,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
 :root {
-  --color-primary:    #FF5757;
+  --color-primary:    #FF8585;
   --color-accent:     #38B6FF;
-  --color-bg:         #212121;
+  --color-bg:         #ffffff;
   --color-text:       #FFFFFF;
 
   --font-main:        'Inter', sans-serif;
-  --radius:           12px;
+  --radius:           5px;
   --space-sm:         1rem;
   --space-md:         2rem;
   --shadow-accent:    0 4px 6px var(--color-accent);
@@ -46,7 +46,7 @@ html, body {
 .title {
   font-size: 2rem;
   font-weight: 700;
-  color: var(--color-accent);
+  color: black;
   margin: 0;
 }
 
@@ -64,7 +64,7 @@ html, body {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  padding: var(--space-sm);
+  padding: 0.8rem;
   font-size: 1rem;
   font-weight: 700;
   border-radius: var(--radius);
@@ -75,15 +75,16 @@ html, body {
 
 /* variações */
 .btn--primary {
-  background: var(--color-primary);
-  color: var(--color-bg);
-  box-shadow: var(--shadow-accent);
+  background: black;
+  color: white;
+  box-shadow: none !important;
+
 }
 .btn--outline {
-  background: transparent;
-  color: var(--color-accent);
-  border: 2px solid var(--color-accent);
-  box-shadow: var(--shadow-accent);
+  background: var(--color-primary);
+  color: black;
+  box-shadow: none !important;
+  border: none;
 }
 
 /* click effect */

@@ -26,7 +26,7 @@ body,
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid #FF8585;
+  border: 4px solid #3db824;
 }
 .edit-avatar {
   position: absolute;
@@ -49,6 +49,7 @@ body,
   color: #666666;
   font-size: 0.9rem;
 }
+
 .settings {
   background: none;
   border: none;
@@ -121,9 +122,8 @@ body,
   font-size: 0.9rem;
 }
 .favorite-place img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
+  width: 10rem;
+  object-fit:fill;
 }
 
 /* Cartões pequenos: “Comentou” e “Rank” */
@@ -156,4 +156,58 @@ body,
 .bottom-nav .nav-btn img {
   width: 35px;
   height: 35px;
+}
+
+.container-seguidores-perfil{
+  flex-direction: row;
+}
+.seguidore-perfil{
+  font-weight: bold; 
+  margin-right: 1em;   /* negrito */
+}
+.rank{
+  margin-bottom: 4rem;
+}
+
+.rating {
+  --size: 15px;
+  --mask: conic-gradient(from -18deg at 61% 34.5%, #00000000 108deg, #000 0) 0 / var(--size),
+      conic-gradient(from 270deg at 39% 34.5%, #0000 108deg, #000 0) 0 / var(--size),
+      conic-gradient(from 54deg at 68% 56%, #0000 108deg, #000 0) 0 / var(--size),
+      conic-gradient(from 198deg at 32% 56%, #0000 108deg, #000 0) 0 / var(--size),
+      conic-gradient(from 126deg at 50% 69%, #0000 108deg, #000 0) 0 / var(--size);
+  --bg: linear-gradient(90deg, #FFD700 calc(var(--size) * var(--val)), #FF8585 0);
+  height: var(--size);
+  width: calc(var(--size) * 5);
+  border: 0; /* Firefox adds a default border to ranges */
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #FF8585 ;
+  
+  /* Chrome and Safari */
+  &::-webkit-slider-runnable-track {
+    height: 100%;
+    mask: var(--mask);
+    mask-composite: intersect;
+    background: var(--bg);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  &::-webkit-slider-thumb {
+    opacity: 0;
+  }
+  
+  /* Firefox */
+  &::-moz-range-track {
+    height: 100%;
+    mask: var(--mask);
+    mask-composite: intersect;
+    background: var(--bg);
+    print-color-adjust: exact;
+  }
+  
+  &::-moz-range-thumb {
+    opacity: 0;
+  }
 }

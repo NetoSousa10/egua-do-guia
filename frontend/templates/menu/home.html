@@ -43,6 +43,10 @@
       <img src="{{ url_for('static', filename='icons/loja.svg') }}" alt="Lojas">
       Lojas
     </button>
+    <button data-category="mall">
+      <img src="{{ url_for('static', filename='icons/mall.svg') }}" alt="Shoppings">  
+      Shoppings
+    </button>
   </div>
   <!-- Mapa ocupa toda a tela acima da barra inferior -->
   <div id="map" class="map-container"></div>
@@ -83,7 +87,7 @@
     </div>
 
     <!-- Botão “EXPLORE” flutuando abaixo do card -->
-    <button class="btn explore-btn">EXPLORE</button>
+    <button class="explore-btn">EXPLORAR</button>
   </div>
 
   <!-- Navegação inferior fixa com 5 ícones -->
@@ -132,6 +136,7 @@
 {% endblock %}
 
 {% block extra_js %}
+  <script src="{{ url_for('static', filename='js/places.js') }}"></script>
   <!-- Seu script de inicialização do mapa e sidebar -->
   <script src="{{ url_for('static', filename='js/home.js') }}"></script>
 {% endblock %}
