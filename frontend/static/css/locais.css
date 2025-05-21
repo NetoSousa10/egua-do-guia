@@ -90,9 +90,9 @@
 .place-rating {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  font-size: 0.875rem;
-  color: #000;
+  gap: 0.5rem;
+  font-size: 1.125rem;
+  color: #fff;
   margin: 0;
   margin-top: 0.25rem;
 }
@@ -101,11 +101,12 @@
   width: 16px;
   height: 16px;
 }
+
 .place-rating .reviews {
   font-size: 0.875rem;
   opacity: 0.8;
-  margin-left: auto;
-  color: #000;
+  margin: 0;
+  color: #fff;
 }
 
 /* Características (features) */
@@ -116,11 +117,9 @@
   margin: 0;
   font-size: 0.875rem;
   color: #333;
-
-  /* Trunca cada li em até 2 linhas */
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   overflow: hidden;
 }
 .place-features li {
@@ -138,4 +137,47 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+/* === Responsividade para desktop/laptops === */
+@media (min-width: 768px) {
+  /* Container usa 100% em vez de ficar preso a 430px */
+  .locais-screen {
+    max-width: none;
+    padding: var(--space-lg);
+  }
+
+  /* Organiza os cards em grid de duas ou mais colunas */
+  .locais-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-md);
+  }
+
+  /* Cada card ocupa todo o espaço da célula */
+  .place-card {
+    width: 100%;
+    height: auto;           /* auto para a altura crescer com conteúdo */
+    min-height: var(--card-height); /* garante no mínimo o tamanho padrão */
+  }
+  /* Padroniza o wrapper da imagem */
+.place-img-wrapper {
+  /* largura fixa igual à altura do card quando fechado em mobile, ou ao tamanho da variável */
+  flex: 0 0 var(--img-size);
+  width: var(--img-size);
+  /* força proporção 1:1 (quadrado) */
+  aspect-ratio: 1;
+  /* arredonda apenas os cantos esquerdos, igual ao card */
+  border-radius: 16px 0 0 16px;
+  overflow: hidden;
+  background: #fff; /* evita fundo “vazio” enquanto carrega */
+}
+
+/* Faz a <img> cobrir todo o wrapper */
+.place-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 }

@@ -15,16 +15,17 @@ def get_places():
         p.id,
         p.title,
         p.category,
-        p.img_url    AS "imgUrl",
+        p.img_url       AS "imgUrl",
         p.address,
         p.lat,
         p.lng,
-        COALESCE(COUNT(c.*),    0)    AS reviews,
-        COALESCE(ROUND(AVG(r.score),1), 0) AS rating,
+        -- total de avaliações definidas em ratings
+        COUNT(r.*)                       AS reviews,
+        -- média de score arredondada para inteiro (1–5)
+        COALESCE(ROUND(AVG(r.score))::INT, 0) AS rating,
         p.features
       FROM places p
-      LEFT JOIN comments c ON c.place_id = p.id
-      LEFT JOIN ratings  r ON r.place_id = p.id
+      LEFT JOIN ratings r ON r.place_id = p.id
       GROUP BY p.id
       ORDER BY p.title;
     """)

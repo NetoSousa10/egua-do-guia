@@ -12,9 +12,10 @@
     "phone": "(91) 3214-3126",
     "price": "Gratuito",
     "features": [
-    "Construída em estilo neoclássico em 1909",
-    "Entrada e estacionamento com acessibilidade"
-  ]
+      "Igreja histórica",
+      "Entrada gratuita",
+      "Acesso adaptado"
+    ]
   },
   {
     "lat": -1.453411,
@@ -29,9 +30,10 @@
     "phone": "(91) 3230-5380",
     "price": "R$ 12–20",
     "features": [
-    "Entrada com acessibilidade para cadeirantes",
-    "Bom para ir com crianças"
-  ]
+      "Sala clássica",
+      "Programação variada",
+      "Acesso reservado"
+    ]
   },
   {
     "lat": -1.45234,
@@ -46,8 +48,10 @@
     "phone": "(91) 4009-3000",
     "price": "Gratuito",
     "features": [
-    "Entrada com acessibilidade para cadeirantes"
-  ]
+      "Mercado tradicional",
+      "Frutas frescas",
+      "Ambiente aberto"
+    ]
   },
   {
     "lat": -1.4500462,
@@ -62,10 +66,10 @@
     "phone": "(91) 4009-5400",
     "price": "Gratuito",
     "features": [
-    "Entrada, estacionamento e banheiro com acessibilidade para cadeirantes",
-    "Estacionamento descoberto pago",
-    "Serviços no local"
-  ]
+      "Vista para rio",
+      "Espaço gastronômico",
+      "Agenda cultural"
+    ]
   },
   {
     "lat": -1.4488419793550833,
@@ -78,7 +82,12 @@
     "hours": "09:00–22:00",
     "address": "Blvd. Castilhos França, 707 – Campina, Belém – PA, 66010-020",
     "phone": "(91) 3201-0718",
-    "price": "R$ 10–25"
+    "price": "R$ 10–25",
+    "features": [
+      "Sorvetes artesanais",
+      "Variedade sabores",
+      "Atendimento acolhedor"
+    ]
   },
   {
     "lat": -1.459072189955288,
@@ -91,7 +100,12 @@
     "hours": "09:00–22:00",
     "address": "Av. Conselheiro Furtado, 786 – Batista Campos, Belém – PA, 66025-160",
     "phone": "(91) 3201-0718",
-    "price": "R$ 10–25"
+    "price": "R$ 10–25",
+    "features": [
+      "Ambiente familiar",
+      "Sorvetes artesanais",
+      "Cartão aceito"
+    ]
   },
   {
     "lat": -1.44197,
@@ -104,7 +118,12 @@
     "hours": "09:00–22:00",
     "address": "Tv. Dom Romualdo de Seixas, 1139 – Umarizal, Belém – PA, 66055-200",
     "phone": "(91) 3201-0718",
-    "price": "R$ 10–25"
+    "price": "R$ 10–25",
+    "features": [
+      "Porções generosas",
+      "Sorvete cremoso",
+      "Wi-Fi grátis"
+    ]
   },
   {
     "lat": -1.4522587766696307,
@@ -117,7 +136,12 @@
     "hours": "09:00–17:00",
     "address": "Av. Gov Magalhães Barata, 376 – São Brás, Belém – PA, 66040-170",
     "phone": "(91) 3246-2170",
-    "price": "R$ 12 (inteira)"
+    "price": "R$ 12 (inteira)",
+    "features": [
+      "Museu científico",
+      "Acervo rico",
+      "Visitas guiadas"
+    ]
   },
   {
     "lat": -1.4645973,
@@ -130,7 +154,12 @@
     "hours": "09:00–18:00",
     "address": "Passagem Carneiro da Rocha, s/n – Cidade Velha, Belém – PA, 66020-160",
     "phone": "(91) 4009-5000",
-    "price": "R$ 15"
+    "price": "R$ 15",
+    "features": [
+      "Parque ecológico",
+      "Mirante panorâmico",
+      "Café local"
+    ]
   },
   {
     "lat": -1.455075,
@@ -143,7 +172,12 @@
     "hours": "09:00–17:00",
     "address": "Rua Siqueira Mendes, 874 – Cidade Velha, Belém – PA, 66020-600",
     "phone": "(91) 3241-9674",
-    "price": "R$ 10"
+    "price": "R$ 10",
+    "features": [
+      "Museu regional",
+      "Exposições rotativas",
+      "Ticket acessível"
+    ]
   },
   {
     "lat": -1.454414,
@@ -156,7 +190,12 @@
     "hours": "08:00–17:00",
     "address": "Praça do Forte, s/n – Cidade Velha, Belém – PA, 66010-000",
     "phone": "(91) 3230-3123",
-    "price": "R$ 8"
+    "price": "R$ 8",
+    "features": [
+      "Forte histórico",
+      "Entrada paga",
+      "Visita guiada"
+    ]
   },
   {
     "lat": -1.452778,
@@ -169,7 +208,12 @@
     "hours": "10:00–18:00",
     "address": "Praça da República, s/n – Campina, Belém – PA, 66017-080",
     "phone": "(91) 3241-7070",
-    "price": "R$ 16"
+    "price": "R$ 16",
+    "features": [
+      "Casa de ópera",
+      "Arquitetura neoclássica",
+      "Acústica excelente"
+    ]
   },
   {
     "lat": -1.4528,
@@ -182,7 +226,12 @@
     "hours": "—",
     "address": "Avenida Presidente Vargas, 718 – Belém – PA, 66010-000",
     "phone": "",
-    "price": ""
+    "price": "",
+    "features": [
+      "Conforto urbano",
+      "Café incluso",
+      "Wi-Fi gratuito"
+    ]
   },
   {
     "lat": -1.44483,
@@ -195,7 +244,12 @@
     "hours": "11:00–23:00",
     "address": "Rua Domingos Marreiros, 851 – Umarizal, Belém – PA, 66063-010",
     "phone": "",
-    "price": ""
+    "price": "",
+    "features": [
+      "Culinária regional",
+      "Ambiente rústico",
+      "Porções generosas"
+    ]
   },
   {
     "lat": -1.45676,
@@ -208,7 +262,12 @@
     "hours": "—",
     "address": "Rua Presidente Pernambuco, 116 – Batista Campos, Belém – PA, 66013-220",
     "phone": "",
-    "price": ""
+    "price": "",
+    "features": [
+      "Design moderno",
+      "Café incluso",
+      "Localização central"
+    ]
   },
   {
     "lat": -1.45748,
@@ -221,7 +280,12 @@
     "hours": "—",
     "address": "Av. Gentil Bittencourt, 85 – Batista Campos, Belém – PA, 66015-140",
     "phone": "+55 91 3323-7171",
-    "price": ""
+    "price": "",
+    "features": [
+      "Quartos espaçosos",
+      "Café incluso",
+      "Wi-Fi gratuito"
+    ]
   },
   {
     "lat": -1.46308,
@@ -234,7 +298,12 @@
     "hours": "—",
     "address": "Rua Dr. Assis, 834 – Cidade Velha, Belém – PA, 66020-600",
     "phone": "0800 1515 123",
-    "price": ""
+    "price": "",
+    "features": [
+      "Piscina externa",
+      "Quartos amplos",
+      "Café incluso"
+    ]
   },
   {
     "lat": -1.44572,
@@ -247,7 +316,12 @@
     "hours": "10:00–22:00",
     "address": "Avenida Visconde de Souza Franco, 776 – Reduto, Belém – PA, 66053-972",
     "phone": "",
-    "price": ""
+    "price": "",
+    "features": [
+      "Lojas variadas",
+      "Estacionamento",
+      "Cinema interno"
+    ]
   },
   {
     "lat": -1.45786,
@@ -260,7 +334,12 @@
     "hours": "10:00–22:00",
     "address": "Tv. Padre Eutíquio, 1078 – Batista Campos, Belém – PA, 66023-710",
     "phone": "",
-    "price": ""
+    "price": "",
+    "features": [
+      "Espaço amplo",
+      "Marcas nacionais",
+      "Wi-Fi grátis"
+    ]
   },
   {
     "lat": -1.43715,
@@ -273,7 +352,12 @@
     "hours": "07:00–20:00",
     "address": "Tv. Dom Pedro I, 599 – Umarizal, Belém – PA, 66050-100",
     "phone": "(91) 3223-4567",
-    "price": ""
+    "price": "",
+    "features": [
+      "Açaí tradicional",
+      "Preços acessíveis",
+      "Delivery disponível"
+    ]
   },
   {
     "lat": -1.43319,
@@ -286,7 +370,12 @@
     "hours": "07:00–20:00",
     "address": "Av. Rômulo Maiorana, 1677 – Marco, Belém – PA, 66093-674",
     "phone": "(91) 3223-4567",
-    "price": ""
+    "price": "",
+    "features": [
+      "Açaí cremoso",
+      "Ambiente agradável",
+      "Porções grandes"
+    ]
   },
   {
     "lat": -1.43979,
@@ -299,6 +388,11 @@
     "hours": "12:00–22:00",
     "address": "Tv. Dom Romualdo de Seixas, 823 – Umarizal, Belém – PA, 66055-200",
     "phone": "(91) 3345-6789",
-    "price": "R$ 30–50"
+    "price": "R$ 30–50",
+    "features": [
+      "Hambúrguer artesanal",
+      "Ambiente casual",
+      "Porções generosas"
+    ]
   }
 ]

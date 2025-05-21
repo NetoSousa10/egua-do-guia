@@ -20,6 +20,7 @@ def criar_tabelas():
     cur = conn.cursor()
 
     # ——— Limpa tudo ———
+    cur.execute("DROP VIEW IF EXISTS places_with_stats CASCADE;")
     cur.execute("DROP TABLE IF EXISTS ratings CASCADE;")
     cur.execute("DROP TABLE IF EXISTS comments CASCADE;")
     cur.execute("DROP TABLE IF EXISTS user_favorites CASCADE;")
@@ -53,8 +54,6 @@ def criar_tabelas():
       phone         VARCHAR(50),
       price         VARCHAR(50),
       hours         VARCHAR(50),
-      rating        SMALLINT,
-      reviews       INT,
       features      TEXT[]       DEFAULT '{}',
       lat           NUMERIC(9,6) NOT NULL,
       lng           NUMERIC(9,6) NOT NULL
@@ -112,6 +111,28 @@ def criar_tabelas():
     );
     """)
 
+    # ——— View agregada de places (com média e total de reviews) ———
+    cur.execute("""
+    CREATE OR REPLACE VIEW places_with_stats AS
+    SELECT
+      p.id,
+      p.title,
+      p.category,
+      p.img_url       AS imgUrl,
+      p.address,
+      p.phone,
+      p.price,
+      p.hours,
+      COALESCE(ROUND(AVG(r.score))::INT, 0) AS rating,
+      COUNT(r.*)                        AS reviews,
+      p.features,
+      p.lat,
+      p.lng
+    FROM places p
+    LEFT JOIN ratings r ON r.place_id = p.id
+    GROUP BY p.id;
+    """)
+
     # ——— View de perfil de usuário ———
     cur.execute("""
     CREATE OR REPLACE VIEW user_profile AS
@@ -165,10 +186,10 @@ def criar_tabelas():
     conn.commit()
     cur.close()
     conn.close()
-    print("✅ Tabelas, view e trigger criados com sucesso.")
+    print("✅ Tabelas, views e trigger criados com sucesso.")
 
 if __name__ == "__main__":
-    # 1) Cria tabelas, view e trigger
+    # 1) Cria tabelas, views e trigger
     criar_tabelas()
     # 2) Semeia os places via seu seed_places.py
     seed_places()
