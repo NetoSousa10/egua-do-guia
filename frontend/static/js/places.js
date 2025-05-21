@@ -10,19 +10,34 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     let places = await resp.json();
 
-    // 2) normaliza cada imgUrl:
-    //    - se veio do banco e não é string vazia, garante que comece com '/'
-    //    - se não veio, deixa null (para não renderizar imagem)
+    // 2) normaliza cada imgUrl e limpa as features
     places = places.map(p => {
+      // --- normaliza url da imagem ---
       let url = null;
-      if (p.imgUrl && typeof p.imgUrl === 'string' && p.imgUrl.trim() !== '') {
+      if (
+        p.imgUrl &&
+        typeof p.imgUrl === 'string' &&
+        p.imgUrl.trim() !== ''
+      ) {
         url = p.imgUrl.startsWith('/')
           ? p.imgUrl
           : `/static/${p.imgUrl.replace(/^\/+/, '')}`;
       }
+
+      // --- limpa bullets/pontos iniciais em cada feature ---
+      const featuresClean = Array.isArray(p.features)
+        ? p.features.map(f =>
+            f
+              // remove • · – - . e quaisquer símbolos/pontos/espaços iniciais
+              .replace(/^[\u2022\u00B7\.\-\–\s]+/, '')
+              .trim()
+          )
+        : [];
+
       return {
         ...p,
-        imgUrl: url
+        imgUrl: url,
+        features: featuresClean
       };
     });
 

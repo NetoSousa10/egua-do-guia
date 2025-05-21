@@ -25,14 +25,26 @@ def seed_places():
     with json_path.open(encoding='utf-8') as f:
         places = json.load(f)
 
-    # 4) Insere no banco, incluindo agora hours, rating e reviews
+    # 4) Insere no banco, agora incluindo features
     for p in places:
         cur.execute("""
             INSERT INTO places
               (title, category, img_url, address, phone,
-               price, hours, rating, reviews, lat, lng)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            ON CONFLICT (title) DO NOTHING;
+               price, hours, rating, reviews, features, lat, lng)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            ON CONFLICT (title) DO UPDATE
+              SET
+                category = EXCLUDED.category,
+                img_url  = EXCLUDED.img_url,
+                address  = EXCLUDED.address,
+                phone    = EXCLUDED.phone,
+                price    = EXCLUDED.price,
+                hours    = EXCLUDED.hours,
+                rating   = EXCLUDED.rating,
+                reviews  = EXCLUDED.reviews,
+                features = EXCLUDED.features,
+                lat      = EXCLUDED.lat,
+                lng      = EXCLUDED.lng;
         """, (
             p['title'],
             p['category'],
@@ -43,6 +55,7 @@ def seed_places():
             p.get('hours'),
             p.get('rating'),
             p.get('reviews'),
+            p.get('features', []),
             p['lat'],
             p['lng'],
         ))

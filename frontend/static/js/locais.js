@@ -11,32 +11,49 @@
         const hasImg = p.imgUrl && p.imgUrl.trim() !== '';
         const imgSrc = hasImg
           ? p.imgUrl
-          : '/static/assets/img/default.jpg';  // seu placeholder real
+          : '/static/assets/img/default.jpg';
+
+        // monta bullets a partir de p.features (array de strings),
+        // mas removendo qualquer símbolo inicial e deixando o <li> SEM "• "
+        const featuresHtml = Array.isArray(p.features) && p.features.length
+          ? `<ul class="place-features">
+               ${p.features
+                 .map(f => {
+                   // limpa qualquer pontuação/símbolo inicial
+                   const clean = String(f).replace(/^[\W_]+/, '').trim();
+                   return `<li>${clean}</li>`;
+                 })
+                 .join('')}
+             </ul>`
+          : '';
+
+        const stars = [1,2,3,4,5]
+          .map(i => i <= p.rating ? '★' : '☆')
+          .join(' ');
 
         const card = document.createElement('div');
         card.className   = 'place-card';
         card.dataset.cat = p.category;
         card.innerHTML = `
-          <img class="place-img" src="${imgSrc}" alt="${p.title}">
+          <div class="place-img-wrapper">
+            <img class="place-img" src="${imgSrc}" alt="${p.title}">
+          </div>
           <div class="place-info">
             <h3 class="place-title">${p.title}</h3>
             <div class="place-rating">
-              ${[1,2,3,4,5].map(i => i <= p.rating ? '★' : '☆').join('')}
-              <span class="reviews">(${p.reviews})</span>
+              ${stars}
+              <span class="reviews">(${p.reviews.toLocaleString()})</span>
             </div>
-            ${p.features?.length
-              ? `<ul class="place-features">
-                   ${p.features.map(f => `<li>• ${f}</li>`).join('')}
-                 </ul>` 
-              : ''
-            }
+            ${featuresHtml}
           </div>
         `;
         list.appendChild(card);
       });
     }
+
     renderAll();
 
+    // filtros de categoria
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         filterBtns.forEach(b => b.classList.remove('active'));
@@ -49,12 +66,17 @@
       });
     });
 
-    // navbar
+    // navbar inferior
     document.querySelectorAll('.nav-btn').forEach(btn => {
-      btn.addEventListener('click', () => window.location.href = btn.dataset.href);
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.nav-btn')
+          .forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        window.location.href = btn.dataset.href;
+      });
     });
 
-    // marca ativo
+    // marca ativo na nav
     const path = window.location.pathname;
     document.querySelectorAll('.nav-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.href === path);

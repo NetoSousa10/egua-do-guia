@@ -65,7 +65,6 @@ function initMapApp() {
     document.getElementById('sidebar-address').textContent = data.address;
     document.getElementById('sidebar-phone').textContent   = data.phone  || '';
     document.getElementById('sidebar-price').textContent   = data.price;
-    document.getElementById('sidebar-reviews').textContent = `(${data.reviews})`;
     routeTo({ lat: data.lat, lng: data.lng });
   }
   function closeSidebar() {

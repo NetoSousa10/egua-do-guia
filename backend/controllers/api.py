@@ -20,7 +20,8 @@ def get_places():
         p.lat,
         p.lng,
         COALESCE(COUNT(c.*),    0)    AS reviews,
-        COALESCE(ROUND(AVG(r.score),1), 0) AS rating
+        COALESCE(ROUND(AVG(r.score),1), 0) AS rating,
+        p.features
       FROM places p
       LEFT JOIN comments c ON c.place_id = p.id
       LEFT JOIN ratings  r ON r.place_id = p.id

@@ -2,6 +2,8 @@
 
 /* Container geral */
 .locais-screen {
+  max-width: 430px;
+  margin: 0 auto;
   padding: var(--space-md);
   padding-bottom: calc(60px + var(--space-md)); /* espaço para a bottom-nav */
 }
@@ -15,18 +17,26 @@
   margin-bottom: var(--space-md);
 }
 .locais-filters button {
-  padding: 0.5rem 1rem;
+  height: 32px;
+  padding: 0 0.75rem;
   border: none;
-  border-radius: var(--radius);
+  border-radius: 16px;
   background: #212121;
-  color: #ffffff;
-  font-weight: 700;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
 }
 .locais-filters button.active {
-  background: var(--color-primary);
-  color: var(--color-bg);
+  background: var(--color-primary); /* ex: #FF7575 */
+  color: #fff;
+}
+
+/* Variáveis de tamanho */
+:root {
+  --card-height: 140px;    /* Altura fixa do card */
+  --img-size: 140px;       /* Largura e altura da imagem */
 }
 
 /* Lista de cards */
@@ -39,75 +49,93 @@
 /* Cada card */
 .place-card {
   display: flex;
-  background: var(--color-primary);
-  border-radius: var(--radius);
+  align-items: stretch;
+  background: var(--color-primary); /* ex: #FF7575 */
+  border-radius: 16px;
   overflow: hidden;
-  /* força altura mínima igual para todos */
-  min-height: 120px;
-  /* se quiser todos com exatamente 120px, use height:120px; */
+  width: 100%;
+  height: var(--card-height);
+  box-sizing: border-box;
 }
 
 /* Imagem fixa à esquerda */
+.place-img-wrapper {
+  flex: 0 0 var(--img-size);
+}
 .place-img {
-  width: 120px;
-  height: 120px;
+  width: var(--img-size);
+  height: var(--img-size);
   object-fit: cover;
-  flex-shrink: 0;
 }
 
 /* Conteúdo à direita */
 .place-info {
-  padding: var(--space-sm);
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  flex: 1;
+  justify-content: space-flex-start;
+  padding: 0.75rem;
+  color: #000;
 }
 
 /* Título */
 .place-title {
-  font-size: var(--fs-lg);
-  margin-bottom: 0.25rem;
-  color: var(--color-text);
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
 }
 
-/* Avaliação */
+/* Avaliação (estrelas + reviews) */
 .place-rating {
-  font-size: var(--fs-md);
-  color: var(--color-text);
-  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  color: #000;
+  margin: 0;
+  margin-top: 0.25rem;
+}
+.place-rating svg,
+.place-rating .star {
+  width: 16px;
+  height: 16px;
 }
 .place-rating .reviews {
-  margin-left: 0.5rem;
-  font-size: var(--fs-sm);
+  font-size: 0.875rem;
   opacity: 0.8;
+  margin-left: auto;
+  color: #000;
 }
 
-/* Características */
+/* Características (features) */
 .place-features {
-  list-style: none;
-  padding: 0;
+  list-style: disc outside;
+  list-style-position: outside;
+  padding-left: 1rem;
   margin: 0;
-  color: var(--color-text);
-  font-size: var(--fs-sm);
+  font-size: 0.875rem;
+  color: #333;
+
+  /* Trunca cada li em até 2 linhas */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 .place-features li {
   margin-bottom: 0.25rem;
 }
 
-/* Botão de oferta (se usado) */
-.offer-btn {
-  align-self: flex-start;
-  padding: 0.25rem 0.75rem;
-  background: var(--color-accent);
-  color: var(--color-bg);
-  border: none;
-  border-radius: var(--radius);
-  font-size: var(--fs-sm);
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.offer-btn:hover {
-  background: rgba(33,33,33,0.8);
+/* Bottom nav */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: var(--color-bg);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }

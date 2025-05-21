@@ -10,7 +10,11 @@
     "hours": "05:00–21:00",
     "address": "Av. Nª Sra. de Nazaré, 1300 – Nazaré, Belém – PA, 66035-145",
     "phone": "(91) 3214-3126",
-    "price": "Gratuito"
+    "price": "Gratuito",
+    "features": [
+    "Construída em estilo neoclássico em 1909",
+    "Entrada e estacionamento com acessibilidade"
+  ]
   },
   {
     "lat": -1.453411,
@@ -23,7 +27,11 @@
     "hours": "Veja programação no site",
     "address": "R. Arcipreste Manoel Teodoro, Batista Campos, Belém – PA, 66017-080",
     "phone": "(91) 3230-5380",
-    "price": "R$ 12–20"
+    "price": "R$ 12–20",
+    "features": [
+    "Entrada com acessibilidade para cadeirantes",
+    "Bom para ir com crianças"
+  ]
   },
   {
     "lat": -1.45234,
@@ -36,7 +44,10 @@
     "hours": "06:00–18:00",
     "address": "Avenida Boulevard Castilhos França, s/n – Campina, Belém – PA, 66017-140",
     "phone": "(91) 4009-3000",
-    "price": "Gratuito"
+    "price": "Gratuito",
+    "features": [
+    "Entrada com acessibilidade para cadeirantes"
+  ]
   },
   {
     "lat": -1.4500462,
@@ -49,7 +60,12 @@
     "hours": "10:00–22:00",
     "address": "Av. Mal. Hermes, S/N – Campina, Belém – PA, 66010-020",
     "phone": "(91) 4009-5400",
-    "price": "Gratuito"
+    "price": "Gratuito",
+    "features": [
+    "Entrada, estacionamento e banheiro com acessibilidade para cadeirantes",
+    "Estacionamento descoberto pago",
+    "Serviços no local"
+  ]
   },
   {
     "lat": -1.4488419793550833,

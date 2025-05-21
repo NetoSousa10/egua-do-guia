@@ -55,6 +55,7 @@ def criar_tabelas():
       hours         VARCHAR(50),
       rating        SMALLINT,
       reviews       INT,
+      features      TEXT[]       DEFAULT '{}',
       lat           NUMERIC(9,6) NOT NULL,
       lng           NUMERIC(9,6) NOT NULL
     );
