@@ -16,17 +16,21 @@
   
   /* ── SIDEBAR ── */
   #sidebar {
-    position: absolute;
-    top: 0; right: 0; bottom: 60px;
-    width: 0;
-    background: #fff;
-    box-shadow: -2px 0 8px rgba(0,0,0,0.2);
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-    transition: width .3s ease;
-    z-index: 1000;
-  }
+  position: absolute;
+  top: 0; 
+  right: 0; 
+  bottom: 0; /* ✅ ocupa até o fim da tela */
+  padding-bottom: calc(env(safe-area-inset-bottom, 30px) + 4rem); /* ✅ espaço extra pro botão */
+  width: 0;
+  background: #fff;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  transition: width .3s ease;
+  z-index: 1000;
+}
+
   body.sidebar-open #sidebar,
   #sidebar.open {
     width: 320px;
