@@ -40,7 +40,7 @@
 
   {% block content %}{% endblock %}
 
-  <!-- Banner de instalação PWA -->
+  <!-- Banner de instalação PWA (inline styles) -->
   <div id="install-banner" style="
       display: none;
       position: fixed;
@@ -58,7 +58,9 @@
       max-width: 90%;
       width: 300px;
     ">
-    <div style="margin-bottom: 0.75rem; font-size: 1rem; font-weight: bold;">Quer instalar o app?</div>
+    <div style="margin-bottom: 0.75rem; font-size: 1rem; font-weight: bold;">
+      Quer instalar o app?
+    </div>
     <div style="display: flex; justify-content: center; gap: 0.5rem;">
       <button id="btn-install" style="
           flex: 1;
@@ -103,9 +105,10 @@
     "></div>
   </div>
 
-  <!-- Scripts comuns e handlers (mantidos iguais) -->
+  <!-- Scripts comuns e handlers -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // 1) Transição suave de páginas
       document.querySelectorAll('a[href^="/"], button[data-href]').forEach(el => {
         el.addEventListener('click', e => {
           const href = el.getAttribute('href') || el.dataset.href;
@@ -116,22 +119,33 @@
           }
         });
       });
+
+      // 2) Efeito “afundar” nos botões
       document.querySelectorAll('.btn').forEach(btn => {
         btn.addEventListener('pointerdown', () => btn.classList.add('btn--pressed'));
         ['pointerup','pointercancel','pointerout'].forEach(evt =>
           btn.addEventListener(evt, () => btn.classList.remove('btn--pressed'))
         );
       });
+
+      // 3) Marca o botão da bottom-nav correspondente à URL atual
       const path = window.location.pathname;
       document.querySelectorAll('.bottom-nav .nav-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.href === path);
       });
+
+      // 4) Fade-out automático das flashes
       const flash = document.querySelector('.flash-container');
-      if (flash) setTimeout(() => { flash.classList.add('fade-out'); setTimeout(() => flash.remove(),500); }, 4000);
+      if (flash) {
+        setTimeout(() => {
+          flash.classList.add('fade-out');
+          setTimeout(() => flash.remove(), 500);
+        }, 4000);
+      }
     });
   </script>
 
-  <!-- Registro do SW e PWA prompt -->
+  <!-- Registro do SW e PWA prompt com lógica de “não mostrar novamente” -->
   <script>
     let deferredPrompt;
     const banner = document.getElementById('install-banner');
@@ -139,6 +153,7 @@
     const btnC   = document.getElementById('btn-cancel');
 
     window.addEventListener('beforeinstallprompt', e => {
+      if (localStorage.getItem('pwaDismissed')) return;
       e.preventDefault();
       deferredPrompt = e;
       banner.style.display = 'block';
@@ -156,15 +171,22 @@
       deferredPrompt.prompt();
       await deferredPrompt.userChoice;
       deferredPrompt = null;
+      localStorage.setItem('pwaDismissed', 'true');
     });
+
     btnC.addEventListener('click', () => {
       banner.style.display = 'none';
       deferredPrompt = null;
+      localStorage.setItem('pwaDismissed', 'true');
     });
-    window.addEventListener('appinstalled', () => banner.style.display = 'none');
+
+    window.addEventListener('appinstalled', () => {
+      banner.style.display = 'none';
+      localStorage.setItem('pwaDismissed', 'true');
+    });
   </script>
 
-  <!-- Leaflet -->
+  <!-- Leaflet cores e roteamento -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
