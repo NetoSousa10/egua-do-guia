@@ -185,6 +185,15 @@
       localStorage.setItem('pwaDismissed', 'true');
     });
   </script>
+  <script>
+  // Se veio da cache de navegação (back/forward), força um reload
+  window.addEventListener('pageshow', function(event) {
+    if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+      window.location.reload();
+    }
+  });
+  </script>
+
 
   <!-- Leaflet cores e roteamento -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>

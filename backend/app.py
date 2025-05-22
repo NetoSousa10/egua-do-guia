@@ -53,14 +53,20 @@ def create_app():
     @app.route("/", methods=["GET"])
     @app.route("/splash", methods=["GET"])
     def splash():
+        if session.get('user_id'):
+            return redirect(url_for('home'))
         return render_template("login/splash.html")
 
     @app.route("/start", methods=["GET"])
     def login_start():
+        if session.get('user_id'):
+            return redirect(url_for('home'))
         return render_template("login/login_start.html")
 
     @app.route("/cadastro", methods=["GET"])
     def cadastro_form():
+        if session.get('user_id'):
+            return redirect(url_for('home'))
         return render_template("login/cadastro.html")
 
     @app.route("/login", methods=["GET"])
