@@ -118,6 +118,7 @@ html, body {
           brightness(98%) contrast(90%);
 }
 
+
 /* 5) Toaster (notificações) */
 #toast-container {
   position: fixed;

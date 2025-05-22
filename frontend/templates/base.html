@@ -2,13 +2,12 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block title %}Égua do Guia{% endblock %}</title>
 
   <!-- Estilos globais -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <!-- CSS do Leaflet Routing Machine -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"
@@ -29,15 +28,6 @@
 </head>
 <body class="fade-wrapper">
 
-  {# Banner de perfil incompleto #}
-  {% if g.profile_incomplete %}
-    <div class="profile-banner">
-      🎯 Complete seu perfil para aproveitar todos os recursos:
-      <a href="{{ url_for('auth.complete_profile') }}">Completar meu perfil</a>
-    </div>
-  {% endif %}
-
-  {# Flashes/Toasts #}
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       <div class="flash-container">
@@ -50,10 +40,72 @@
 
   {% block content %}{% endblock %}
 
-  <!-- Scripts comuns e handlers -->
+  <!-- Banner de instalação PWA -->
+  <div id="install-banner" style="
+      display: none;
+      position: fixed;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #38B6FF;
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      z-index: 10000;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      max-width: 90%;
+      width: 300px;
+    ">
+    <div style="margin-bottom: 0.75rem; font-size: 1rem; font-weight: bold;">Quer instalar o app?</div>
+    <div style="display: flex; justify-content: center; gap: 0.5rem;">
+      <button id="btn-install" style="
+          flex: 1;
+          padding: 0.5rem 0;
+          border-radius: 0.5rem;
+          background: #fff;
+          color: #38B6FF;
+          border: none;
+          font-weight: 600;
+          cursor: pointer;
+        "
+        onmouseover="this.style.background='#f0f0f0'"
+        onmouseout="this.style.background='#fff'">
+        Instalar
+      </button>
+      <button id="btn-cancel" style="
+          flex: 1;
+          padding: 0.5rem 0;
+          border-radius: 0.5rem;
+          background: transparent;
+          color: #fff;
+          border: 2px solid #fff;
+          font-weight: 600;
+          cursor: pointer;
+        "
+        onmouseover="this.style.background='rgba(255,255,255,0.2)'"
+        onmouseout="this.style.background='transparent'">
+        Cancelar
+      </button>
+    </div>
+    <!-- Seta -->
+    <div style="
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 12px solid #38B6FF;
+    "></div>
+  </div>
+
+  <!-- Scripts comuns e handlers (mantidos iguais) -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1) Transição suave de páginas
       document.querySelectorAll('a[href^="/"], button[data-href]').forEach(el => {
         el.addEventListener('click', e => {
           const href = el.getAttribute('href') || el.dataset.href;
@@ -64,44 +116,55 @@
           }
         });
       });
-
-      // 2) Efeito “afundar” nos botões
       document.querySelectorAll('.btn').forEach(btn => {
-        btn.addEventListener('pointerdown',  () => btn.classList.add('btn--pressed'));
+        btn.addEventListener('pointerdown', () => btn.classList.add('btn--pressed'));
         ['pointerup','pointercancel','pointerout'].forEach(evt =>
           btn.addEventListener(evt, () => btn.classList.remove('btn--pressed'))
         );
       });
-
-      // 3) Marca o botão da bottom-nav correspondente à URL atual
       const path = window.location.pathname;
       document.querySelectorAll('.bottom-nav .nav-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.href === path);
       });
-
-      // 4) Fade-out automático das flashes
-      const flashContainer = document.querySelector('.flash-container');
-      if (flashContainer) {
-        setTimeout(() => {
-          flashContainer.classList.add('fade-out');
-          setTimeout(() => flashContainer.remove(), 500);
-        }, 4000);
-      }
+      const flash = document.querySelector('.flash-container');
+      if (flash) setTimeout(() => { flash.classList.add('fade-out'); setTimeout(() => flash.remove(),500); }, 4000);
     });
   </script>
 
-  <!-- Registro do Service Worker PWA -->
+  <!-- Registro do SW e PWA prompt -->
   <script>
+    let deferredPrompt;
+    const banner = document.getElementById('install-banner');
+    const btnI   = document.getElementById('btn-install');
+    const btnC   = document.getElementById('btn-cancel');
+
+    window.addEventListener('beforeinstallprompt', e => {
+      e.preventDefault();
+      deferredPrompt = e;
+      banner.style.display = 'block';
+    });
+
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-          .then(reg => console.log('ServiceWorker registrado:', reg.scope))
-          .catch(err => console.error('Falha no registro SW:', err));
+        navigator.serviceWorker.register('/service-worker.js');
       });
     }
+
+    btnI.addEventListener('click', async () => {
+      banner.style.display = 'none';
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+    });
+    btnC.addEventListener('click', () => {
+      banner.style.display = 'none';
+      deferredPrompt = null;
+    });
+    window.addEventListener('appinstalled', () => banner.style.display = 'none');
   </script>
 
-  <!-- Leaflet cores e roteamento -->
+  <!-- Leaflet -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
