@@ -1,61 +1,74 @@
 const CACHE_NAME = 'egua-do-guia-v1';
 const SHELL_ASSETS = [
-  '/',                     // HTML principal
-  '/manifest.json',        // Manifest
-  '/static/css/style.css', // CSS principal
-  '/static/js/home.js',    // JS essencial
-  '/static/js/locais.js',  // JS essencial
-  '/static/assets/img/logo.png' // Ícone do app
+  '/',
+  '/manifest.json',
+  '/static/css/style.css',
+  '/static/js/home.js',
+  '/static/js/locais.js',
+  '/static/assets/img/logo.png'
 ];
 
-// Instalando e pré-cacheando o shell
+// Instalando e pré-cacheando o shell com redirect: 'follow'
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(SHELL_ASSETS))
-      .then(() => self.skipWaiting())
-  );
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    for (const url of SHELL_ASSETS) {
+      try {
+        // força seguir redirects
+        const response = await fetch(url, { redirect: 'follow' });
+        if (response.ok) {
+          await cache.put(url, response.clone());
+        }
+      } catch (err) {
+        console.warn(`Falha ao cachear ${url}:`, err);
+      }
+    }
+    await self.skipWaiting();
+  })());
 });
 
 // Ativando e limpando caches antigos
 self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys
-          .filter(key => key !== CACHE_NAME)
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(
+      keys.filter(key => key !== CACHE_NAME)
           .map(key => caches.delete(key))
-      )
-    ).then(() => self.clients.claim())
-  );
+    );
+    await self.clients.claim();
+  })());
 });
 
 // Interceptando requisições
 self.addEventListener('fetch', event => {
   const url = event.request.url;
 
-  // 1) Se for requisição para API ou assets grandes (imagens/vídeo), usar runtime caching
+  // Runtime caching para imagens, vídeos e API
   if (url.includes('/static/assets/img/') ||
       url.includes('/static/video/') ||
       url.includes('/api/')) {
-    event.respondWith(
-      caches.match(event.request).then(cached => {
-        if (cached) return cached;
-        return fetch(event.request).then(networkRes => {
-          return caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, networkRes.clone());
-            return networkRes;
-          });
-        });
-      })
-    );
+    event.respondWith((async () => {
+      const cache = await caches.open(CACHE_NAME);
+      const cached = await cache.match(event.request);
+      if (cached) return cached;
+      try {
+        const networkRes = await fetch(event.request, { redirect: 'follow' });
+        if (networkRes.ok) {
+          cache.put(event.request, networkRes.clone());
+        }
+        return networkRes;
+      } catch {
+        return cached || Response.error();
+      }
+    })());
     return;
   }
 
-  // 2) Para todos os outros, primeiro tentar cache (shell), depois rede
-  event.respondWith(
-    caches.match(event.request).then(cached => {
-      return cached || fetch(event.request);
-    })
-  );
+  // Shell: cache first, depois rede com redirect follow
+  event.respondWith((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    const cached = await cache.match(event.request);
+    if (cached) return cached;
+    return fetch(event.request, { redirect: 'follow' });
+  })());
 });

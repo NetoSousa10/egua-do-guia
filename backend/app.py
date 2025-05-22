@@ -53,8 +53,6 @@ def create_app():
     @app.route("/", methods=["GET"])
     @app.route("/splash", methods=["GET"])
     def splash():
-        if session.get('user_id'):
-            return redirect(url_for('home'))
         return render_template("login/splash.html")
 
     @app.route("/start", methods=["GET"])
