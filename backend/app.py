@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 from flask import (
     Flask, render_template, jsonify, session, redirect,
-    url_for, request
+    url_for, send_from_directory, request
 )
 from backend.utils.db import conectar
 from backend.controllers.auth import auth_bp
@@ -208,6 +208,10 @@ def create_app():
         cur.close()
         conn.close()
         return render_template("menu/profile_follows.html", follows=follows)
+    
+    @app.route('/service-worker.js')
+    def service_worker():
+        return send_from_directory('static', 'service-worker.js')
 
     @app.errorhandler(404)
     def not_found(e):

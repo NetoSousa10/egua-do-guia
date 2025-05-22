@@ -14,6 +14,11 @@
     href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"
   />
 
+  <!-- Manifest PWA -->
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+  <meta name="theme-color" content="#38B6FF">
+  <meta name="mobile-web-app-capable" content="yes">
+
   <!-- Favicon -->
   <link rel="icon"
         type="image/png"
@@ -24,7 +29,7 @@
 </head>
 <body class="fade-wrapper">
 
-  {# Progressive profiling banner #}
+  {# Banner de perfil incompleto #}
   {% if g.profile_incomplete %}
     <div class="profile-banner">
       🎯 Complete seu perfil para aproveitar todos os recursos:
@@ -32,7 +37,7 @@
     </div>
   {% endif %}
 
-  {# Flashes/toasts #}
+  {# Flashes/Toasts #}
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       <div class="flash-container">
@@ -85,7 +90,18 @@
     });
   </script>
 
-  <!-- Leaflet cores e roteamento (uma carga apenas) -->
+  <!-- Registro do Service Worker PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('{{ url_for("static", filename="service-worker.js") }}')
+          .then(reg => console.log('ServiceWorker registrado:', reg.scope))
+          .catch(err => console.error('Falha no registro SW:', err));
+      });
+    }
+  </script>
+
+  <!-- Leaflet cores e roteamento -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
