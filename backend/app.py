@@ -18,9 +18,8 @@ app = Flask(
     __name__,
     template_folder=os.path.join(FRONTEND_DIR, 'templates'),
     static_folder=os.path.join(FRONTEND_DIR, 'static'),
-    static_url_path='/static'
+    static_url_path='/static'   # mantém /static para todos os assets
 )
-
 
 def create_app():
     load_dotenv()
@@ -29,7 +28,7 @@ def create_app():
     # ——— Autenticação ———
     app.register_blueprint(auth_bp, url_prefix="/auth")
 
-    # ——— Todas as rotas de API (places, rating, comment, favorite, XP) ———
+    # ——— Todas as rotas de API ———
     app.register_blueprint(api_bp)
 
     # ——— Rotas públicas ———
@@ -156,15 +155,14 @@ def create_app():
         conn = conectar()
         cur  = conn.cursor()
         cur.execute("""
-          SELECT
-            p.title    AS place_name,
-            p.img_url  AS place_img,
-            c.content  AS text,
-            c.criado_em
-          FROM comments c
-          JOIN places   p ON p.id = c.place_id
-          WHERE c.user_id = %s
-          ORDER BY c.criado_em DESC;
+          SELECT p.title AS place_name,
+                 p.img_url AS place_img,
+                 c.content AS text,
+                 c.criado_em
+            FROM comments c
+            JOIN places p ON p.id = c.place_id
+           WHERE c.user_id = %s
+        ORDER BY c.criado_em DESC;
         """, (user_id,))
         comments = [
             {
@@ -188,37 +186,39 @@ def create_app():
         conn = conectar()
         cur  = conn.cursor()
         cur.execute("""
-          SELECT
-            u.id,
-            u.nome           AS name,
-            u.nacionalidade  AS subtitle
-          FROM followers f
-          JOIN usuarios   u ON u.id = f.followee_id
-          WHERE f.follower_id = %s
-          ORDER BY u.nome;
+          SELECT u.id,
+                 u.nome          AS name,
+                 u.nacionalidade AS subtitle
+            FROM followers f
+            JOIN usuarios u ON u.id = f.followee_id
+           WHERE f.follower_id = %s
+        ORDER BY u.nome;
         """, (user_id,))
         follows = [
-            {
-                'id':       row[0],
-                'name':     row[1],
-                'subtitle': row[2],
-            }
+            {'id': row[0], 'name': row[1], 'subtitle': row[2]}
             for row in cur.fetchall()
         ]
         cur.close()
         conn.close()
         return render_template("menu/profile_follows.html", follows=follows)
-    
+
+    # ——— PWA: exposição do SW e do manifest na raiz ———
     @app.route('/service-worker.js')
     def service_worker():
-        return send_from_directory('static', 'service-worker.js')
+        return send_from_directory(app.static_folder, 'service-worker.js')
+
+    @app.route('/manifest.json')
+    def manifest():
+        return send_from_directory(
+            app.static_folder, 'manifest.json',
+            mimetype='application/manifest+json'
+        )
 
     @app.errorhandler(404)
     def not_found(e):
         return render_template("404.html"), 404
 
     return app
-
 
 if __name__ == "__main__":
     create_app().run(debug=True)
