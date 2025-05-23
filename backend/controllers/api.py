@@ -17,10 +17,13 @@ def get_places():
         p.category,
         p.img_url       AS "imgUrl",
         p.address,
+        p.phone,
+        p.price,
+        p.hours,
         p.lat,
         p.lng,
         -- total de avaliações definidas em ratings
-        COUNT(r.*)                       AS reviews,
+        COUNT(r.*)                         AS reviews,
         -- média de score arredondada para inteiro (1–5)
         COALESCE(ROUND(AVG(r.score))::INT, 0) AS rating,
         p.features
