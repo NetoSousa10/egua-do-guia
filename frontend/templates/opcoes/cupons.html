@@ -1,0 +1,82 @@
+{# frontend/templates/opcoes/cupons.html #}
+{% extends 'base.html' %}
+
+{% block title %}Cupons – Loja{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cupons.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="opcoes-screen">
+  <!-- Header -->
+  <div class="opcoes-header">
+    <h1 class="opcoes-title">Cupons</h1>
+    <div class="moedas-info">
+      <span id="saldo">79</span>
+      <img src="{{ url_for('static', filename='icons/moeda.svg') }}" alt="Moeda">
+    </div>
+  </div>
+
+  <!-- Botão de voltar -->
+  <button id="back-btn" class="voltar-btn">←</button>
+
+  <!-- Grid de cupons -->
+  <div class="cupons-grid">
+    <div class="cupom-card">
+      <div class="preco"><span>30</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
+      <img src="{{ url_for('static', filename='assets/img/cupons1.png') }}" alt="Cupom 1">
+      <div class="descricao">15% Desconto<br><small>Ver-A-Cerva</small></div>
+    </div>
+    <div class="cupom-card">
+      <div class="preco"><span>40</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
+      <img src="{{ url_for('static', filename='assets/img/cupons1.png') }}" alt="Cupom 2">
+      <div class="descricao">20% Desconto<br><small>Ver-A-Peso</small></div>
+    </div>
+    <div class="cupom-card">
+      <div class="preco"><span>20</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
+      <img src="{{ url_for('static', filename='assets/img/cupons2.png') }}" alt="Cupom 3">
+      <div class="descricao">5% Desconto<br><small>Ver-A-Cerva</small></div>
+    </div>
+    <div class="cupom-card">
+      <div class="preco"><span>50</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
+      <img src="{{ url_for('static', filename='assets/img/cupons2.png') }}" alt="Cupom 4">
+      <div class="descricao">Bebida Grátis<br><small>Ver-A-Cerva</small></div>
+    </div>
+  </div>
+
+  <!-- Modal de compra -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal-box">
+      <p id="modal-text">Deseja comprar este item por XX moedas?</p>
+      <div class="modal-buttons">
+        <button class="cancelar" id="btn-cancelar">Cancelar</button>
+        <button class="confirmar" id="btn-confirmar">Comprar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navegação -->
+  <nav class="bottom-nav">
+    <button class="nav-btn" data-href="{{ url_for('home') }}">
+      <img src="{{ url_for('static', filename='icons/icon-map.svg') }}" alt="Mapa">
+    </button>
+    <button class="nav-btn" data-href="{{ url_for('puzzle') }}">
+      <img src="{{ url_for('static', filename='icons/puzzle.svg') }}" alt="Puzzle">
+    </button>
+    <button class="nav-btn" data-href="{{ url_for('locais') }}">
+      <img src="{{ url_for('static', filename='icons/locais.svg') }}" alt="Locais">
+    </button>
+    <button class="nav-btn active" data-href="{{ url_for('lojas') }}">
+      <img src="{{ url_for('static', filename='icons/store.svg') }}" alt="Loja">
+    </button>
+    <button class="nav-btn" data-href="{{ url_for('perfil_overview') }}">
+      <img src="{{ url_for('static', filename='icons/perfil.svg') }}" alt="Perfil">
+    </button>
+  </nav>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/opcoes/cupons.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,92 @@
+{# frontend/templates/opcoes/temas.html #}
+{% extends 'base.html' %}
+
+{% block title %}Temas – Loja{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/temas.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="opcoes-screen">
+  <!-- Header -->
+  <div class="opcoes-header">
+    <h1 class="opcoes-title">Temas</h1>
+    <div class="moedas-info">
+      <span id="saldo">79</span>
+      <img src="{{ url_for('static', filename='icons/moeda.svg') }}" alt="Moeda">
+    </div>
+  </div>
+
+  <!-- Botão de voltar -->
+  <button id="back-btn" class="voltar-btn">←</button>
+
+  <!-- Grid de temas -->
+  <div class="temas-grid">
+    <div class="tema-card">
+      <div class="preco"><span>20</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
+      <img src="{{ url_for('static', filename='assets/img/te1.png') }}" alt="Tema 1">
+      <div class="paleta">
+        <span style="background: #2196f3;"></span>
+        <span style="background: #03a9f4;"></span>
+        <span style="background: #0288d1;"></span>
+        <span style="background: #e0e0e0;"></span>
+      </div>
+    </div>
+    <div class="tema-card">
+      <div class="preco"><span>20</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
+      <img src="{{ url_for('static', filename='assets/img/te2.png') }}" alt="Tema 2">
+      <div class="paleta">
+        <span style="background: #000;"></span>
+        <span style="background: #2196f3;"></span>
+        <span style="background: #ffc107;"></span>
+        <span style="background: #eee;"></span>
+      </div>
+    </div>
+    <div class="tema-card">
+      <div class="preco"><span>20</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
+      <img src="{{ url_for('static', filename='assets/img/te3.png') }}" alt="Tema 3">
+      <div class="paleta">
+        <span style="background: #eee;"></span>
+        <span style="background: #212121;"></span>
+        <span style="background: #ff8585;"></span>
+        <span style="background: #f06292;"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal-box">
+      <p id="modal-text">Deseja comprar este item por XX moedas?</p>
+      <div class="modal-buttons">
+        <button class="cancelar" id="btn-cancelar">Cancelar</button>
+        <button class="confirmar" id="btn-confirmar">Comprar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nav-bar -->
+  <nav class="bottom-nav">
+    <button class="nav-btn" data-href="{{ url_for('home') }}">
+      <img src="{{ url_for('static', filename='icons/icon-map.svg') }}" alt="Mapa">
+    </button>
+    <button class="nav-btn" data-href="{{ url_for('puzzle') }}">
+      <img src="{{ url_for('static', filename='icons/puzzle.svg') }}" alt="Puzzle">
+    </button>
+    <button class="nav-btn" data-href="{{ url_for('locais') }}">
+      <img src="{{ url_for('static', filename='icons/locais.svg') }}" alt="Locais">
+    </button>
+    <button class="nav-btn active" data-href="{{ url_for('lojas') }}">
+      <img src="{{ url_for('static', filename='icons/store.svg') }}" alt="Loja">
+    </button>
+    <button class="nav-btn" data-href="{{ url_for('perfil_overview') }}">
+      <img src="{{ url_for('static', filename='icons/perfil.svg') }}" alt="Perfil">
+    </button>
+  </nav>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/opcoes/temas.js') }}"></script>
+{% endblock %}

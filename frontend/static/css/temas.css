@@ -1,0 +1,147 @@
+.opcoes-screen {
+  padding: 16px;
+  padding-bottom: 80px;
+}
+
+.opcoes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.opcoes-title {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.moedas-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: bold;
+}
+
+.moedas-info img {
+  width: 18px;
+  height: auto;
+}
+
+.voltar-btn {
+  margin: 12px 0;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.temas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.tema-card {
+  background: #f8f8f8;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+  padding: 6px;
+}
+
+.tema-card img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.tema-card .preco {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: #212121;
+  color: white;
+  border-radius: 12px;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85rem;
+}
+
+.tema-card .preco img {
+  width: 16px;
+  height: auto;
+}
+
+.tema-card .paleta {
+  background: #212121;
+  padding: 6px;
+  margin-top: 6px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 6px;
+}
+
+.tema-card .paleta span {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 1.5px solid white;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-box {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 85%;
+  max-width: 320px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.modal-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+}
+
+.modal-buttons button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modal-buttons .cancelar {
+  background: #ccc;
+  color: #000;
+}
+
+.modal-buttons .confirmar {
+  background: #212121;
+  color: white;
+}

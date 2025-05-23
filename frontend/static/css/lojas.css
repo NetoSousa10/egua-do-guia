@@ -1,0 +1,213 @@
+:root {
+  --pink: #FF8585;
+  --dark: #212121;
+  --white: #FFFFFF;
+  --bg: #FAFAFA;
+}
+
+/* Reset mínimo */
+.shop-screen,
+.shop-screen * {
+  box-sizing: border-box;
+}
+
+/* Container geral */
+.shop-screen {
+  background: var(--bg);
+  padding: 16px;
+  min-height: 100vh;
+}
+
+/* Título */
+.shop-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  color: var(--dark);
+}
+
+/* Grid 2x2 */
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.shop-item {
+  position: relative;
+  background: var(--pink);
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 120px;
+}
+
+/* Área para a imagem (você pode ajustar) */
+.shop-item {
+  flex: 1;
+  /* deixe um comentário aqui para você inserir a <img> ou background-image */
+  /* ex: background: url('../assets/img/roupas.png') center/cover no-repeat; */
+}
+
+.item-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px; /* altura desejada do container de imagem */
+  overflow: hidden;
+}
+
+.item-img img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.shop-item.avatar .item-img img {
+  transform: scale(1.8) translateY(-19px);
+  
+}
+
+.shop-item.temas .item-img img {
+  transform: scale(2.4);
+}
+
+.shop-item.roupas .item-img img {
+  transform: scale(1);
+}
+
+.shop-item.cupons .item-img img {
+  transform: scale(1);
+}
+
+
+/* Rótulo preto na base */
+.item-label {
+  background: var(--dark);
+  color: var(--white);
+  text-align: center;
+  padding: 8px 0;
+  font-weight: bold;
+}
+
+/* Missões Especiais */
+.missions-title {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  color: var(--dark);
+}
+
+/* Lista de missões */
+.missions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Cada missão */
+.mission-item {
+  display: flex;
+  align-items: center;
+  background: var(--pink);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+/* Ícone da moeda */
+.mission-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+}
+
+/* Texto da missão */
+.mission-text {
+  flex: 1;
+}
+.mission-xp {
+  font-weight: bold;
+  margin: 0;
+  color: var(--dark);
+}
+.mission-desc {
+  margin: 2px 0 0;
+  font-size: 0.9rem;
+  color: var(--dark);
+}
+
+/* Botão OK */
+.mission-btn {
+  background: var(--dark);
+  color: var(--white);
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-card {
+  background: white;
+  padding: 24px;
+  border-radius: 10px;
+  text-align: center;
+  width: 90%;
+  max-width: 320px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.modal-card p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.modal-ok,
+.cancel-btn,
+.buy-btn {
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-ok {
+  background-color: #212121;
+  color: white;
+}
+
+.purchase-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.cancel-btn {
+  background: #ccc;
+  color: #000;
+  flex: 1;
+}
+
+.buy-btn {
+  background: #212121;
+  color: #fff;
+  flex: 1;
+}

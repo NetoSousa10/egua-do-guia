@@ -1,0 +1,159 @@
+{# frontend/templates/menu/loja.html #}
+{% extends 'base.html' %}
+
+{% block title %}Loja – Égua do Guia{% endblock %}
+
+{% block extra_css %}
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/lojas.css') }}"
+  />
+{% endblock %}
+
+{% block content %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/lojas.js') }}"></script>
+{% endblock %}
+
+<div class="shop-screen">
+  <h1 class="shop-title">Loja</h1>
+
+  <nav class="bottom-nav">
+  <button class="nav-btn" aria-label="Mapa" data-href="{{ url_for('home') }}">
+    <img src="{{ url_for('static', filename='icons/icon-map.svg') }}" alt="Mapa">
+  </button>
+  <button class="nav-btn active" aria-label="Atividades" data-href="{{ url_for('puzzle') }}">
+    <img src="{{ url_for('static', filename='icons/puzzle.svg') }}" alt="Atividades">
+  </button>
+  <button class="nav-btn" aria-label="Locais" data-href="{{ url_for('locais') }}">
+    <img src="{{ url_for('static', filename='icons/locais.svg') }}" alt="Locais">
+  </button>
+  <button class="nav-btn" aria-label="Lojas" data-href="{{ url_for('lojas') }}">
+    <img src="{{ url_for('static', filename='icons/store.svg') }}" alt="Lojas">
+  </button>
+  <button class="nav-btn" aria-label="Perfil" data-href="{{ url_for('perfil_overview') }}">
+    <img src="{{ url_for('static', filename='icons/perfil.svg') }}" alt="Perfil">
+  </button>
+</nav>
+
+  <!-- Grid 2x2 de categorias -->
+  <div class="shop-grid">
+    <a href="{{ url_for('opcoes_roupas') }}" class="shop-item roupas">
+      <div class="item-img">
+        <img src="{{ url_for('static', filename='assets/img/roupas.png') }}" alt="Roupas">
+      </div>
+      <span class="item-label">Roupas</span>
+    </a>
+    <a href="{{ url_for('opcoes_avatar') }}" class="shop-item avatar">
+      <div class="item-img">
+        <img src="{{ url_for('static', filename='assets/img/avatar.png') }}" alt="Avatar">
+      </div>
+      <span class="item-label">Avatar</span>
+    </a>
+    <a href="{{ url_for('opcoes_cupons') }}" class="shop-item cupons">
+      <div class="item-img">
+        <img src="{{ url_for('static', filename='assets/img/cupons.png') }}" alt="Cupons">
+      </div>
+      <span class="item-label">Cupons</span>
+    </a>
+    <a href="{{ url_for('opcoes_temas') }}" class="shop-item temas">
+      <div class="item-img">
+        <img src="{{ url_for('static', filename='assets/img/temas.png') }}" alt="Temas">
+      </div>
+      <span class="item-label">Temas</span>
+    </a>
+  </div>
+
+  <!-- Missões Especiais -->
+  <h2 class="missions-title">Missões Especiais</h2>
+  <div class="missions-list">
+        <div class="mission-item">
+        <img src="{{ url_for('static', filename='icons/moeda.svg') }}" alt="Moeda" class="mission-icon">
+        <div class="mission-text">
+            <p class="mission-xp">+20 Moedas</p>
+            <p class="mission-desc">Enviar para um Amigo</p>
+        </div>
+        <button class="mission-btn">OK</button>
+        </div>
+        <div class="mission-item">
+        <img src="{{ url_for('static', filename='icons/moeda.svg') }}" alt="Moeda" class="mission-icon">
+        <div class="mission-text">
+            <p class="mission-xp">+10 Moedas</p>
+            <p class="mission-desc">Assista um Anúncio</p>
+        </div>
+        <button class="mission-btn">OK</button>
+        </div>
+        <div class="mission-item">
+        <img src="{{ url_for('static', filename='icons/moeda.svg') }}" alt="Moeda" class="mission-icon">
+        <div class="mission-text">
+            <p class="mission-xp">+60 Moedas</p>
+            <p class="mission-desc">Visite um lugar hoje!</p>
+        </div>
+        <button class="mission-btn">OK</button>
+        </div>
+        <div class="mission-item">
+        <img src="{{ url_for('static', filename='icons/moeda.svg') }}" alt="Moeda" class="mission-icon">
+        <div class="mission-text">
+            <p class="mission-xp">+15 Moedas</p>
+            <p class="mission-desc">Faça um quiz hoje!</p>
+        </div>
+        <button class="mission-btn">OK</button>
+        </div>
+        <div class="mission-item">
+        <img src="{{ url_for('static', filename='icons/moeda.svg') }}" alt="Moeda" class="mission-icon">
+        <div class="mission-text">
+            <p class="mission-xp">+20 Moedas</p>
+            <p class="mission-desc">Avaliar um local!</p>
+        </div>
+        <button class="mission-btn">OK</button>
+        </div>
+  </div>
+  <br>
+  <h2 class="missions-title">Compre Moedas</h2>
+  <div class="missions-list">
+        <div class="mission-item">
+        <img src="{{ url_for('static', filename='icons/moeda.svg') }}" alt="Moeda" class="mission-icon">
+        <div class="mission-text">
+            <p class="mission-xp">+50 Moedas</p>
+        </div>
+        <button class="mission-btn">R$15,90</button>
+        </div>
+        <div class="mission-item">
+        <img src="{{ url_for('static', filename='icons/moeda.svg') }}" alt="Moeda" class="mission-icon">
+        <div class="mission-text">
+            <p class="mission-xp">+120 Moedas</p>
+        </div>
+        <button class="mission-btn">R$31,99</button>
+        </div>
+        <div class="mission-item">
+        <img src="{{ url_for('static', filename='icons/moeda.svg') }}" alt="Moeda" class="mission-icon">
+        <div class="mission-text">
+            <p class="mission-xp">+240 Moedas</p>
+        </div>
+        <button class="mission-btn">R$49,99</button>
+        </div>
+  </div>
+  <br><br><br><br><br>
+</div>
+
+<!-- Modal de missão confirmada -->
+<div id="mission-modal" class="modal hidden">
+  <div class="modal-card">
+    <p>🎯 Missão escolhida!</p>
+    <button onclick="closeModal('mission-modal')" class="modal-ok">OK</button>
+  </div>
+</div>
+
+<!-- Modal de confirmação de compra -->
+<div id="purchase-modal" class="modal hidden">
+  <div class="modal-card">
+    <p id="purchase-text">Deseja comprar X moedas por R$ XX,XX?</p>
+    <div class="purchase-actions">
+      <button onclick="closeModal('purchase-modal')" class="cancel-btn">Cancelar</button>
+      <button onclick="confirmPurchase()" class="buy-btn">Comprar</button>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

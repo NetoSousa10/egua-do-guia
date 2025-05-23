@@ -131,9 +131,24 @@ def create_app():
         return render_template("menu/locais.html")
 
     @app.route("/menu/lojas", methods=["GET"])
-    @login_required
     def lojas():
         return render_template("menu/lojas.html")
+    
+    @app.route('/opcoes/roupas', methods=['GET'])
+    def opcoes_roupas():
+        return render_template('opcoes/roupas.html')
+    
+    @app.route('/opcoes/cupons', methods=['GET'])
+    def opcoes_cupons():
+        return render_template('opcoes/cupons.html')
+    
+    @app.route('/opcoes/avatar', methods=['GET'])
+    def opcoes_avatar():
+        return render_template('opcoes/avatar.html')
+    
+    @app.route('/opcoes/temas', methods=['GET'])
+    def opcoes_temas():
+        return render_template('opcoes/temas.html')
 
     # ——— Quiz (protegido) ———
     @app.route("/quiz/festivais", methods=["GET"])
