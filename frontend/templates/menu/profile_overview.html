@@ -2,11 +2,8 @@
 {% block title %}Perfil – Égua do Guia{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
-<link
-    rel="stylesheet"
-    href="{{ url_for('static', filename='css/style.css') }}"
-  />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -16,28 +13,26 @@
     <div class="avatar-wrap">
       <img
         class="avatar"
-        src="https://cdn.discordapp.com/attachments/524749551526084620/1373834174146023445/17124052466014.png?ex=682bda47&is=682a88c7&hm=054c32a79be197eb350f6b9edcc8e474acd78844fc7916ccadb03a714ed5a6f9&"
+        src="https://cdn.discordapp.com/attachments/524749551526084620/1373834174146023445/17124052466014.png"
         alt="Avatar"
       >
       <button class="edit-avatar"><i class="fas fa-pencil-alt"></i></button>
+      <div class="container-descricao-perfil">
+        <div class="header-row" style="display: flex; align-items: center;">
+          <h1 class="username">Lucas Andrey</h1>
+        </div>
+      </div>
     </div>
-    <h1 class="username">Lucas Andrey</h1>
-    <div class="container-seguidores-perfil">
-      <p
-      class="seguidore-perfil"
-      style="cursor: pointer;"
-      onclick="window.location.href='/perfil/follower'"
+
+    
+    <button
+      id="logout-btn"
+      class="logout-btn"
+      style="margin-left: 0.5rem; background: none; border: none; color: #FF8585; cursor: pointer; font-size: 1.2rem;"
+      title="Sair da conta"
     >
-      30 Seguidores
-    </p>
-    <p
-    class="seguidore-perfil"
-    style="cursor: pointer;"
-    onclick="window.location.href='/perfil/follower'"
-  >
-    10 seguindo
-  </p>
-  </div>
+      <i class="fas fa-sign-out-alt"></i>
+    </button>
   </div>
 
   <!-- Estatísticas -->
@@ -59,87 +54,115 @@
   <!-- Visão Geral -->
   <h2 class="section-title">Visão Geral</h2>
   <div class="overview-cards">
+    <!-- Card Lugar Favorito -->
     <div class="card favorite-place">
       <div class="card-content">
         <div class="label">Lugar Favorito</div>
         <h3>Estação das Docas</h3>
         <input
-        type="range"
-        min="0.5"
-        max="5"
-        step="0.5"
-        value="2.5"
-        class="rating"
-        style="--val:2.5;"
-        oninput="this.style.setProperty('--val', this.value)"
-        disabled
-      >
-
-      <div class="subtitle">Visitou 12 vezes</div>
+          type="range"
+          min="0.5"
+          max="5"
+          step="0.5"
+          value="2.5"
+          class="rating"
+          style="--val:2.5;"
+          oninput="this.style.setProperty('--val', this.value)"
+          disabled
+        >
+        <div class="subtitle">Visitou 12 vezes</div>
       </div>
       <img
-        src="https://cdn.discordapp.com/attachments/524749551526084620/1373448142053314581/estacaodasdocas.png?ex=682bc442&is=682a72c2&hm=31f86b6214e38dcbfb9344f3ffa862656bb2e7444f121f3f69f77417f0d93bca&"
+        src="https://cdn.discordapp.com/attachments/524749551526084620/1373448142053314581/estacaodasdocas.png"
         alt="Estação das Docas"
       >
     </div>
+
+    <!-- Card Comentou -->
     <div class="card small-card commented">
-      <div class="icon"><i class="fas fa-comment"></i></div>
+      <div class="icon comment-icon">
+        <svg
+          width="24"
+          height="24"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path d="M21 6h-2v9H7v2c0 .55.45 1 1 1h9l4 4V7c0-.55-.45-1-1-1zm-4 0H3c-.55 0-1 .45-1 1v14l4-4h11c.55 0 1-.45 1-1V7c0-.55-.45-1-1-1z"/>
+        </svg>
+      </div>
       <div>
         <strong>Comentou</strong>
         <span>172</span>
       </div>
     </div>
+
+    <!-- Card Rank -->
     <div class="card small-card rank">
-      <div class="icon"><i class="fas fa-trophy"></i></div>
-      <div>
-        <strong>Rank</strong>
-        <span>Prata</span>
+      <div class="icon">
+        <img class="rank-icon" width="24" height="24" alt="Ícone de rank">
+      </div>
+      <div class="conten-rank">
+        <strong class="rank-name">Rank:</strong>
+        <span class="rank-label">Ouro</span>
       </div>
     </div>
   </div>
-  <!-- Navegação inferior fixa com 5 ícones -->
+
+  <!-- Navegação inferior fixa -->
   <nav class="bottom-nav">
-    <button
-      class="nav-btn active"
-      aria-label="Mapa"
-      data-href="{{ url_for('home') }}"
-    >
+    <button class="nav-btn active" aria-label="Mapa" data-href="{{ url_for('home') }}">
       <img src="{{ url_for('static', filename='icons/icon-map.svg') }}" alt="Mapa">
     </button>
-  
-    <button
-      class="nav-btn"
-      aria-label="Puzzle"
-      data-href="{{ url_for('puzzle') }}"
-    >
+    <button class="nav-btn" aria-label="Puzzle" data-href="{{ url_for('puzzle') }}">
       <img src="{{ url_for('static', filename='icons/puzzle.svg') }}" alt="Categorias">
     </button>
-  
-    <button
-      class="nav-btn"
-      aria-label="Locais"
-      data-href="{{ url_for('locais') }}"
-    >
+    <button class="nav-btn" aria-label="Locais" data-href="{{ url_for('locais') }}">
       <img src="{{ url_for('static', filename='icons/locais.svg') }}" alt="Locais">
     </button>
-  
-    <button
-      class="nav-btn"
-      aria-label="Lojas"
-      data-href="{{ url_for('lojas') }}"
-    >
+    <button class="nav-btn" aria-label="Lojas" data-href="{{ url_for('lojas') }}">
       <img src="{{ url_for('static', filename='icons/store.svg') }}" alt="Lojas">
     </button>
-  
-    <button
-      class="nav-btn"
-      aria-label="Perfil"
-      data-href="{{ url_for('perfil_overview') }}"
-    >
+    <button class="nav-btn" aria-label="Perfil" data-href="{{ url_for('perfil_overview') }}">
       <img src="{{ url_for('static', filename='icons/perfil.svg') }}" alt="Perfil">
     </button>
-  </nav>  
+  </nav>
 </div>
 {% endblock %}
 
-{% block extra_js %}{% endblock %}
+{% block extra_js %}
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  // Log out com confirmação
+  const btnLogout = document.getElementById('logout-btn');
+  btnLogout.addEventListener('click', () => {
+    if (confirm('Tem certeza que deseja sair?')) {
+      alert('Lino Viado');//LINO VIADO BOTA O END POIT DE LOGOUT
+    }
+  });
+
+  // Ajusta ícone de rank
+  const svgMap = {
+    ouro:   "{{ url_for('static', filename='icons/trophy-ouro.svg') }}",
+    prata:  "{{ url_for('static', filename='icons/trophy-prata.svg') }}",
+    bronze: "{{ url_for('static', filename='icons/trophy-bronze.svg') }}"
+  };
+  document.querySelectorAll('.card.small-card.rank').forEach(card => {
+    const labelEl = card.querySelector('.rank-label');
+    const iconImg = card.querySelector('.rank-icon');
+    if (!labelEl || !iconImg) return;
+    const key = labelEl.textContent.trim().toLowerCase();
+    iconImg.src = svgMap[key] || svgMap.bronze;
+    const colorMap = { ouro:'#FFD700', prata:'#C0C0C0', bronze:'#CD7F32' };
+    labelEl.style.color = colorMap[key] || '#666666';
+  });
+
+  // Navegação inferior
+  document.querySelectorAll('.bottom-nav .nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      window.location.href = btn.dataset.href;
+    });
+  });
+});
+</script>
+{% endblock %}

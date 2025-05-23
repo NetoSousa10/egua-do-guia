@@ -14,12 +14,17 @@ body,
 /* ── CABEÇALHO ── */
 .profile-header {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   padding: 1rem;
   background: #ffffff;
 }
 .avatar-wrap {
   position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 .avatar {
   width: 80px;
@@ -39,11 +44,20 @@ body,
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 .username {
+  flex-grow: 1;         
+  flex-shrink: 1;      
+  min-width: 0;          
+  white-space: nowrap; 
+  text-overflow: ellipsis;
   margin: 0 1rem;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 600;
-  flex-grow: 1;
 }
+.container-descricao-perfil{
+  display: flex;
+  flex-direction: column;
+}
+
 .social-counts span {
   margin-right: 1rem;
   color: #666666;
@@ -159,14 +173,27 @@ body,
 }
 
 .container-seguidores-perfil{
+  display: flex;
   flex-direction: row;
+  margin-right: 1em;
 }
 .seguidore-perfil{
-  font-weight: bold; 
   margin-right: 1em;   /* negrito */
 }
 .rank{
   margin-bottom: 4rem;
+  display: flex;
+
+}
+
+.rank-icon {
+  width: 3rem;   /* vai escalar com base no font-size */
+  height: 3rem;
+}
+/* Perfil.css ou style.css */
+.comment-icon svg {
+  width: 32px;           /* aumenta para 32×32 */
+  height: 3rem;
 }
 
 .rating {
