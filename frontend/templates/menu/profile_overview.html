@@ -4,26 +4,80 @@
 {% block extra_css %}
   <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    /* Modal de seleção de avatar */
+    #avatar-modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    #avatar-modal.hidden { display: none; }
+    #avatar-modal .modal-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+    #avatar-modal .modal-content {
+      position: relative;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      z-index: 1001;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+    #avatar-modal .close-btn {
+      position: absolute;
+      top: 0.5rem; right: 0.5rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    #avatar-modal .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    #avatar-modal .icon-option {
+      width: 64px;
+      height: 64px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      transition: border-color .2s;
+    }
+    #avatar-modal .icon-option:hover {
+      border-color: #007BFF;
+    }
+  </style>
 {% endblock %}
 
 {% block content %}
 <div class="profile-screen">
   <!-- Cabeçalho -->
   <div class="profile-header">
-    <div class="avatar-wrap">
-      <img
-        class="avatar"
-        src="https://cdn.discordapp.com/attachments/524749551526084620/1373834174146023445/17124052466014.png"
-        alt="Avatar"
-      >
-      <button class="edit-avatar"><i class="fas fa-pencil-alt"></i></button>
-      <div class="container-descricao-perfil">
-        <div class="header-row" style="display: flex; align-items: center;">
-          <h1 class="username">Lucas Andrey</h1>
-        </div>
+    <div>
+      <div class="avatar-wrap">
+        <img
+          class="avatar"
+          src="https://cdn.discordapp.com/attachments/524749551526084620/1373834174146023445/17124052466014.png"
+          alt="Avatar"
+        >
+        <button class="edit-avatar"><i class="fas fa-pencil-alt"></i></button>
       </div>
     </div>
-
+    <div class="header-row" style="display: flex; align-items: center;">
+      <h1 class="username">Lucas Andrey</h1>
+    </div>
     
     <button
       id="logout-btn"
@@ -120,7 +174,7 @@
     <button class="nav-btn" aria-label="Locais" data-href="{{ url_for('locais') }}">
       <img src="{{ url_for('static', filename='icons/locais.svg') }}" alt="Locais">
     </button>
-    <button class="nav-btn" aria-label="Lojas" data-href="{{ url_for('lojas') }}">
+    <button class="nav-btn" aria-label="Lojas" data-href="{{ url_for('static', filename='icons/store.svg') }}">
       <img src="{{ url_for('static', filename='icons/store.svg') }}" alt="Lojas">
     </button>
     <button class="nav-btn" aria-label="Perfil" data-href="{{ url_for('perfil_overview') }}">
@@ -128,16 +182,61 @@
     </button>
   </nav>
 </div>
+
+<!-- Modal de seleção de avatar -->
+<div id="avatar-modal" class="hidden">
+  <div class="modal-overlay"></div>
+  <div class="modal-content">
+    <button id="close-modal" class="close-btn">&times;</button>
+    <h3>Escolha seu avatar</h3>
+    <div class="icon-grid">
+      <img src="{{ url_for('static', filename='icons/comentario.svg') }}" alt="Avatar 1" class="icon-option">
+      <img src="{{ url_for('static', filename='icons/cultura.svg') }}" alt="Avatar 2" class="icon-option">
+      <img src="{{ url_for('static', filename='icons/hotel.svg') }}" alt="Avatar 3" class="icon-option">
+      <img src="{{ url_for('static', filename='icons/trophy-prata.svg') }}" alt="Avatar 4" class="icon-option">
+      <img src="{{ url_for('static', filename='icons/trophy-ouro.svg') }}" alt="Avatar 5" class="icon-option">
+      <img src="{{ url_for('static', filename='icons/trophy-bronze.svg') }}" alt="Avatar 6" class="icon-option">
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block extra_js %}
 <script>
 window.addEventListener('DOMContentLoaded', () => {
-  // Log out com confirmação
+  // Botão editar avatar
+  const editAvatarBtn = document.querySelector('.edit-avatar');
+  const avatarModal   = document.getElementById('avatar-modal');
+  const closeModalBtn = document.getElementById('close-modal');
+  const overlay       = avatarModal.querySelector('.modal-overlay');
+  const avatarImg     = document.querySelector('.avatar');
+
+  // Abre modal
+  editAvatarBtn.addEventListener('click', () => {
+    avatarModal.classList.remove('hidden');
+  });
+
+  // Fecha modal
+  function closeModal() {
+    avatarModal.classList.add('hidden');
+  }
+  closeModalBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', closeModal);
+
+  // Seleção de um dos ícones
+  avatarModal.querySelectorAll('.icon-option').forEach(imgEl => {
+    imgEl.addEventListener('click', () => {
+      avatarImg.src = imgEl.src;
+      closeModal();
+      // aqui você pode também enviar um fetch/axios para salvar no backend
+    });
+  });
+
+  // Logout com confirmação
   const btnLogout = document.getElementById('logout-btn');
   btnLogout.addEventListener('click', () => {
     if (confirm('Tem certeza que deseja sair?')) {
-      alert('Lino Viado');//LINO VIADO BOTA O END POIT DE LOGOUT
+      alert('Lino Viado'); // LINO VIADO BOTA O END POINT DE LOGOUT
     }
   });
 
