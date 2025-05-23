@@ -8,7 +8,9 @@ from flask import (
 )
 from backend.utils.db import conectar
 from backend.controllers.auth import auth_bp
-from backend.controllers.api import api as api_bp   # Blueprint unificado com /api/routes
+from backend.controllers.api import api as api_bp
+from backend.controllers.profile import profile_bp
+
 
 # Define caminhos absolutos
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -22,8 +24,8 @@ app = Flask(
     static_url_path='/static'
 )
 
+# Decorator para exigir sessão ativa
 def login_required(f):
-    """Decorator para exigir sessão ativa."""
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if not session.get('user_id'):
@@ -48,6 +50,7 @@ def create_app():
 
     # ——— Todas as rotas de API ———
     app.register_blueprint(api_bp)
+    app.register_blueprint(profile_bp)
 
     # ——— Rotas públicas ———
     @app.route("/", methods=["GET"])
@@ -69,11 +72,9 @@ def create_app():
 
     @app.route("/login", methods=["GET"])
     def login_form():
-    # Se já estiver logado, redireciona
         if session.get('user_id'):
             return redirect(url_for('home'))
         return render_template("login/login.html")
-
 
     @app.route("/logout")
     @login_required
@@ -179,7 +180,7 @@ def create_app():
     def quiz_bairros():
         return render_template("quiz/bairros.html")
 
-    # ——— Perfil (protegido) ———
+    # ——— Perfil estático (protegido) ———
     @app.route("/perfil", methods=["GET"])
     @login_required
     def perfil():
@@ -195,11 +196,40 @@ def create_app():
     def perfil_atividade():
         return render_template("perfil/atividade-perfil.html")
 
-    # ——— Menu ➔ Perfil (protegido) ———
+    # ——— Menu ➔ Perfil Overview (dinâmico) ———
     @app.route("/menu/perfil", methods=["GET"])
     @login_required
     def perfil_overview():
-        return render_template("menu/profile_overview.html")
+        user_id = session['user_id']
+        conn = conectar()
+        cur = conn.cursor()
+
+        # 1) Carrega dados da view user_profile (sem seguidores)
+        cur.execute("""
+            SELECT
+              name,
+              avatar,
+              places_count,
+              quiz_count,
+              total_xp,
+              comments_count,
+              places_visited,
+              favorite_place,
+              favorite_place_img,
+              favorite_place_visits,
+              favorite_place_rating,
+              rank
+            FROM user_profile
+            WHERE id = %s
+        """, (user_id,))
+        cols = [d[0] for d in cur.description]
+        row = cur.fetchone() or [None] * len(cols)
+        user = dict(zip(cols, row))
+
+        cur.close()
+        conn.close()
+
+        return render_template("menu/profile_overview.html", user=user)
 
     @app.route("/menu/perfil/comentarios", methods=["GET"])
     @login_required
@@ -208,14 +238,14 @@ def create_app():
         conn = conectar()
         cur = conn.cursor()
         cur.execute("""
-          SELECT p.title AS place_name,
-                 p.img_url AS place_img,
-                 c.content AS text,
-                 c.criado_em
-            FROM comments c
-            JOIN places p ON p.id = c.place_id
-           WHERE c.user_id = %s
-        ORDER BY c.criado_em DESC;
+            SELECT p.title AS place_name,
+                   p.img_url AS place_img,
+                   c.content AS text,
+                   c.criado_em
+              FROM comments c
+              JOIN places p ON p.id = c.place_id
+             WHERE c.user_id = %s
+          ORDER BY c.criado_em DESC;
         """, (user_id,))
         comments = [
             {
@@ -230,30 +260,8 @@ def create_app():
         conn.close()
         return render_template("menu/profile_comments.html", comments=comments)
 
-    @app.route("/menu/perfil/seguindo", methods=["GET"])
-    @login_required
-    def perfil_follows():
-        user_id = session['user_id']
-        conn = conectar()
-        cur  = conn.cursor()
-        cur.execute("""
-          SELECT u.id,
-                 u.nome          AS name,
-                 u.nacionalidade AS subtitle
-            FROM followers f
-            JOIN usuarios u ON u.id = f.followee_id
-           WHERE f.follower_id = %s
-        ORDER BY u.nome;
-        """, (user_id,))
-        follows = [
-            {'id': row[0], 'name': row[1], 'subtitle': row[2]}
-            for row in cur.fetchall()
-        ]
-        cur.close()
-        conn.close()
-        return render_template("menu/profile_follows.html", follows=follows)
 
-    # ——— PWA: exposição do SW e do manifest （público） ———
+    # PWA: exposição do SW e do manifest (público)
     @app.route('/service-worker.js')
     def service_worker():
         return send_from_directory(app.static_folder, 'service-worker.js')

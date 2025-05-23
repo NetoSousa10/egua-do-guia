@@ -65,25 +65,26 @@
 <div class="profile-screen">
   <!-- Cabeçalho -->
   <div class="profile-header">
-    <div>
-      <div class="avatar-wrap">
-        <img
-          class="avatar"
-          src="https://cdn.discordapp.com/attachments/524749551526084620/1373834174146023445/17124052466014.png"
-          alt="Avatar"
-        >
-        <button class="edit-avatar"><i class="fas fa-pencil-alt"></i></button>
-      </div>
+    <div class="avatar-wrap">
+      <img
+        class="avatar"
+        src="{% if user.avatar %}
+               {{ url_for('static', filename=user.avatar|replace('static/','')) }}
+             {% else %}
+               {{ url_for('static', filename='assets/img/default.jpg') }}
+             {% endif %}"
+        alt="Avatar"
+      >
+      <button class="edit-avatar"><i class="fas fa-pencil-alt"></i></button>
     </div>
     <div class="header-row" style="display: flex; align-items: center;">
-      <h1 class="username">Lucas Andrey</h1>
+      <h1 class="username">{{ user.name }}</h1>
     </div>
-    
     <button
       id="logout-btn"
       class="logout-btn"
-      style="margin-left: 0.5rem; background: none; border: none; color: #FF8585; cursor: pointer; font-size: 1.2rem;"
       title="Sair da conta"
+      style="background:none;border:none;color:#FF8585;cursor:pointer;font-size:1.2rem;"
     >
       <i class="fas fa-sign-out-alt"></i>
     </button>
@@ -92,15 +93,15 @@
   <!-- Estatísticas -->
   <div class="stats-row">
     <div class="stat">
-      <strong>14</strong>
+      <strong>{{ user.places_visited or 0 }}</strong>
       <span>Lugares</span>
     </div>
     <div class="stat">
-      <strong>48</strong>
+      <strong>{{ user.quiz_count or 0 }}</strong>
       <span>Quiz</span>
     </div>
     <div class="stat">
-      <strong>189</strong>
+      <strong>{{ user.total_xp or 0 }}</strong>
       <span>Total XP</span>
     </div>
   </div>
@@ -109,45 +110,43 @@
   <h2 class="section-title">Visão Geral</h2>
   <div class="overview-cards">
     <!-- Card Lugar Favorito -->
-    <div class="card favorite-place">
-      <div class="card-content">
-        <div class="label">Lugar Favorito</div>
-        <h3>Estação das Docas</h3>
-        <input
-          type="range"
-          min="0.5"
-          max="5"
-          step="0.5"
-          value="2.5"
-          class="rating"
-          style="--val:2.5;"
-          oninput="this.style.setProperty('--val', this.value)"
-          disabled
-        >
-        <div class="subtitle">Visitou 12 vezes</div>
+    {% if user.favorite_place %}
+      <div class="card favorite-place">
+        <div class="card-content">
+          <div class="label">Lugar Favorito</div>
+          <h3>{{ user.favorite_place }}</h3>
+          <input
+            type="range"
+            min="0.5" max="5" step="0.5"
+            value="{{ user.favorite_place_rating or 0 }}"
+            class="rating"
+            style="--val: {{ user.favorite_place_rating or 0 }};"
+            oninput="this.style.setProperty('--val', this.value)"
+            disabled
+          >
+          <div class="subtitle">Visitou {{ user.favorite_place_visits or 0 }} vezes</div>
+        </div>
+        {% if user.favorite_place_img %}
+          <img
+            src="{{ url_for('static', filename=user.favorite_place_img|replace('static/','')) }}"
+            alt="{{ user.favorite_place }}"
+          >
+        {% endif %}
       </div>
-      <img
-        src="https://cdn.discordapp.com/attachments/524749551526084620/1373448142053314581/estacaodasdocas.png"
-        alt="Estação das Docas"
-      >
-    </div>
+    {% else %}
+      <p>Você ainda não tem um lugar favorito.</p>
+    {% endif %}
 
     <!-- Card Comentou -->
     <div class="card small-card commented">
       <div class="icon comment-icon">
-        <svg
-          width="24"
-          height="24"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-        >
+        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M21 6h-2v9H7v2c0 .55.45 1 1 1h9l4 4V7c0-.55-.45-1-1-1zm-4 0H3c-.55 0-1 .45-1 1v14l4-4h11c.55 0 1-.45 1-1V7c0-.55-.45-1-1-1z"/>
         </svg>
       </div>
       <div>
         <strong>Comentou</strong>
-        <span>172</span>
+        <span>{{ user.comments_count or 0 }}</span>
       </div>
     </div>
 
@@ -158,26 +157,26 @@
       </div>
       <div class="conten-rank">
         <strong class="rank-name">Rank:</strong>
-        <span class="rank-label">Ouro</span>
+        <span class="rank-label">{{ user.rank or '—' }}</span>
       </div>
     </div>
   </div>
 
   <!-- Navegação inferior fixa -->
   <nav class="bottom-nav">
-    <button class="nav-btn active" aria-label="Mapa" data-href="{{ url_for('home') }}">
+    <button class="nav-btn" data-href="{{ url_for('home') }}">
       <img src="{{ url_for('static', filename='icons/icon-map.svg') }}" alt="Mapa">
     </button>
-    <button class="nav-btn" aria-label="Puzzle" data-href="{{ url_for('puzzle') }}">
-      <img src="{{ url_for('static', filename='icons/puzzle.svg') }}" alt="Categorias">
+    <button class="nav-btn" data-href="{{ url_for('puzzle') }}">
+      <img src="{{ url_for('static', filename='icons/puzzle.svg') }}" alt="Puzzle">
     </button>
-    <button class="nav-btn" aria-label="Locais" data-href="{{ url_for('locais') }}">
+    <button class="nav-btn" data-href="{{ url_for('locais') }}">
       <img src="{{ url_for('static', filename='icons/locais.svg') }}" alt="Locais">
     </button>
-    <button class="nav-btn" aria-label="Lojas" data-href="{{ url_for('static', filename='icons/store.svg') }}">
+    <button class="nav-btn" data-href="{{ url_for('lojas') }}">
       <img src="{{ url_for('static', filename='icons/store.svg') }}" alt="Lojas">
     </button>
-    <button class="nav-btn" aria-label="Perfil" data-href="{{ url_for('perfil_overview') }}">
+    <button class="nav-btn active" data-href="{{ url_for('perfil_overview') }}">
       <img src="{{ url_for('static', filename='icons/perfil.svg') }}" alt="Perfil">
     </button>
   </nav>
@@ -190,12 +189,13 @@
     <button id="close-modal" class="close-btn">&times;</button>
     <h3>Escolha seu avatar</h3>
     <div class="icon-grid">
-      <img src="{{ url_for('static', filename='icons/comentario.svg') }}" alt="Avatar 1" class="icon-option">
-      <img src="{{ url_for('static', filename='icons/cultura.svg') }}" alt="Avatar 2" class="icon-option">
-      <img src="{{ url_for('static', filename='icons/hotel.svg') }}" alt="Avatar 3" class="icon-option">
-      <img src="{{ url_for('static', filename='icons/trophy-prata.svg') }}" alt="Avatar 4" class="icon-option">
-      <img src="{{ url_for('static', filename='icons/trophy-ouro.svg') }}" alt="Avatar 5" class="icon-option">
-      <img src="{{ url_for('static', filename='icons/trophy-bronze.svg') }}" alt="Avatar 6" class="icon-option">
+      {% for icon in ['comentario','cultura','hotel','trophy-prata','trophy-ouro','trophy-bronze'] %}
+        <img
+          src="{{ url_for('static', filename='icons/' ~ icon ~ '.svg') }}"
+          class="icon-option"
+          alt="Avatar {{ loop.index }}"
+        >
+      {% endfor %}
     </div>
   </div>
 </div>
@@ -204,63 +204,49 @@
 {% block extra_js %}
 <script>
 window.addEventListener('DOMContentLoaded', () => {
-  // Botão editar avatar
-  const editAvatarBtn = document.querySelector('.edit-avatar');
-  const avatarModal   = document.getElementById('avatar-modal');
-  const closeModalBtn = document.getElementById('close-modal');
-  const overlay       = avatarModal.querySelector('.modal-overlay');
-  const avatarImg     = document.querySelector('.avatar');
+  const avatarModal = document.getElementById('avatar-modal');
+  const avatarImg   = document.querySelector('.avatar');
+  const openBtn     = document.querySelector('.edit-avatar');
+  const closeBtn    = document.getElementById('close-modal');
+  const overlay     = document.querySelector('.modal-overlay');
 
-  // Abre modal
-  editAvatarBtn.addEventListener('click', () => {
-    avatarModal.classList.remove('hidden');
-  });
+  openBtn.onclick  = () => avatarModal.classList.remove('hidden');
+  closeBtn.onclick = () => avatarModal.classList.add('hidden');
+  overlay.onclick  = () => avatarModal.classList.add('hidden');
 
-  // Fecha modal
-  function closeModal() {
-    avatarModal.classList.add('hidden');
-  }
-  closeModalBtn.addEventListener('click', closeModal);
-  overlay.addEventListener('click', closeModal);
-
-  // Seleção de um dos ícones
-  avatarModal.querySelectorAll('.icon-option').forEach(imgEl => {
+  document.querySelectorAll('.icon-option').forEach(imgEl => {
     imgEl.addEventListener('click', () => {
-      avatarImg.src = imgEl.src;
-      closeModal();
-      // aqui você pode também enviar um fetch/axios para salvar no backend
+      const fullSrc  = imgEl.src;
+      const relative = fullSrc.split('/static/')[1];
+      fetch("{{ url_for('profile.update_avatar') }}", {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({avatar: relative})
+      })
+      .then(r => r.json().then(j=>({ ok: r.ok, body: j })))
+      .then(({ok,body}) => {
+        if (!ok) throw new Error(body.detail || 'Erro');
+        avatarImg.src = fullSrc;
+        avatarModal.classList.add('hidden');
+      })
+      .catch(() => alert('Não foi possível atualizar o avatar.'));
     });
   });
 
-  // Logout com confirmação
-  const btnLogout = document.getElementById('logout-btn');
-  btnLogout.addEventListener('click', () => {
+  document.getElementById('logout-btn').onclick = () => {
     if (confirm('Tem certeza que deseja sair?')) {
-      alert('Lino Viado'); // LINO VIADO BOTA O END POINT DE LOGOUT
+      window.location.href = "{{ url_for('logout') }}";
     }
-  });
+  };
 
-  // Ajusta ícone de rank
   const svgMap = {
     ouro:   "{{ url_for('static', filename='icons/trophy-ouro.svg') }}",
     prata:  "{{ url_for('static', filename='icons/trophy-prata.svg') }}",
     bronze: "{{ url_for('static', filename='icons/trophy-bronze.svg') }}"
   };
   document.querySelectorAll('.card.small-card.rank').forEach(card => {
-    const labelEl = card.querySelector('.rank-label');
-    const iconImg = card.querySelector('.rank-icon');
-    if (!labelEl || !iconImg) return;
-    const key = labelEl.textContent.trim().toLowerCase();
-    iconImg.src = svgMap[key] || svgMap.bronze;
-    const colorMap = { ouro:'#FFD700', prata:'#C0C0C0', bronze:'#CD7F32' };
-    labelEl.style.color = colorMap[key] || '#666666';
-  });
-
-  // Navegação inferior
-  document.querySelectorAll('.bottom-nav .nav-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      window.location.href = btn.dataset.href;
-    });
+    const label = card.querySelector('.rank-label').textContent.trim().toLowerCase();
+    card.querySelector('.rank-icon').src = svgMap[label] || svgMap.bronze;
   });
 });
 </script>
