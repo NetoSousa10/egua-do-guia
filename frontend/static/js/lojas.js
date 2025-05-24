@@ -30,8 +30,10 @@ function confirmPurchase() {
     if (json.error) {
       alert(json.error);
     } else {
-      const saldoLojaEl = document.getElementById('saldo-loja');
-      if (saldoLojaEl) saldoLojaEl.textContent = json.new_balance;
+      // Atualiza o saldo em TODO elemento #saldo
+      document.querySelectorAll('#saldo').forEach(el => {
+        el.textContent = json.new_balance;
+      });
       alert("Moedas adicionadas com sucesso!");
     }
     closeModal('purchase-modal');
@@ -46,16 +48,17 @@ function confirmPurchase() {
 document.addEventListener("DOMContentLoaded", () => {
   const grid = document.getElementById('grid-categorias');
 
-  // 1) Atualiza e exibe o saldo na Loja (se existir o elemento)
-  const saldoLojaEl = document.getElementById('saldo-loja');
-  if (saldoLojaEl) {
-    fetch('/store/balance')
-      .then(res => res.json())
-      .then(json => { saldoLojaEl.textContent = json.coins; })
-      .catch(err => console.error('Erro ao carregar saldo:', err));
-  }
+  // 1) Carrega e exibe o saldo assim que abre a loja
+  fetch('/store/balance')
+    .then(res => res.json())
+    .then(json => {
+      document.querySelectorAll('#saldo').forEach(el => {
+        el.textContent = json.coins;
+      });
+    })
+    .catch(err => console.error('Erro ao carregar saldo:', err));
 
-  // 2) Popula categorias (se existir a grid)
+  // 2) Popula as categorias dinamicamente
   if (grid) {
     fetch('/store/categories')
       .then(res => res.json())
@@ -75,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  // 3) Inicializa missões e compra de moedas (se houver botões)
+  // 3) Configura missões e botões de compra de moedas
   document.querySelectorAll('.missions-list .mission-btn').forEach(btn => {
     if (btn.textContent.includes('R$')) {
       btn.addEventListener('click', () => {
@@ -88,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 4) Ligar botões do modal **somente se existirem**
+  // 4) Liga os botões do modal, se existirem
   const btnConfirmar = document.getElementById('btn-confirmar');
   if (btnConfirmar) btnConfirmar.addEventListener('click', confirmPurchase);
 

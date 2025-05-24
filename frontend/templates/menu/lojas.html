@@ -4,37 +4,25 @@
 {% block title %}Loja – Égua do Guia{% endblock %}
 
 {% block extra_css %}
-  <link
-    rel="stylesheet"
-    href="{{ url_for('static', filename='css/lojas.css') }}"
-  />
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/lojas.css') }}"
+/>
 {% endblock %}
 
 {% block content %}
 <div class="shop-screen">
-  <h1 class="shop-title">Loja</h1>
-
-  <nav class="bottom-nav">
-    <button class="nav-btn" aria-label="Mapa" data-href="{{ url_for('home') }}">
-      <img src="{{ url_for('static', filename='icons/icon-map.svg') }}" alt="Mapa">
-    </button>
-    <button class="nav-btn active" aria-label="Atividades" data-href="{{ url_for('puzzle') }}">
-      <img src="{{ url_for('static', filename='icons/puzzle.svg') }}" alt="Atividades">
-    </button>
-    <button class="nav-btn" aria-label="Locais" data-href="{{ url_for('locais') }}">
-      <img src="{{ url_for('static', filename='icons/locais.svg') }}" alt="Locais">
-    </button>
-    <button class="nav-btn" aria-label="Lojas" data-href="{{ url_for('lojas') }}">
-      <img src="{{ url_for('static', filename='icons/store.svg') }}" alt="Lojas">
-    </button>
-    <button class="nav-btn" aria-label="Perfil" data-href="{{ url_for('perfil_overview') }}">
-      <img src="{{ url_for('static', filename='icons/perfil.svg') }}" alt="Perfil">
-    </button>
-  </nav>
+  <div class="shop-header">
+    <h1 class="shop-title">Loja</h1>
+    <div class="moedas-info">
+      <span id="saldo">…</span>
+      <img src="{{ url_for('static', filename='icons/moeda.svg') }}" alt="Moeda">
+    </div>
+  </div>
 
   <!-- Grid 2x2 de categorias (dinâmico) -->
   <div id="grid-categorias" class="shop-grid">
-    {# O JS em static/js/lojas.js vai popular esses cards #}
+    {# Será populado pelo JS em static/js/lojas.js #}
   </div>
 
   <!-- Missões Especiais -->
@@ -82,7 +70,7 @@
     </div>
   </div>
 
-  <br>
+  <!-- Compre Moedas -->
   <h2 class="missions-title">Compre Moedas</h2>
   <div class="missions-list">
     <div class="mission-item">
@@ -108,7 +96,6 @@
     </div>
   </div>
 
-  <br><br><br><br><br>
 </div>
 
 <!-- Modal de missão confirmada -->
@@ -132,5 +119,43 @@
 {% endblock %}
 
 {% block extra_js %}
-  <script src="{{ url_for('static', filename='js/lojas.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // 1) Busca saldo real do usuário
+  fetch('/store/balance', { credentials: 'same-origin' })
+    .then(res => res.json())
+    .then(json => {
+      document.getElementById('saldo').textContent = json.coins;
+    })
+    .catch(err => {
+      console.error('Erro ao carregar saldo:', err);
+      document.getElementById('saldo').textContent = '—';
+    });
+
+  // 2) Popula categorias dinamicamente
+  fetch('/store/categories')
+    .then(res => res.json())
+    .then(cats => {
+      const grid = document.getElementById('grid-categorias');
+      grid.innerHTML = cats.map(cat => `
+        <a href="/store/opcoes/${cat.slug}" class="shop-item ${cat.slug}">
+          <div class="item-img">
+            <img src="${cat.img}" alt="${cat.name}">
+          </div>
+          <span class="item-label">${cat.name}</span>
+        </a>
+      `).join('');
+    })
+    .catch(err => {
+      console.error('Erro ao carregar categorias:', err);
+      document.getElementById('grid-categorias').innerHTML =
+        '<p class="error">Não foi possível carregar a loja.</p>';
+    });
+
+  // 3) Inicializa modais e botões de missão/compra
+  //    (mantém aqui o conteúdo do seu static/js/lojas.js)
+});
+</script>
+<!-- opcional: inclui seu lojas.js caso contenha lógica extra -->
+<script src="{{ url_for('static', filename='js/lojas.js') }}"></script>
 {% endblock %}

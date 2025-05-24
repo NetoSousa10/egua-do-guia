@@ -25,6 +25,23 @@
   margin-bottom: 16px;
   color: var(--dark);
 }
+.shop-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.moedas-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: bold;
+}
+.moedas-info img {
+  width: 40px;
+  height: auto;
+}
 
 /* Grid 2x2 */
 .shop-grid {

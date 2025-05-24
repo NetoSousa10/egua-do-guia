@@ -15,7 +15,9 @@ def seed_store_items():
     conn = conectar()
     cur = conn.cursor()
     # limpa antes de inserir, assim não duplica em re-runs
-    cur.execute("DELETE FROM store_items;")
+    cur.execute("""
+      TRUNCATE TABLE store_items, user_items RESTART IDENTITY CASCADE;""")
+
 
     items = [
         ('roupas',  'Paysandu',      30, '/static/assets/img/roupas1.png'),
