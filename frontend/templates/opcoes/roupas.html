@@ -13,7 +13,8 @@
   <div class="opcoes-header">
     <h1 class="opcoes-title">Roupas</h1>
     <div class="moedas-info">
-      <span id="saldo">100</span>
+      <!-- Saldo vindo do banco -->
+      <span id="saldo">…</span>
       <img src="{{ url_for('static', filename='icons/moeda.svg') }}" alt="Moeda">
     </div>
   </div>
@@ -23,25 +24,34 @@
 
   <!-- Grid de itens -->
   <div class="roupas-grid">
-    <div class="roupa-card paysandu">
-      <div class="preco"><span>30</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
+    <div class="roupa-card paysandu" data-id="1">
+      <div class="preco">
+        <span>30</span>
+        <img src="{{ url_for('static', filename='icons/moeda.svg') }}">
+      </div>
       <img src="{{ url_for('static', filename='assets/img/roupas1.png') }}" alt="Paysandu">
       <div class="nome">Paysandu</div>
     </div>
-    <div class="roupa-card remo">
-      <div class="preco"><span>30</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
+    <div class="roupa-card remo" data-id="2">
+      <div class="preco">
+        <span>30</span>
+        <img src="{{ url_for('static', filename='icons/moeda.svg') }}">
+      </div>
       <img src="{{ url_for('static', filename='assets/img/roupas2.png') }}" alt="Remo">
       <div class="nome">Remo</div>
     </div>
-    <div class="roupa-card brasil">
-      <div class="preco"><span>40</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
+    <div class="roupa-card brasil" data-id="3">
+      <div class="preco">
+        <span>40</span>
+        <img src="{{ url_for('static', filename='icons/moeda.svg') }}">
+      </div>
       <img src="{{ url_for('static', filename='assets/img/roupas3.png') }}" alt="Brasil">
       <div class="nome">Brasil</div>
     </div>
   </div>
 
   <!-- Modal -->
-  <div class="modal-overlay" id="modal">
+  <div class="modal-overlay hidden" id="modal">
     <div class="modal-box">
       <p id="modal-text">Deseja comprar este item por XX moedas?</p>
       <div class="modal-buttons">

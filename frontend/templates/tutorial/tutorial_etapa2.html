@@ -4,7 +4,7 @@
 {% block title %}Tutorial – Etapa 2{% endblock %}
 
 {% block extra_css %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/tutorial.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tutorial.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -36,19 +36,20 @@
       <span class="dot active"></span>
       <span class="dot"></span>
       <span class="dot"></span>
+      <span class="dot"></span>
     </div>
     <div class="buttons">
       <button
         type="button"
         class="btn yes"
-        onclick="window.location.href='/tutorial'"
+        onclick="window.location.href='/tutorial/etapa1';"
       >
         BACK
       </button>
       <button
         type="button"
         class="btn no"
-        onclick="window.location.href='/tutorial/etapa3'"
+        onclick="window.location.href='/tutorial/etapa3';"
       >
         NEXT
       </button>

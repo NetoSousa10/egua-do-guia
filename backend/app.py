@@ -10,6 +10,8 @@ from backend.utils.db import conectar
 from backend.controllers.auth import auth_bp
 from backend.controllers.api import api as api_bp
 from backend.controllers.profile import profile_bp
+from backend.controllers.store import store_bp
+from backend.controllers.tutorial import tutorial_bp
 
 
 # Define caminhos absolutos
@@ -51,6 +53,9 @@ def create_app():
     # ——— Todas as rotas de API ———
     app.register_blueprint(api_bp)
     app.register_blueprint(profile_bp)
+    app.register_blueprint(store_bp)
+    app.register_blueprint(tutorial_bp)
+
 
     # ——— Rotas públicas ———
     @app.route("/", methods=["GET"])
@@ -86,7 +91,7 @@ def create_app():
     @app.route("/tutorial", methods=["GET"])
     @login_required
     def tutorial():
-        return render_template("tutorial/tutorial.html")
+        return render_template("tutorial/tutorial_etapa1.html")
 
     @app.route("/tutorial/etapa2", methods=["GET"])
     @login_required

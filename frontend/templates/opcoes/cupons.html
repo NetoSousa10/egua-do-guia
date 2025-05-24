@@ -13,7 +13,8 @@
   <div class="opcoes-header">
     <h1 class="opcoes-title">Cupons</h1>
     <div class="moedas-info">
-      <span id="saldo">79</span>
+      <!-- placeholder para saldo dinâmico -->
+      <span id="saldo">…</span>
       <img src="{{ url_for('static', filename='icons/moeda.svg') }}" alt="Moeda">
     </div>
   </div>
@@ -23,22 +24,22 @@
 
   <!-- Grid de cupons -->
   <div class="cupons-grid">
-    <div class="cupom-card">
+    <div class="cupom-card desconto15" data-id="7">
       <div class="preco"><span>30</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
       <img src="{{ url_for('static', filename='assets/img/cupons1.png') }}" alt="Cupom 1">
       <div class="descricao">15% Desconto<br><small>Ver-A-Cerva</small></div>
     </div>
-    <div class="cupom-card">
+    <div class="cupom-card desconto20" data-id="8">
       <div class="preco"><span>40</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
       <img src="{{ url_for('static', filename='assets/img/cupons1.png') }}" alt="Cupom 2">
       <div class="descricao">20% Desconto<br><small>Ver-A-Peso</small></div>
     </div>
-    <div class="cupom-card">
+    <div class="cupom-card desconto5" data-id="9">
       <div class="preco"><span>20</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
       <img src="{{ url_for('static', filename='assets/img/cupons2.png') }}" alt="Cupom 3">
       <div class="descricao">5% Desconto<br><small>Ver-A-Cerva</small></div>
     </div>
-    <div class="cupom-card">
+    <div class="cupom-card bebidaGratis" data-id="10">
       <div class="preco"><span>50</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
       <img src="{{ url_for('static', filename='assets/img/cupons2.png') }}" alt="Cupom 4">
       <div class="descricao">Bebida Grátis<br><small>Ver-A-Cerva</small></div>
@@ -46,7 +47,7 @@
   </div>
 
   <!-- Modal de compra -->
-  <div class="modal-overlay" id="modal">
+  <div class="modal-overlay hidden" id="modal">
     <div class="modal-box">
       <p id="modal-text">Deseja comprar este item por XX moedas?</p>
       <div class="modal-buttons">

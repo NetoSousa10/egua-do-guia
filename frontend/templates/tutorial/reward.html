@@ -1,0 +1,43 @@
+{# frontend/templates/tutorial/reward.html #}
+{% extends 'base.html' %}
+
+{% block title %}+20 Moedas{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tutorial.css') }}">
+{% endblock %}
+
+{% block content %}
+  <div class="central-box">
+    <h2 class="recompensa-titulo">+20 Moedas</h2>
+
+    {% include 'componentes/moedas_empilhadas.html' %}
+
+    <p class="recompensa-msg">Você ganhou moedas!</p>
+
+    <div class="buttons">
+      <button class="btn yes" data-href="/menu/home">Cool!</button>
+      <button class="btn no" data-href="/menu/lojas">
+        <i class="fas fa-store"></i> Store
+      </button>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  {{ super() }}
+  <script>
+    // Usa o mesmo handler genérico de navegação do seu base.html
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('button[data-href]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Redireciona suave conforme seus efeitos de fade
+          document.body.classList.add('fade-out');
+          setTimeout(() => {
+            window.location.href = btn.dataset.href;
+          }, 300);
+        });
+      });
+    });
+  </script>
+{% endblock %}

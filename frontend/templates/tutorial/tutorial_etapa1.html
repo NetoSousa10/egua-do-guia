@@ -1,0 +1,81 @@
+{# frontend/templates/tutorial/tutorial.html #}
+{% extends 'base.html' %}
+
+{% block title %}Tutorial – Etapa 1{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tutorial.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="top-container">
+  <div class="logo-wrapper">
+    <img src="{{ url_for('static', filename='assets/img/logo.png') }}"
+         alt="Logo Égua do Guia"
+         class="logo">
+  </div>
+  <div class="texto-container">
+    <div class="texto">
+      <strong>Você conhece o</strong>
+      <strong>Égua do Guia?</strong>
+    </div>
+  </div>
+</div>
+
+<div class="down-container">
+  <div class="dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+
+  <div class="buttons">
+    <!-- Pular e ganhar moedas -->
+    <button type="button" id="btn-skip-tutorial" class="btn yes">
+      EU SEI
+    </button>
+    <!-- Ir para etapa 2 -->
+    <button
+      type="button"
+      class="btn no"
+      onclick="window.location.href='/tutorial/etapa2';"
+    >
+      NÃO CONHEÇO
+    </button>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{{ super() }}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const skipBtn = document.getElementById('btn-skip-tutorial');
+  skipBtn.addEventListener('click', () => {
+    fetch('/tutorial/complete', {
+      method: 'POST',
+      credentials: 'same-origin'  // envia o cookie de sessão
+    })
+    .then(res => {
+      if (!res.ok) throw new Error('status ' + res.status);
+      return res.json();
+    })
+    .then(json => {
+      const granted = json.granted || 0;
+      alert(granted
+        ? `+${granted} Moedas!`
+        : 'Você já concluiu o tutorial anteriormente.'
+      );
+      // ao pular ou já ter concluído, vai direto para a home
+      window.location.href = '/menu/home';
+    })
+    .catch(err => {
+      console.error('Erro ao concluir tutorial:', err);
+      alert('Não foi possível concluir o tutorial.');
+    });
+  });
+});
+</script>
+{% endblock %}

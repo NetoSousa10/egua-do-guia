@@ -4,7 +4,7 @@
 {% block title %}Tutorial – Etapa 4{% endblock %}
 
 {% block extra_css %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/tutorial.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tutorial.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -12,7 +12,7 @@
   <div class="top-container tutorial-step4">
     <div class="img-wrapper">
       <img
-        src="{{ url_for('static', filename='assets/img/etapa4.png') }}"
+        src="{{ url_for('static', filename='assets/img/cupons.png') }}"
         alt="Avatar customization"
         class="img"
       >
@@ -42,14 +42,14 @@
       <button
         type="button"
         class="btn yes"
-        onclick="window.location.href='/tutorial/etapa3'"
+        onclick="window.location.href='/tutorial/etapa3';"
       >
         BACK
       </button>
       <button
         type="button"
         class="btn no"
-        onclick="window.location.href='/tutorial/etapa4'"
+        onclick="window.location.href='/tutorial/etapa5';"
       >
         NEXT
       </button>

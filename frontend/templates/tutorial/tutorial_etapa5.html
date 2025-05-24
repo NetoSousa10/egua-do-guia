@@ -4,54 +4,77 @@
 {% block title %}Tutorial – Etapa 5{% endblock %}
 
 {% block extra_css %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/tutorial.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tutorial.css') }}">
 {% endblock %}
 
 {% block content %}
-  <!-- top-container: imagem + texto em coluna -->
-  <div class="top-container tutorial-step5">
-    <div class="img-wrapper">
-      <img
-        src="{{ url_for('static', filename='assets/img/etapa5.png') }}"
-        alt="Falar sobre o local"
-        class="img"
-      >
-    </div>
-    <div class="texto-container">
-      <div class="texto">
-        <h2>Talk About the Place</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquet
-          blandit justo dictum viverra.<br>
-          Pellentesque sed pretium dolor, porttitor fermentum magna.
-        </p>
-      </div>
+<div class="top-container tutorial-step5">
+  <div class="img-wrapper">
+    <img src="{{ url_for('static', filename='assets/img/etapa5.png') }}"
+         alt="Falar sobre o local"
+         class="img">
+  </div>
+  <div class="texto-container">
+    <div class="texto">
+      <h2>Talk About the Place</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquet
+        blandit justo dictum viverra.<br>
+        Pellentesque sed pretium dolor, porttitor fermentum magna.
+      </p>
     </div>
   </div>
+</div>
 
-  <!-- down-container: dots + botões -->
-  <div class="down-container">
-    <div class="dots">
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot active"></span>
-    </div>
-    <div class="buttons">
-      <button
-        type="button"
-        class="btn yes"
-        onclick="window.location.href='/tutorial/etapa3'"
-      >
-        BACK
-      </button>
-      <button
-        type="button"
-        class="btn no"
-        onclick="window.location.href='/reward'"
-      >
-        FINISH!
-      </button>
-    </div>
+<div class="down-container">
+  <div class="dots">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot active"></span>
   </div>
+  <div class="buttons">
+    <button
+      type="button"
+      class="btn yes"
+      onclick="window.location.href='/tutorial/etapa4';"
+    >
+      BACK
+    </button>
+
+    <!-- Alteramos o FINISH! para primeiro chamar /tutorial/complete via fetch -->
+    <button
+      type="button"
+      id="btn-finish"
+      class="btn no"
+    >
+      FINISH!
+    </button>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{{ super() }}
+<script>
+document.getElementById('btn-finish').addEventListener('click', () => {
+  fetch('/tutorial/complete', {
+    method: 'POST',
+    credentials: 'same-origin'
+  })
+  .then(res => {
+    if (!res.ok) throw new Error(res.status);
+    return res.json();
+  })
+  .then(json => {
+    // só então vamos para a reward
+    window.location.href = '/tutorial/reward';
+  })
+  .catch(err => {
+    console.error('Erro ao finalizar tutorial:', err);
+    alert('Não foi possível concluir o tutorial.');
+  });
+});
+</script>
 {% endblock %}

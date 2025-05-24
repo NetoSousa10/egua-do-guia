@@ -13,7 +13,7 @@
   <div class="opcoes-header">
     <h1 class="opcoes-title">Temas</h1>
     <div class="moedas-info">
-      <span id="saldo">79</span>
+      <span id="saldo">…</span>
       <img src="{{ url_for('static', filename='icons/moeda.svg') }}" alt="Moeda">
     </div>
   </div>
@@ -23,9 +23,17 @@
 
   <!-- Grid de temas -->
   <div class="temas-grid">
-    <div class="tema-card">
-      <div class="preco"><span>20</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
-      <img src="{{ url_for('static', filename='assets/img/te1.png') }}" alt="Tema 1">
+    <div class="tema-card tema1" data-id="11">
+      <div class="preco">
+        <span>20</span>
+        <img src="{{ url_for('static', filename='icons/moeda.svg') }}" alt="Moeda">
+      </div>
+      <!-- adicionamos class="tema-img" aqui -->
+      <img
+        class="tema-img"
+        src="{{ url_for('static', filename='assets/img/te1.png') }}"
+        alt="Tema 1"
+      >
       <div class="paleta">
         <span style="background: #2196f3;"></span>
         <span style="background: #03a9f4;"></span>
@@ -33,9 +41,16 @@
         <span style="background: #e0e0e0;"></span>
       </div>
     </div>
-    <div class="tema-card">
-      <div class="preco"><span>20</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
-      <img src="{{ url_for('static', filename='assets/img/te2.png') }}" alt="Tema 2">
+    <div class="tema-card tema2" data-id="12">
+      <div class="preco">
+        <span>20</span>
+        <img src="{{ url_for('static', filename='icons/moeda.svg') }}" alt="Moeda">
+      </div>
+      <img
+        class="tema-img"
+        src="{{ url_for('static', filename='assets/img/te2.png') }}"
+        alt="Tema 2"
+      >
       <div class="paleta">
         <span style="background: #000;"></span>
         <span style="background: #2196f3;"></span>
@@ -43,9 +58,16 @@
         <span style="background: #eee;"></span>
       </div>
     </div>
-    <div class="tema-card">
-      <div class="preco"><span>20</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
-      <img src="{{ url_for('static', filename='assets/img/te3.png') }}" alt="Tema 3">
+    <div class="tema-card tema3" data-id="13">
+      <div class="preco">
+        <span>20</span>
+        <img src="{{ url_for('static', filename='icons/moeda.svg') }}" alt="Moeda">
+      </div>
+      <img
+        class="tema-img"
+        src="{{ url_for('static', filename='assets/img/te3.png') }}"
+        alt="Tema 3"
+      >
       <div class="paleta">
         <span style="background: #eee;"></span>
         <span style="background: #212121;"></span>
@@ -55,8 +77,8 @@
     </div>
   </div>
 
-  <!-- Modal -->
-  <div class="modal-overlay" id="modal">
+  <!-- Modal de compra -->
+  <div class="modal-overlay hidden" id="modal">
     <div class="modal-box">
       <p id="modal-text">Deseja comprar este item por XX moedas?</p>
       <div class="modal-buttons">
@@ -66,7 +88,7 @@
     </div>
   </div>
 
-  <!-- Nav-bar -->
+  <!-- Navegação -->
   <nav class="bottom-nav">
     <button class="nav-btn" data-href="{{ url_for('home') }}">
       <img src="{{ url_for('static', filename='icons/icon-map.svg') }}" alt="Mapa">

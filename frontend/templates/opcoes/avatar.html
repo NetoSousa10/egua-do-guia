@@ -13,7 +13,7 @@
   <div class="opcoes-header">
     <h1 class="opcoes-title">Avatar</h1>
     <div class="moedas-info">
-      <span id="saldo">100</span>
+      <span id="saldo">…</span>
       <img src="{{ url_for('static', filename='icons/moeda.svg') }}" alt="Moeda">
     </div>
   </div>
@@ -21,27 +21,27 @@
   <!-- Botão de voltar -->
   <button id="back-btn" class="voltar-btn">←</button>
 
-  <!-- Grid de avatares -->
+  <!-- Grid de itens -->
   <div class="avatar-grid">
-    <div class="avatar-card">
+    <div class="avatar-card sorridente" data-id="4">
       <div class="preco"><span>30</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
-      <img src="{{ url_for('static', filename='assets/img/avatar1.png') }}" alt="Avatar 1">
+      <img src="{{ url_for('static', filename='assets/img/avatar1.png') }}" alt="Sorridente">
       <div class="nome">Sorridente</div>
     </div>
-    <div class="avatar-card">
+    <div class="avatar-card feliz" data-id="5">
       <div class="preco"><span>40</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
-      <img src="{{ url_for('static', filename='assets/img/avatar2.png') }}" alt="Avatar 2">
+      <img src="{{ url_for('static', filename='assets/img/avatar2.png') }}" alt="Feliz!">
       <div class="nome">Feliz!</div>
     </div>
-    <div class="avatar-card">
+    <div class="avatar-card grito" data-id="6">
       <div class="preco"><span>50</span><img src="{{ url_for('static', filename='icons/moeda.svg') }}"></div>
-      <img src="{{ url_for('static', filename='assets/img/avatar3.png') }}" alt="Avatar 3">
+      <img src="{{ url_for('static', filename='assets/img/avatar3.png') }}" alt="Grito!">
       <div class="nome">Grito!</div>
     </div>
   </div>
 
-  <!-- Modal de compra -->
-  <div class="modal-overlay" id="modal">
+  <!-- Modal -->
+  <div class="modal-overlay hidden" id="modal">
     <div class="modal-box">
       <p id="modal-text">Deseja comprar este item por XX moedas?</p>
       <div class="modal-buttons">
@@ -51,7 +51,7 @@
     </div>
   </div>
 
-  <!-- Navegação -->
+  <!-- Nav-bar -->
   <nav class="bottom-nav">
     <button class="nav-btn" data-href="{{ url_for('home') }}">
       <img src="{{ url_for('static', filename='icons/icon-map.svg') }}" alt="Mapa">
