@@ -20,6 +20,24 @@
     </div>
   </div>
 
+   <nav class="bottom-nav">
+  <button class="nav-btn" aria-label="Mapa" data-href="{{ url_for('home') }}">
+    <img src="{{ url_for('static', filename='icons/icon-map.svg') }}" alt="Mapa">
+  </button>
+  <button class="nav-btn active" aria-label="Atividades" data-href="{{ url_for('puzzle') }}">
+    <img src="{{ url_for('static', filename='icons/puzzle.svg') }}" alt="Atividades">
+  </button>
+  <button class="nav-btn" aria-label="Locais" data-href="{{ url_for('locais') }}">
+    <img src="{{ url_for('static', filename='icons/locais.svg') }}" alt="Locais">
+  </button>
+  <button class="nav-btn" aria-label="Lojas" data-href="{{ url_for('lojas') }}">
+    <img src="{{ url_for('static', filename='icons/store.svg') }}" alt="Lojas">
+  </button>
+  <button class="nav-btn" aria-label="Perfil" data-href="{{ url_for('perfil_overview') }}">
+    <img src="{{ url_for('static', filename='icons/perfil.svg') }}" alt="Perfil">
+  </button>
+</nav>
+
   <!-- Grid 2x2 de categorias (dinâmico) -->
   <div id="grid-categorias" class="shop-grid">
     {# Será populado pelo JS em static/js/lojas.js #}
