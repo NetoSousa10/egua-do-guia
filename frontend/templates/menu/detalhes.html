@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalhes do Local{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/detalhes.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="detalhes-screen">
+    <!-- Imagem principal -->
+    <div class="imagem-capa">
+        <img src="{{ url_for('static', filename='assets/img/cupons1.png') }}" alt="Imagem do Local">
+    </div>
+
+    <!-- Card de informações -->
+    <div class="info-card">
+        <p class="local-nome">Pedro's Open Bar and Free Drinks</p>
+        <hr>
+        <div class="horario-status">
+            <p>Segunda-feira, 08:00 até 22:00</p>
+            <span class="aberto">ABERTO</span>
+        </div>
+    </div>
+
+    <!-- Abas -->
+    <div class="abas">
+        <button class="aba active" data-tab="geral">Visão geral</button>
+        <button class="aba" data-tab="cardapio">Cardápio</button>
+        <button class="aba" data-tab="avaliacoes">Avaliações</button>
+        <button class="aba" data-tab="sobre">Sobre</button>
+    </div>
+
+    <!-- Aba: Visão Geral -->
+    <div class="conteudo-aba" id="aba-geral">
+        <div class="explorar-bloco">
+            <button class="btn-explorar">EXPLORAR</button>
+            <div class="icones">
+                <div class="icone-circulo"><img src="{{ url_for('static', filename='icons/save.svg') }}"></div>
+                <div class="icone-circulo"><img src="{{ url_for('static', filename='icons/comp.svg') }}"></div>
+            </div>
+        </div>
+        <hr>
+
+        <div class="info-detalhes">
+            <p><img src="{{ url_for('static', filename='icons/detalhes_local.svg') }}"> <span>&lt;endereço aqui&gt;</span></p>
+            <p><img src="{{ url_for('static', filename='icons/detalhes_mundo.svg') }}"> <span>&lt;link do site aqui&gt;</span></p>
+            <p><img src="{{ url_for('static', filename='icons/detalhes_telefone.svg') }}"> <span>&lt;N de telefone aqui&gt;</span></p>
+        </div>
+
+        <div class="avaliacao" id="estrelas">
+            <span data-valor="1">★</span>
+            <span data-valor="2">★</span>
+            <span data-valor="3">★</span>
+            <span data-valor="4">★</span>
+            <span data-valor="5">★</span>
+        </div>
+
+        <div class="comentario-area">
+            <textarea id="comentario" placeholder="Escreva sobre o local..."></textarea>
+            <button id="enviar-comentario">Enviar</button>
+            <div id="comentario-exibido" class="comentario-resultado" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Aba: Cardápio -->
+    <div class="conteudo-aba" id="aba-cardapio" style="display: none;">
+        <div class="cardapio-img-container">
+            <img src="{{ url_for('static', filename='assets/img/cardapio.png') }}" alt="Cardápio" />
+        </div>
+
+        <div class="cardapio-pdf-container">
+            <iframe src="{{ url_for('static', filename='assets/pdf/cardapio.pdf') }}" frameborder="0"></iframe>
+        </div>
+
+        <div class="qrcode-container">
+            <img src="{{ url_for('static', filename='assets/img/qrcode.png') }}" alt="QR Code do Cardápio" />
+        </div>
+    </div>
+
+    <!-- Aba: Avaliações -->
+    <div class="conteudo-aba" id="aba-avaliacoes" style="display: none;">
+        <div class="avaliacao-principal">
+            <div id="estrelas-avaliacao" class="avaliacao">
+                <span data-valor="1">★</span>
+                <span data-valor="2">★</span>
+                <span data-valor="3">★</span>
+                <span data-valor="4">★</span>
+                <span data-valor="5">★</span>
+            </div>
+            <p class="opiniao-geral">
+                Usuários afirmam<br><strong>“Um ótimo local para ir com os amigos!”</strong>
+            </p>
+            <button class="btn-avaliar">AVALIAR</button>
+        </div>
+
+        <hr class="separador">
+
+        <div class="comentario-box">
+            <div class="comentario-usuario">
+                <div class="avatar"></div>
+                <div class="conteudo">
+                    <div class="topo">
+                        <span class="nome">Gustav Costa de Sousa</span>
+                        <span class="nota">Nota: ★ ★ ★ ☆ ☆</span>
+                    </div>
+                    <p class="texto">
+                        Realmente uma ótima experiência, pude beber e me divertir à vontade com meus amigos.
+                    </p>
+                </div>
+            </div>
+
+            <div class="comentario-usuario">
+                <img src="{{ url_for('static', filename='assets/img/avatar1.png') }}" class="avatar">
+                <div class="conteudo">
+                    <div class="topo">
+                        <span class="nome">Lucas Silva</span>
+                        <span class="nota">Nota: ★ ★ ★ ★ ☆</span>
+                    </div>
+                    <p class="texto">
+                        Atendimento rápido, só achei a música um pouco alta demais.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Aba: Sobre -->
+    <div class="conteudo-aba" id="aba-sobre" style="display: none;">
+        <p style="padding: 16px; text-align: justify;">
+            Pedro's Open Bar é um dos pontos mais movimentados de Belém, conhecido por sua variedade de drinks artesanais, ambiente animado e shows ao vivo. O espaço oferece uma experiência única para grupos de amigos e turistas que buscam se divertir na noite paraense.
+        </p>
+    </div>
+</div>
+
+<!-- Navbar -->
+<nav class="bottom-nav">
+    <button class="nav-btn" data-href="{{ url_for('home') }}">
+        <img src="{{ url_for('static', filename='icons/icon-map.svg') }}" alt="Mapa">
+    </button>
+    <button class="nav-btn" data-href="{{ url_for('puzzle') }}">
+        <img src="{{ url_for('static', filename='icons/puzzle.svg') }}" alt="Puzzle">
+    </button>
+    <button class="nav-btn active" data-href="{{ url_for('locais') }}">
+        <img src="{{ url_for('static', filename='icons/locais.svg') }}" alt="Locais">
+    </button>
+    <button class="nav-btn" data-href="{{ url_for('lojas') }}">
+        <img src="{{ url_for('static', filename='icons/store.svg') }}" alt="Loja">
+    </button>
+    <button class="nav-btn" data-href="{{ url_for('perfil_overview') }}">
+        <img src="{{ url_for('static', filename='icons/perfil.svg') }}" alt="Perfil">
+    </button>
+</nav>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/detalhes.js') }}"></script>
+{% endblock %}

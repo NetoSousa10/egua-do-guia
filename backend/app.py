@@ -199,6 +199,11 @@ def create_app():
     @login_required
     def quiz_bairros():
         return render_template("quiz/bairros.html")
+    
+    @app.route("/menu/detalhes", methods=["GET"])
+    @login_required
+    def detalhes():
+        return render_template("menu/detalhes.html")
 
     # ——— Perfil estático (protegido) ———
     @app.route("/perfil", methods=["GET"])
