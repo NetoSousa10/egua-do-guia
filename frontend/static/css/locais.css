@@ -104,13 +104,13 @@
   color: #fff;
   margin: 0;
   margin-top: 0.25rem;
-  
 }
 .place-rating svg,
 .place-rating .star {
   width: 16px;
   height: 16px;
 }
+
 .place-rating .reviews {
   font-size: 0.875rem;
   opacity: 0.8;
@@ -153,7 +153,17 @@
   justify-content: space-around;
   align-items: center;
 }
+.place-link {
+  text-decoration: none !important;
+  text-decoration-skip-ink: none !important;
+}
 
+.place-link,
+.place-link * {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
 /* Responsividade para desktop/laptops */
 @media (min-width: 768px) {
   .locais-screen {

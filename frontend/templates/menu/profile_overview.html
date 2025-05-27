@@ -68,12 +68,14 @@
     <div class="avatar-wrap">
       <img
         class="avatar"
+        id="avatar-img"
         src="{% if user.avatar %}
-               {{ url_for('static', filename=user.avatar|replace('static/','')) }}
+               {{ url_for('static', filename='icons/' + user.avatar) }}
              {% else %}
                {{ url_for('static', filename='assets/img/default.jpg') }}
              {% endif %}"
         alt="Avatar"
+        style="width:120px; height:120px; border-radius:50%; object-fit:cover;"
       >
       <button class="edit-avatar"><i class="fas fa-pencil-alt"></i></button>
     </div>
@@ -128,7 +130,7 @@
         </div>
         {% if user.favorite_place_img %}
           <img
-            src="{{ url_for('static', filename=user.favorite_place_img|replace('static/','')) }}"
+            src="{{ url_for('static', filename=user.favorite_place_img) }}"
             alt="{{ user.favorite_place }}"
           >
         {% endif %}
@@ -193,6 +195,7 @@
         <img
           src="{{ url_for('static', filename='icons/' ~ icon ~ '.svg') }}"
           class="icon-option"
+          data-filename="icons/{{ icon }}.svg"
           alt="Avatar {{ loop.index }}"
         >
       {% endfor %}
@@ -205,7 +208,7 @@
 <script>
 window.addEventListener('DOMContentLoaded', () => {
   const avatarModal = document.getElementById('avatar-modal');
-  const avatarImg   = document.querySelector('.avatar');
+  const avatarImg   = document.getElementById('avatar-img');
   const openBtn     = document.querySelector('.edit-avatar');
   const closeBtn    = document.getElementById('close-modal');
   const overlay     = document.querySelector('.modal-overlay');
@@ -215,21 +218,25 @@ window.addEventListener('DOMContentLoaded', () => {
   overlay.onclick  = () => avatarModal.classList.add('hidden');
 
   document.querySelectorAll('.icon-option').forEach(imgEl => {
-    imgEl.addEventListener('click', () => {
-      const fullSrc  = imgEl.src;
-      const relative = fullSrc.split('/static/')[1];
-      fetch("{{ url_for('profile.update_avatar') }}", {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({avatar: relative})
-      })
-      .then(r => r.json().then(j=>({ ok: r.ok, body: j })))
-      .then(({ok,body}) => {
-        if (!ok) throw new Error(body.detail || 'Erro');
-        avatarImg.src = fullSrc;
+    imgEl.addEventListener('click', async () => {
+      const relative = imgEl.getAttribute('data-filename'); // ex: "icons/trophy-ouro.svg"
+      try {
+        const resp = await fetch("{{ url_for('profile.update_avatar') }}", {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ avatar: relative })
+        });
+        const json = await resp.json();
+        if (!resp.ok) {
+          throw new Error(json.error || json.detail || 'Erro desconhecido');
+        }
+        // usa o json.avatar_url retornado pelo backend
+        avatarImg.src = json.avatar_url + '?t=' + Date.now();
         avatarModal.classList.add('hidden');
-      })
-      .catch(() => alert('Não foi possível atualizar o avatar.'));
+      } catch (err) {
+        console.error(err);
+        alert('Não foi possível atualizar o avatar: ' + err.message);
+      }
     });
   });
 
@@ -251,3 +258,4 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 {% endblock %}
+

@@ -1,10 +1,12 @@
 # backend/controllers/profile.py
 
-from flask import Blueprint, render_template, session, request, jsonify, redirect, url_for
+from flask import Blueprint, render_template, session, request, jsonify, redirect, url_for, current_app
 from functools import wraps
+from werkzeug.utils import secure_filename
 from backend.utils.db import conectar
+import os
 
-# Copia do seu decorator de app.py
+# Decorator de login
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -26,7 +28,7 @@ def overview():
     # 1) Dados básicos
     cur.execute("SELECT nome, avatar_url FROM usuarios WHERE id = %s", (user_id,))
     row = cur.fetchone() or ("Usuário", None)
-    user = {"name": row[0], "avatar": row[1]}
+    user = {"name": row[0], "avatar": row[1]}  # avatar será só 'arquivo.svg' ou None
 
     # 2) Estatísticas
     cur.execute("SELECT COUNT(*) FROM visits WHERE user_id = %s", (user_id,))
@@ -76,29 +78,65 @@ def overview():
 @profile_bp.route('/avatar', methods=['POST'])
 @login_required
 def update_avatar():
-    """Recebe JSON { avatar: 'assets/img/foo.png' } e salva em usuarios.avatar_url."""
+    """
+    Aceita:
+      1) JSON { "avatar": "icons/nome.svg" } vindo do modal de seleção;
+      2) multipart/form-data com campo 'avatar' para upload de arquivo.
+    """
     user_id = session['user_id']
-    data = request.get_json(force=True) or {}
-    avatar = data.get('avatar')
 
-    if not avatar:
-        return jsonify({'error': 'Nenhum avatar informado'}), 400
+    # --- Caso JSON vindo do modal (avatar já existente em static/icons/) ---
+    if request.is_json:
+        data = request.get_json(force=True) or {}
+        avatar = data.get('avatar')  # ex: "icons/trophy-ouro.svg"
+        if not avatar:
+            return jsonify({'error': 'Nenhum avatar informado no JSON'}), 400
+
+        # Extrai só o nome do arquivo
+        filename = avatar.split('/')[-1]
+
+        try:
+            conn = conectar()
+            cur = conn.cursor()
+            cur.execute(
+                "UPDATE usuarios SET avatar_url = %s WHERE id = %s",
+                (filename, user_id)
+            )
+            conn.commit()
+            cur.close()
+            conn.close()
+        except Exception as e:
+            return jsonify({'error': 'Falha ao atualizar avatar no banco', 'detail': str(e)}), 500
+
+        avatar_url = url_for('static', filename='icons/' + filename)
+        return jsonify({'status': 'ok', 'avatar_url': avatar_url}), 200
+
+    # --- Caso upload de arquivo via form ---
+    if 'avatar' not in request.files:
+        return jsonify({'error': 'Nenhum arquivo de avatar enviado'}), 400
+
+    avatar_file = request.files['avatar']
+    if avatar_file.filename == '':
+        return jsonify({'error': 'Nome de arquivo inválido'}), 400
+
+    # Gera nome seguro e salva no disco
+    filename = secure_filename(f'user_{user_id}_' + avatar_file.filename)
+    icons_dir = os.path.join(current_app.static_folder, 'icons')
+    os.makedirs(icons_dir, exist_ok=True)
+    avatar_file.save(os.path.join(icons_dir, filename))
 
     try:
         conn = conectar()
         cur = conn.cursor()
         cur.execute(
             "UPDATE usuarios SET avatar_url = %s WHERE id = %s",
-            (avatar, user_id)
+            (filename, user_id)
         )
         conn.commit()
         cur.close()
         conn.close()
-        return jsonify({'status': 'ok', 'avatar': avatar}), 200
-
     except Exception as e:
-        import traceback; traceback.print_exc()
-        return jsonify({
-            'error': 'Não foi possível atualizar o avatar',
-            'detail': str(e)
-        }), 500
+        return jsonify({'error': 'Falha ao salvar no banco', 'detail': str(e)}), 500
+
+    avatar_url = url_for('static', filename='icons/' + filename)
+    return jsonify({'status': 'ok', 'avatar_url': avatar_url}), 200
