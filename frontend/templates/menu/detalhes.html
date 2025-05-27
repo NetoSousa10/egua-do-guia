@@ -104,7 +104,11 @@
     <div class="comentario-box">
       {% for r in place.reviews_list %}
         <div class="comentario-usuario">
-          <img src="{{ r.user_avatar_url }}" class="avatar" alt="{{ r.user_name }}">
+          <img
+            src="{{ url_for('static', filename='icons/' + r.user_avatar_url) }}"
+            class="avatar"
+            alt="{{ r.user_name }}"
+          >
           <div class="conteudo">
             <div class="topo">
               <span class="nome">{{ r.user_name }}</span>
@@ -153,4 +157,4 @@
 
 {% block extra_js %}
 <script src="{{ url_for('static', filename='js/detalhes.js') }}"></script>
-{% endblock %}
+{% endblock %}```

@@ -230,7 +230,14 @@ textarea#new-comment {
   font-size: 0.95rem;
   color: #333;
 }
+.detalhes-screen {
+  padding-bottom: 60px; /* altura da barra fixa */
+}
 
+/* garante folga extra só na lista de comentários (aba de avaliações) */
+#aba-avaliacoes .comentario-box {
+  padding-bottom: 20px; /* opcional, para um pouco mais de respiro */
+}
 /* responsividade básica */
 @media (max-width: 480px) {
   textarea#new-comment {
