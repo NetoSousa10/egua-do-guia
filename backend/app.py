@@ -112,6 +112,11 @@ def create_app():
     @login_required
     def tutorial_etapa5():
         return render_template("tutorial/tutorial_etapa5.html")
+    
+    @app.route("/tutorial/etapa6", methods=["GET"])
+    @login_required
+    def tutorial_etapa6():
+        return render_template("tutorial/tutorial_etapa6.html")
 
     @app.route("/reward", methods=["GET"])
     @login_required

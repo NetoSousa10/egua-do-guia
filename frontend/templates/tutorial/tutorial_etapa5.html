@@ -16,11 +16,10 @@
   </div>
   <div class="texto-container">
     <div class="texto">
-      <h2>Talk About the Place</h2>
+      <h2>Converse sobre o local</h2>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquet
-        blandit justo dictum viverra.<br>
-        Pellentesque sed pretium dolor, porttitor fermentum magna.
+        Você pode mandar comentários sobre o local no que você conheceu para facilitar e
+        e ajudar o local com notas positivas para futuras visitas.<br>
       </p>
     </div>
   </div>
@@ -33,6 +32,7 @@
     <span class="dot"></span>
     <span class="dot"></span>
     <span class="dot active"></span>
+    <span class="dot"></span>
   </div>
   <div class="buttons">
     <button
@@ -48,33 +48,10 @@
       type="button"
       id="btn-finish"
       class="btn no"
+      onclick="window.location.href='/tutorial/etapa6';"
     >
-      FINISH!
+      NEXT!
     </button>
   </div>
 </div>
-{% endblock %}
-
-{% block extra_js %}
-{{ super() }}
-<script>
-document.getElementById('btn-finish').addEventListener('click', () => {
-  fetch('/tutorial/complete', {
-    method: 'POST',
-    credentials: 'same-origin'
-  })
-  .then(res => {
-    if (!res.ok) throw new Error(res.status);
-    return res.json();
-  })
-  .then(json => {
-    // só então vamos para a reward
-    window.location.href = '/tutorial/reward';
-  })
-  .catch(err => {
-    console.error('Erro ao finalizar tutorial:', err);
-    alert('Não foi possível concluir o tutorial.');
-  });
-});
-</script>
 {% endblock %}
