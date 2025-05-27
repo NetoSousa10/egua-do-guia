@@ -100,9 +100,10 @@
     <!-- Lista de comentários existentes -->
     <div class="comentario-box">
       {% for r in place.reviews_list %}
+        {% set avatar_file = r.user_avatar_url or 'avatar1.png' %}
         <div class="comentario-usuario">
           <img
-            src="{{ url_for('static', filename='icons/' + r.user_avatar_url) }}"
+            src="{{ url_for('static', filename='icons/' ~ avatar_file) }}"
             class="avatar"
             alt="{{ r.user_name }}"
           >
@@ -143,7 +144,7 @@
   <button class="nav-btn active" data-href="{{ url_for('locais') }}">
     <img src="{{ url_for('static', filename='icons/locais.svg') }}" alt="Locais">
   </button>
-  <button class="nav-btn"        data-href="{{ url_for('lojas') }}">
+  <button class="nav-btn"        data-href="{{ url_for('static', filename='icons/store.svg') }}">
     <img src="{{ url_for('static', filename='icons/store.svg') }}" alt="Loja">
   </button>
   <button class="nav-btn"        data-href="{{ url_for('perfil_overview') }}">
@@ -154,4 +155,4 @@
 
 {% block extra_js %}
 <script src="{{ url_for('static', filename='js/detalhes.js') }}"></script>
-{% endblock %}```
+{% endblock %}
