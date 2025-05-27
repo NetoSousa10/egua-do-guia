@@ -323,11 +323,6 @@ def create_app():
         cur.close()
         conn.close()
         return render_template("menu/profile_comments.html", comments=comments)
-    
-    @app.route('/favicon.ico')
-    def favicon():
-        return send_from_directory(os.path.join(app.root_path, 'static/assets/img'),
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
     # ——— PWA: SW e manifest ———
     @app.route('/service-worker.js')
