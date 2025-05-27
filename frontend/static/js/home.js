@@ -20,13 +20,13 @@ function initMapApp() {
     mall:       '/static/icons/mall.svg',
   };
 
-  // Inicializa o mapa centrado em Belém
+  // Inicializa o mapa
   const map = L.map('map').setView([-1.4550, -48.4900], 13);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
 
-  // Pega localização do usuário
+  // Obtém localização do usuário
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       pos => {
@@ -53,9 +53,9 @@ function initMapApp() {
     });
   }
 
-  // Abre a sidebar e popula dados
+  // Abre sidebar com os dados do ponto
   function openSidebar(data) {
-    console.log('openSidebar chamado com data:', data);
+    console.log('openSidebar:', data);
     document.body.classList.add('sidebar-open');
     sidebarOpen = true;
 
@@ -73,13 +73,13 @@ function initMapApp() {
     document.getElementById('sidebar-phone').textContent   = data.phone  || '';
     document.getElementById('sidebar-price').textContent   = data.price;
 
-    // Define texto inicial enquanto calcula distância
+    // Define texto inicial para distância
     const distEl = document.getElementById('sidebar-distance');
     if (distEl) {
       distEl.textContent = 'Calculando distância…';
     }
 
-    // Traça rota e exibe distância quando pronto
+    // Traça rota e exibe distância
     routeTo({ lat: data.lat, lng: data.lng });
   }
 
@@ -89,18 +89,17 @@ function initMapApp() {
   }
   window.closeSidebar = closeSidebar;
 
-  // Traça rota com Leaflet Routing Machine e mostra distância pela rota
+  // Traça rota e captura distância pela rota
   function routeTo(dest) {
-    console.log('routeTo chamado com destino:', dest);
+    console.log('routeTo para:', dest);
 
     if (!userLocation) {
       console.warn('userLocation não definida ainda');
       alert('Não foi possível obter sua localização.');
       return;
     }
-    console.log('userLocation disponível:', userLocation);
+    console.log('userLocation:', userLocation);
 
-    // Remove rota anterior, se houver
     if (routingControl) {
       map.removeControl(routingControl);
       routingControl = null;
@@ -111,34 +110,29 @@ function initMapApp() {
         userLocation,
         L.latLng(dest.lat, dest.lng)
       ],
-      lineOptions: {
-        styles: [{ color: '#0075B7', weight: 5 }]
-      },
+      lineOptions: { styles: [{ color: '#0075B7', weight: 5 }] },
       createMarker: () => null,
       fitSelectedRoutes: true,
       show: false
     })
     .addTo(map);
 
-    // Quando a rota for encontrada
+    // Quando a rota é encontrada, atualiza distância
     routingControl.on('routesfound', e => {
       const summary = e.routes[0].summary;
-      const d = summary.totalDistance;          // metros
-      const km = (d / 1000).toFixed(2);         // km com duas casas
+      const d = summary.totalDistance;             // em metros
+      const km = (d / 1000).toFixed(2);            // em km
 
-      // Log no console
-      console.log(`Distância total (m): ${d}`, `— em km: ${km}`);
+      console.log(`Distância: ${d.toFixed(0)} m (${km} km)`);
 
-      // Atualiza o elemento da sidebar
       const distEl = document.getElementById('sidebar-distance');
       if (distEl) {
         distEl.textContent = `Distância: ${km} km`;
       }
     });
 
-    // Em caso de erro no roteamento
     routingControl.on('routingerror', err => {
-      console.error('Erro ao calcular rota:', err);
+      console.error('Erro no roteamento:', err);
       const distEl = document.getElementById('sidebar-distance');
       if (distEl) {
         distEl.textContent = 'Não foi possível calcular a rota.';
@@ -146,7 +140,7 @@ function initMapApp() {
     });
   }
 
-  // Adiciona marcadores e clique para abrir/fechar sidebar
+  // Adiciona os marcadores no mapa
   const allMarkers = [];
   points.forEach(pt => {
     const m = L.marker([pt.lat, pt.lng], { icon: createIcon(pt.category) })
@@ -187,7 +181,7 @@ function initMapApp() {
   });
 }
 
-// Inicia quando o PLACES estiver disponível
+// Inicia quando PLACES estiver pronto
 if (window.PLACES) {
   document.addEventListener('DOMContentLoaded', initMapApp);
 } else {

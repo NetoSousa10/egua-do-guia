@@ -113,10 +113,10 @@ body.sidebar-open .category-panel {
   }
   
   /* botão EXPLORE */
-  .explore-btn {
+.explore-btn {
   display: block;
-  /* mesma largura dos cards: sidebar (100%) menos 2rem de margem lateral */
-  width: calc(100% - 2rem);
+  width: 80%;                       /* ocupa 80% da largura do sidebar */
+  max-width: 240px;                 /* não fica maior do que 240px */
   margin: 1rem auto calc(env(safe-area-inset-bottom, 30px) + 1rem);
   padding: .75rem 0;
   background: #212121;
@@ -126,6 +126,7 @@ body.sidebar-open .category-panel {
   font-weight: 600;
   letter-spacing: 1px;
   font-size: .95rem;
+  text-align: center;               /* centraliza o texto */
   cursor: pointer;
   box-shadow: 0 4px 0 #0075B7;
   transition: all .2s ease-in-out;
