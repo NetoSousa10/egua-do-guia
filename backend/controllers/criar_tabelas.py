@@ -16,9 +16,8 @@ def seed_store_items():
     cur = conn.cursor()
     # limpa antes de inserir, assim não duplica em re-runs
     cur.execute("""
-      TRUNCATE TABLE store_items, user_items RESTART IDENTITY CASCADE;""")
-
-
+      TRUNCATE TABLE store_items, user_items RESTART IDENTITY CASCADE;
+    """)
     items = [
         ('roupas',  'Paysandu',      30, '/static/assets/img/roupas1.png'),
         ('roupas',  'Remo',          30, '/static/assets/img/roupas2.png'),
@@ -34,7 +33,6 @@ def seed_store_items():
         ('temas',   'Tema 2',        20, '/static/assets/img/tema2.png'),
         ('temas',   'Tema 3',        20, '/static/assets/img/tema3.png'),
     ]
-
     cur.executemany(
         "INSERT INTO store_items (category, name, price, img_url) VALUES (%s, %s, %s, %s);",
         items
@@ -42,6 +40,7 @@ def seed_store_items():
     conn.commit()
     cur.close()
     conn.close()
+
 
 def criar_tabelas():
     conn = conectar()
@@ -92,6 +91,7 @@ def criar_tabelas():
       phone         VARCHAR(50),
       price         VARCHAR(50),
       hours         VARCHAR(50),
+      about         TEXT,
       features      TEXT[]        DEFAULT '{}',
       lat           NUMERIC(9,6)  NOT NULL,
       lng           NUMERIC(9,6)  NOT NULL
@@ -150,12 +150,16 @@ def criar_tabelas():
     """)
 
     # ——— Avaliações ———
+    # Adicionamos UNIQUE(user_id, place_id) para permitir upsert sem duplicação
     cur.execute("""
     CREATE TABLE ratings (
+      id            SERIAL PRIMARY KEY,
       user_id       INT REFERENCES usuarios(id) ON DELETE CASCADE,
       place_id      INT REFERENCES places(id) ON DELETE CASCADE,
       score         SMALLINT CHECK (score BETWEEN 1 AND 5),
-      PRIMARY KEY (user_id, place_id)
+      comment       TEXT        NOT NULL,
+      created_at    TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+      UNIQUE(user_id, place_id)
     );
     """)
 
