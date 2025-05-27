@@ -30,8 +30,8 @@ def seed_places():
         cur.execute("""
             INSERT INTO places
               (title, category, img_url, address, phone,
-               price, hours, features, lat, lng)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+               price, hours, features, lat, lng, about)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             ON CONFLICT (title) DO UPDATE
               SET
                 category = EXCLUDED.category,
@@ -42,7 +42,8 @@ def seed_places():
                 hours    = EXCLUDED.hours,
                 features = EXCLUDED.features,
                 lat      = EXCLUDED.lat,
-                lng      = EXCLUDED.lng;
+                lng      = EXCLUDED.lng,
+                about    = EXCLUDED.about;
         """, (
             p['title'],
             p['category'],
@@ -54,6 +55,7 @@ def seed_places():
             p.get('features', []),
             p['lat'],
             p['lng'],
+            p.get('about'),   # novo campo
         ))
 
     conn.commit()

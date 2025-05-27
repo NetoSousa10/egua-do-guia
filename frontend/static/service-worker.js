@@ -7,7 +7,7 @@ const SHELL_ASSETS = [
   '/static/css/style.css',
   '/static/js/home.js',
   '/static/js/locais.js',
-  '/static/assets/img/logo.png'
+  '/static/assets/img/logo.svg'
 ];
 
 self.addEventListener('install', event => {

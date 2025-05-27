@@ -1,3 +1,6 @@
+/* frontend/static/css/detalhes.css */
+
+/* Imagem capa */
 .imagem-capa img {
   width: 100%;
   height: 200px;
@@ -21,14 +24,31 @@
   margin-bottom: 6px;
 }
 
+/* ── HORÁRIO E SELO ── */
 .horario-status {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+.horario-status p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #212121;
+}
+
+/* selo “ABERTO” */
 .aberto {
   background: #212121;
+  color: white;
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* selo “FECHADO” — mesmo estilo do aberto */
+.fechado {
+  background: #444;
   color: white;
   font-size: 0.75rem;
   padding: 4px 10px;
@@ -60,29 +80,15 @@
 .conteudo-aba {
   padding: 16px;
   background: #FF8585;
-  border-radius: 0px 0px 12px 12px;
+  border-radius: 0 0 12px 12px;
   margin: 0 16px 16px;
 }
 
-.explorar-bloco {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.btn-explorar {
-  background: #212121;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
+/* visão geral ícones */
 .icones {
   display: flex;
   gap: 12px;
+  justify-content: center;
 }
 
 .icone-circulo {
@@ -108,21 +114,18 @@
   gap: 10px;
 }
 
+.info-detalhes p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .info-detalhes img {
   width: 16px;
-  margin-right: 8px;
-  vertical-align: middle;
+  height: auto;
 }
 
-.info-detalhes span {
-  vertical-align: middle;
-}
-
-.avaliacao {
-  margin-top: 16px;
-  text-align: center;
-}
-
+/* avaliação interativa topo */
 .avaliacao span {
   font-size: 1.5rem;
   cursor: pointer;
@@ -130,19 +133,11 @@
 }
 
 .avaliacao span.selecionada {
-  color: #FFD700;
+  color: #FFD700 !important;
 }
 
-/* Comentário */
-.comentario-area {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-}
-
-.comentario-area textarea {
+/* botão enviar comentário */
+textarea#new-comment {
   width: 100%;
   min-height: 60px;
   padding: 10px;
@@ -150,91 +145,6 @@
   border: none;
   resize: none;
   font-size: 0.95rem;
-}
-
-.comentario-area button {
-  background: #212121;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-/* Comentário exibido */
-.comentario-resultado {
-  margin-top: 10px;
-  background: #fff;
-  color: #212121;
-  padding: 12px;
-  border-radius: 12px;
-  text-align: center;
-  font-weight: bold;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-
-/* Imagem com fundo branco */
-.cardapio-img-container {
-  background: white;
-  border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 16px;
-  text-align: center;
-}
-
-.cardapio-img-container img {
-  width: 100%;
-  max-height: 400px;
-  object-fit: contain;
-  border-radius: 8px;
-}
-
-/* PDF incorporado */
-.cardapio-pdf-container {
-  width: 100%;
-  height: 400px;
-  margin-bottom: 16px;
-}
-
-.cardapio-pdf-container iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  border-radius: 8px;
-}
-
-/* QR Code */
-.qrcode-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 12px;
-}
-
-.qrcode-container img {
-  width: 160px;
-  height: 160px;
-}
-
-.avaliacao-principal {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.avaliacao-principal .avaliacao span {
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: #ccc;
-}
-
-.avaliacao-principal .avaliacao span.selecionada {
-  color: #FFD700;
-}
-
-.opiniao-geral {
-  margin: 8px 0;
-  font-size: 0.9rem;
-  color: #212121;
 }
 
 .btn-avaliar {
@@ -245,6 +155,7 @@
   font-weight: bold;
   border-radius: 8px;
   cursor: pointer;
+  margin-top: 8px;
 }
 
 .separador {
@@ -253,10 +164,37 @@
   margin: 20px 0;
 }
 
+/* média geral — bottom stars */
+.sidebar-rating span {
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+.sidebar-rating span.filled {
+  color: #FFD700 !important;
+}
+
+/* nota em cada comentário */
+.nota span {
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+.nota span.filled {
+  color: #FFD700 !important;
+}
+
+.opiniao-geral {
+  margin: 8px 0;
+  font-size: 0.9rem;
+  color: #212121;
+}
+
 .comentario-box {
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .comentario-usuario {
@@ -265,16 +203,16 @@
   padding: 12px;
   border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-  align-items: flex-start;
   gap: 12px;
+  align-items: flex-start;
 }
 
 .comentario-usuario .avatar {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #ddd;
   object-fit: cover;
+  background: #ddd;
 }
 
 .comentario-usuario .conteudo {
@@ -285,11 +223,24 @@
   display: flex;
   justify-content: space-between;
   font-weight: bold;
-  margin-bottom: 6px;
 }
 
 .comentario-usuario .texto {
+  margin-top: 4px;
   font-size: 0.95rem;
   color: #333;
 }
+.detalhes-screen {
+  padding-bottom: 60px; /* altura da barra fixa */
+}
 
+/* garante folga extra só na lista de comentários (aba de avaliações) */
+#aba-avaliacoes .comentario-box {
+  padding-bottom: 20px; /* opcional, para um pouco mais de respiro */
+}
+/* responsividade básica */
+@media (max-width: 480px) {
+  textarea#new-comment {
+    font-size: 0.9rem;
+  }
+}

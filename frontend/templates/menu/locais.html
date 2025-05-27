@@ -11,7 +11,7 @@
 
   <!-- filtros -->
   <nav class="locais-filters">
-    <button data-cat="all"      class="active">Todos</button>
+    <button data-cat="all" class="active">Todos</button>
     <button data-cat="hotel">Hotel</button>
     <button data-cat="restaurant">Restaurante</button>
     <button data-cat="praca">Praças</button>
@@ -48,11 +48,10 @@
 
 {% block extra_js %}
   <script>
-    // Isso vira, por exemplo, "/static/" no HTML gerado:
     window.STATIC_URL = "{{ url_for('static', filename='') }}";
   </script>
   <!-- 1) places.js define window.PLACES -->
   <script src="{{ url_for('static', filename='js/places.js') }}"></script>
-  <!-- 2) locais.js renderiza e filtra -->
+  <!-- 2) locais.js renderiza, filtra e já inclui link para detalhes -->
   <script src="{{ url_for('static', filename='js/locais.js') }}"></script>
 {% endblock %}

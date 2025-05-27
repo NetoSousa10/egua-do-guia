@@ -19,7 +19,6 @@
           ? `<ul class="place-features">
                ${p.features
                  .map(f => {
-                   // limpa qualquer pontuação/símbolo inicial
                    const clean = String(f).replace(/^[\W_]+/, '').trim();
                    return `<li>${clean}</li>`;
                  })
@@ -31,9 +30,16 @@
           .map(i => i <= p.rating ? '★' : '☆')
           .join(' ');
 
+        // Cria o link que envolve o cartão
+        const link = document.createElement('a');
+        link.href = `/menu/detalhes/${p.id}`;
+        link.className = 'place-link block no-underline';
+        link.setAttribute('aria-label', `Detalhes de ${p.title}`);
+
         const card = document.createElement('div');
         card.className   = 'place-card';
         card.dataset.cat = p.category;
+
         card.innerHTML = `
           <div class="place-img-wrapper">
             <img class="place-img" src="${imgSrc}" alt="${p.title}">
@@ -47,7 +53,10 @@
             ${featuresHtml}
           </div>
         `;
-        list.appendChild(card);
+
+        // Anexa o card dentro do link, e o link na lista
+        link.appendChild(card);
+        list.appendChild(link);
       });
     }
 
@@ -59,8 +68,9 @@
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const cat = btn.dataset.cat;
-        document.querySelectorAll('.place-card').forEach(card => {
-          card.style.display =
+        document.querySelectorAll('.place-link').forEach(link => {
+          const card = link.querySelector('.place-card');
+          link.style.display =
             (cat === 'all' || card.dataset.cat === cat) ? 'flex' : 'none';
         });
       });

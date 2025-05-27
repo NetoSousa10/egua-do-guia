@@ -29,8 +29,7 @@
   transition: background 0.2s;
 }
 .locais-filters button.active {
-  background: var(--color-primary); /* ex: #FF7575 */
-  color: #fff;
+  background: var(--color-primary);
 }
 
 /* Variáveis de tamanho */
@@ -50,7 +49,7 @@
 .place-card {
   display: flex;
   align-items: stretch;
-  background: var(--color-primary); /* ex: #FF7575 */
+  background: var(--color-primary);
   border-radius: 16px;
   overflow: hidden;
   width: 100%;
@@ -73,9 +72,17 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-flex-start;
+  justify-content: flex-start;
   padding: 0.75rem;
   color: #000;
+}
+
+/* Remover sublinhado de qualquer link dentro dos cards */
+.place-info a,
+.place-title a {
+  text-decoration: none;
+  color: inherit;
+  cursor: default;
 }
 
 /* Título */
@@ -84,6 +91,8 @@
   font-weight: 700;
   margin: 0;
   line-height: 1.2;
+  /* Garante sem sublinhado mesmo se for link */
+  text-decoration: none;
 }
 
 /* Avaliação (estrelas + reviews) */
@@ -107,6 +116,7 @@
   opacity: 0.8;
   margin: 0;
   color: #fff;
+  text-decoration: none;
 }
 
 /* Características (features) */
@@ -125,6 +135,11 @@
 .place-features li {
   margin-bottom: 0.25rem;
 }
+.place-features li a {
+  text-decoration: none;
+  color: inherit;
+  cursor: default;
+}
 
 /* Bottom nav */
 .bottom-nav {
@@ -138,46 +153,45 @@
   justify-content: space-around;
   align-items: center;
 }
-/* === Responsividade para desktop/laptops === */
+.place-link {
+  text-decoration: none !important;
+  text-decoration-skip-ink: none !important;
+}
+
+.place-link,
+.place-link * {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+/* Responsividade para desktop/laptops */
 @media (min-width: 768px) {
-  /* Container usa 100% em vez de ficar preso a 430px */
   .locais-screen {
     max-width: none;
     padding: var(--space-lg);
   }
-
-  /* Organiza os cards em grid de duas ou mais colunas */
   .locais-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: var(--space-md);
   }
-
-  /* Cada card ocupa todo o espaço da célula */
   .place-card {
     width: 100%;
-    height: auto;           /* auto para a altura crescer com conteúdo */
-    min-height: var(--card-height); /* garante no mínimo o tamanho padrão */
+    height: auto;
+    min-height: var(--card-height);
   }
-  /* Padroniza o wrapper da imagem */
-.place-img-wrapper {
-  /* largura fixa igual à altura do card quando fechado em mobile, ou ao tamanho da variável */
-  flex: 0 0 var(--img-size);
-  width: var(--img-size);
-  /* força proporção 1:1 (quadrado) */
-  aspect-ratio: 1;
-  /* arredonda apenas os cantos esquerdos, igual ao card */
-  border-radius: 16px 0 0 16px;
-  overflow: hidden;
-  background: #fff; /* evita fundo “vazio” enquanto carrega */
-}
-
-/* Faz a <img> cobrir todo o wrapper */
-.place-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
+  .place-img-wrapper {
+    flex: 0 0 var(--img-size);
+    width: var(--img-size);
+    aspect-ratio: 1;
+    border-radius: 16px 0 0 16px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .place-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 }

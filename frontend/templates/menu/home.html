@@ -1,4 +1,4 @@
-{# frontend/templates/home.html #}
+{# frontend/templates/menu/home.html #}
 {% extends 'base.html' %}
 
 {% block title %}Mapa – Égua do Guia{% endblock %}
@@ -9,7 +9,7 @@
     rel="stylesheet"
     href="https://unpkg.com/leaflet/dist/leaflet.css"
   />
-  <!-- Seu CSS personalizado só para a home (o style.css global já está no base.html) -->
+  <!-- Seu CSS personalizado só para a home -->
   <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/home.css') }}"
@@ -20,73 +20,68 @@
 <div class="home-screen">
   <div id="category-panel" class="category-panel">
     <button data-category="hotel" class="active">
-      <img src="{{ url_for('static', filename='icons/hotel.svg') }}" alt="Hotéis">
-      Hotéis
+      <img src="{{ url_for('static', filename='icons/hotel.svg') }}" alt="Hotéis"> Hotéis
     </button>
     <button data-category="restaurant">
-      <img src="{{ url_for('static', filename='icons/restaurant.svg') }}" alt="Restaurantes">
-      Restaurantes
+      <img src="{{ url_for('static', filename='icons/restaurant.svg') }}" alt="Restaurantes"> Restaurantes
     </button>
     <button data-category="praca">
-      <img src="{{ url_for('static', filename='icons/praca.svg') }}" alt="Praças">
-      Praças
+      <img src="{{ url_for('static', filename='icons/praca.svg') }}" alt="Praças"> Praças
     </button>
     <button data-category="cultura">
-      <img src="{{ url_for('static', filename='icons/cultura.svg') }}" alt="Cultura">
-      Cultura
+      <img src="{{ url_for('static', filename='icons/cultura.svg') }}" alt="Cultura"> Cultura
     </button>
     <button data-category="loja">
-      <img src="{{ url_for('static', filename='icons/loja.svg') }}" alt="Lojas">
-      Lojas
+      <img src="{{ url_for('static', filename='icons/loja.svg') }}" alt="Lojas"> Lojas
     </button>
     <button data-category="mall">
-      <img src="{{ url_for('static', filename='icons/mall.svg') }}" alt="Shoppings">
-      Shoppings
+      <img src="{{ url_for('static', filename='icons/mall.svg') }}" alt="Shoppings"> Shoppings
     </button>
   </div>
 
-  <!-- Mapa ocupa toda a tela acima da nav -->
   <div id="map" class="map-container"></div>
 
-  <!-- Sidebar deslizante -->
   <div id="sidebar">
     <button class="close-btn" onclick="closeSidebar()">✕</button>
     <img
       id="sidebar-img"
       src="{{ url_for('static', filename='assets/img/hotel1.jpg') }}"
-      alt="Hotel Alphaville"
+      alt="Imagem do local"
       class="sidebar-img"
     />
     <div class="sidebar-card">
       <div class="sidebar-header">
-        <h2 id="sidebar-title">Hotel Alphaville</h2>
+        <h2 id="sidebar-title">Título do Local</h2>
       </div>
-      <div class="sidebar-rating" id="sidebar-rating">★★★★☆</div>
+      <div class="sidebar-rating" id="sidebar-rating">★★★★★</div>
       <div class="sidebar-info">
-        <p><i class="fas fa-clock"></i> <span id="sidebar-hours">Open – Closes 23:00</span></p>
-        <p><i class="fas fa-map-marker-alt"></i> <span id="sidebar-address">Rod. BR-316, Km 4, …</span></p>
-        <p><i class="fas fa-phone"></i> <span id="sidebar-phone">(91) 1234-5678</span></p>
-        <p><i class="fas fa-dollar-sign"></i> <span id="sidebar-price">R$ 225,00 ~ R$ 820,00</span></p>
+        <p><i class="fas fa-clock"></i> <span id="sidebar-hours">Horário</span></p>
+        <p><i class="fas fa-map-marker-alt"></i> <span id="sidebar-address">Endereço</span></p>
+        <p><i class="fas fa-phone"></i> <span id="sidebar-phone">Telefone</span></p>
+        <p><i class="fas fa-dollar-sign"></i> <span id="sidebar-price">Preço</span></p>
+        <p><i class="fas fa-signs-post"></i> <span id="sidebar-distance">Distancia</span></p>
       </div>
     </div>
-    <button class="explore-btn">EXPLORAR</button>
+    <!-- Mantém o id="explore-link" que seu home.js procura -->
+    <a id="explore-link" class="explore-btn">
+      EXPLORAR
+    </a>
   </div>
 
-  <!-- Navegação inferior -->
   <nav class="bottom-nav">
-    <button class="nav-btn active" aria-label="Mapa" data-href="{{ url_for('home') }}">
+    <button class="nav-btn active" data-href="{{ url_for('home') }}">
       <img src="{{ url_for('static', filename='icons/icon-map.svg') }}" alt="Mapa">
     </button>
-    <button class="nav-btn" aria-label="Categorias" data-href="{{ url_for('puzzle') }}">
-      <img src="{{ url_for('static', filename='icons/puzzle.svg') }}" alt="Categorias">
+    <button class="nav-btn" data-href="{{ url_for('puzzle') }}">
+      <img src="{{ url_for('static', filename='icons/puzzle.svg') }}" alt="Puzzle">
     </button>
-    <button class="nav-btn" aria-label="Locais" data-href="{{ url_for('locais') }}">
+    <button class="nav-btn" data-href="{{ url_for('locais') }}">
       <img src="{{ url_for('static', filename='icons/locais.svg') }}" alt="Locais">
     </button>
-    <button class="nav-btn" aria-label="Lojas" data-href="{{ url_for('lojas') }}">
+    <button class="nav-btn" data-href="{{ url_for('lojas') }}">
       <img src="{{ url_for('static', filename='icons/store.svg') }}" alt="Lojas">
     </button>
-    <button class="nav-btn" aria-label="Perfil" data-href="{{ url_for('perfil_overview') }}">
+    <button class="nav-btn" data-href="{{ url_for('perfil_overview') }}">
       <img src="{{ url_for('static', filename='icons/perfil.svg') }}" alt="Perfil">
     </button>
   </nav>
@@ -94,8 +89,8 @@
 {% endblock %}
 
 {% block extra_js %}
-  <!-- Primeiro carrega os pontos -->
-  <script defer src="{{ url_for('static', filename='js/places.js') }}"></script>
-  <!-- Depois inicia o mapa usando window.PLACES -->
-  <script defer src="{{ url_for('static', filename='js/home.js') }}"></script>
+  <!-- Carrega primeiro os dados de places -->
+  <script src="{{ url_for('static', filename='js/places.js') }}"></script>
+  <!-- Depois inicializa o mapa e sidebar -->
+  <script src="{{ url_for('static', filename='js/home.js') }}"></script>
 {% endblock %}

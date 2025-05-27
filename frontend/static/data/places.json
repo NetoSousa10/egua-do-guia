@@ -15,7 +15,8 @@
       "Igreja histórica",
       "Entrada gratuita",
       "Acesso adaptado"
-    ]
+    ],
+    "about": "A Basílica Santuário de Nossa Senhora de Nazaré é um dos principais centros de fé do Pará, palco do tradicional Círio de Nazaré."
   },
   {
     "lat": -1.453411,
@@ -33,7 +34,8 @@
       "Sala clássica",
       "Programação variada",
       "Acesso reservado"
-    ]
+    ],
+    "about": "O Cine Olympia é o cinema mais antigo de Belém, com programação de filmes clássicos e sessões especiais de arte e cultura."
   },
   {
     "lat": -1.45234,
@@ -51,7 +53,8 @@
       "Mercado tradicional",
       "Frutas frescas",
       "Ambiente aberto"
-    ]
+    ],
+    "about": "O Ver-o-Peso é o maior mercado a céu aberto da América Latina, referência em produtos regionais e iguarias amazônicas."
   },
   {
     "lat": -1.4500462,
@@ -69,7 +72,8 @@
       "Vista para rio",
       "Espaço gastronômico",
       "Agenda cultural"
-    ]
+    ],
+    "about": "Complexo turístico à beira do Rio Guamá, com restaurantes, lojas e programação cultural em galpões restaurados."
   },
   {
     "lat": -1.4488419793550833,
@@ -87,7 +91,8 @@
       "Sorvetes artesanais",
       "Variedade sabores",
       "Atendimento acolhedor"
-    ]
+    ],
+    "about": "Fundada em 1936, a Sorveteria Cairu é tradicional em Belém pelo seu sorvete caseiro e ambiente familiar."
   },
   {
     "lat": -1.459072189955288,
@@ -105,7 +110,8 @@
       "Ambiente familiar",
       "Sorvetes artesanais",
       "Cartão aceito"
-    ]
+    ],
+    "about": "Segunda unidade da tradicional Sorveteria Cairu, mantendo a qualidade e diversidade de sabores artesanais."
   },
   {
     "lat": -1.44197,
@@ -123,7 +129,8 @@
       "Porções generosas",
       "Sorvete cremoso",
       "Wi-Fi grátis"
-    ]
+    ],
+    "about": "Terceira unidade da Cairu no Umarizal, destaque para porções generosas e ambiente moderno."
   },
   {
     "lat": -1.4522587766696307,
@@ -141,7 +148,8 @@
       "Museu científico",
       "Acervo rico",
       "Visitas guiadas"
-    ]
+    ],
+    "about": "Museu de história natural fundado em 1866, famoso por pesquisas sobre biodiversidade amazônica."
   },
   {
     "lat": -1.4645973,
@@ -159,7 +167,8 @@
       "Parque ecológico",
       "Mirante panorâmico",
       "Café local"
-    ]
+    ],
+    "about": "Parque ecológico às margens do rio, com viveiro de animais locais, mirante e espaço de convivência."
   },
   {
     "lat": -1.455075,
@@ -177,7 +186,8 @@
       "Museu regional",
       "Exposições rotativas",
       "Ticket acessível"
-    ]
+    ],
+    "about": "Antigo casarão histórico transformado em centro cultural, abriga exposições de arte e arquitetura."
   },
   {
     "lat": -1.454414,
@@ -195,7 +205,8 @@
       "Forte histórico",
       "Entrada paga",
       "Visita guiada"
-    ]
+    ],
+    "about": "Construído em 1616, o Forte do Presépio marca o início da colonização de Belém e abriga um museu militar."
   },
   {
     "lat": -1.452778,
@@ -213,7 +224,8 @@
       "Casa de ópera",
       "Arquitetura neoclássica",
       "Acústica excelente"
-    ]
+    ],
+    "about": "Inaugurado em 1878, é a principal casa de espetáculos de Belém, com arquitetura neoclássica e eventos culturais."
   },
   {
     "lat": -1.4528,
@@ -231,7 +243,8 @@
       "Conforto urbano",
       "Café incluso",
       "Wi-Fi gratuito"
-    ]
+    ],
+    "about": "Hotel clássico na área central, oferece quartos confortáveis e café da manhã incluído."
   },
   {
     "lat": -1.44483,
@@ -249,7 +262,8 @@
       "Culinária regional",
       "Ambiente rústico",
       "Porções generosas"
-    ]
+    ],
+    "about": "Restaurante especializado em comidas típicas amazônicas servidas na cuia, tradição culinária da região."
   },
   {
     "lat": -1.45676,
@@ -267,7 +281,8 @@
       "Design moderno",
       "Café incluso",
       "Localização central"
-    ]
+    ],
+    "about": "Rede econômica com estilo moderno, oferece ambientes coloridos e café da manhã incluso."
   },
   {
     "lat": -1.45748,
@@ -285,7 +300,8 @@
       "Quartos espaçosos",
       "Café incluso",
       "Wi-Fi gratuito"
-    ]
+    ],
+    "about": "Outra unidade da rede ibis Styles, próxima a pontos turísticos e com estrutura acolhedora."
   },
   {
     "lat": -1.46308,
@@ -303,7 +319,8 @@
       "Piscina externa",
       "Quartos amplos",
       "Café incluso"
-    ]
+    ],
+    "about": "Hotel boutique em casarão histórico, combina charme colonial com conforto moderno."
   },
   {
     "lat": -1.44572,
@@ -321,7 +338,8 @@
       "Lojas variadas",
       "Estacionamento",
       "Cinema interno"
-    ]
+    ],
+    "about": "Shopping center com mix de lojas nacionais e regionais, praça de alimentação e cinema."
   },
   {
     "lat": -1.45786,
@@ -339,7 +357,8 @@
       "Espaço amplo",
       "Marcas nacionais",
       "Wi-Fi grátis"
-    ]
+    ],
+    "about": "Pátio Belém reúne grandes marcas, área kids e programação de eventos culturais no coração da cidade."
   },
   {
     "lat": -1.43715,
@@ -357,7 +376,8 @@
       "Açaí tradicional",
       "Preços acessíveis",
       "Delivery disponível"
-    ]
+    ],
+    "about": "Especializado em açaí e produtos regionais, é ponto de encontro para experimentar a culinária amazônica."
   },
   {
     "lat": -1.43319,
@@ -375,7 +395,8 @@
       "Açaí cremoso",
       "Ambiente agradável",
       "Porções grandes"
-    ]
+    ],
+    "about": "Unidade ampliada do Ver-O-Açaí, com ambiente moderno e opções de bowls regionais."
   },
   {
     "lat": -1.43979,
@@ -393,6 +414,7 @@
       "Hambúrguer artesanal",
       "Ambiente casual",
       "Porções generosas"
-    ]
+    ],
+    "about": "Restaurante contemporâneo que combina pratos refinados com ingredientes locais e clima descontraído."
   }
 ]
