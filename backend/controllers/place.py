@@ -15,7 +15,7 @@ def get_place_data(place_id: int) -> dict:
       - Campos principais de places (id, title, category, img_url, address, phone, hours, price, lat, lng, about)
       - Contagem e média de ratings
       - Lista de features
-      - Lista de avaliações completas (comentário, nota, usuário)
+      - Lista de avaliações completas (comentário, nota, usuário, avatar com fallback)
     Retorna um dicionário pronto para Jinja ou JSON.
     """
     conn = conectar()
@@ -76,23 +76,29 @@ def get_place_data(place_id: int) -> dict:
 
     # 2) Busca lista completa de avaliações (comentários) juntando com 'usuarios'
     cur.execute("""
-        SELECT u.nome, u.avatar_url, r.score, r.comment
-        FROM ratings r
-        JOIN usuarios u ON u.id = r.user_id
-        WHERE r.place_id = %s
-        ORDER BY r.created_at DESC;
+        SELECT u.nome       AS user_name,
+               u.avatar_url AS user_avatar_url,
+               r.score,
+               r.comment
+          FROM ratings r
+          JOIN usuarios u
+            ON u.id = r.user_id
+         WHERE r.place_id = %s
+      ORDER BY r.created_at DESC;
     """, (place_id,))
     reviews = cur.fetchall()
     cur.close()
     conn.close()
 
+    # 3) Monta a lista de reviews, aplicando fallback 'avatar1.png' quando necessário
     place['reviews_list'] = [
         {
-            'user_name': r[0],           # nome do usuário
-            'user_avatar_url': r[1],     # URL do avatar
-            'score': r[2],
-            'comment': r[3]
-        } for r in reviews
+            'user_name':       r[0],
+            'user_avatar_url': r[1] or 'avatar1.png',
+            'score':           r[2],
+            'comment':         r[3]
+        }
+        for r in reviews
     ]
 
     # Comentário mais recente como texto de destaque
@@ -128,7 +134,7 @@ def api_post_review(place_id):
 
     conn = conectar()
     cur = conn.cursor()
-    # ALTERAÇÃO: faz upsert para não duplicar avaliações do mesmo usuário no mesmo lugar
+    # Upsert para evitar duplicação de avaliações
     cur.execute("""
         INSERT INTO ratings (user_id, place_id, score, comment, created_at)
         VALUES (%s, %s, %s, %s, %s)
