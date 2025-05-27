@@ -1,4 +1,4 @@
-// static/js/home.js
+// frontend/static/js/home.js
 
 function initMapApp() {
   const points = window.PLACES;
@@ -59,6 +59,8 @@ function initMapApp() {
     document.body.classList.add('sidebar-open');
     sidebarOpen = true;
 
+    // Preenche informações
+    document.getElementById('sidebar').dataset.placeId = data.id;
     document.getElementById('sidebar-title').textContent   = data.title;
     document.getElementById('sidebar-img').src             = data.imgUrl;
     document.getElementById('sidebar-img').alt             = data.title;
@@ -73,11 +75,9 @@ function initMapApp() {
     document.getElementById('sidebar-phone').textContent   = data.phone  || '';
     document.getElementById('sidebar-price').textContent   = data.price;
 
-    // Define texto inicial para distância
+    // Texto inicial de distância
     const distEl = document.getElementById('sidebar-distance');
-    if (distEl) {
-      distEl.textContent = 'Calculando distância…';
-    }
+    if (distEl) distEl.textContent = 'Calculando distância…';
 
     // Traça rota e exibe distância
     routeTo({ lat: data.lat, lng: data.lng });
@@ -89,7 +89,7 @@ function initMapApp() {
   }
   window.closeSidebar = closeSidebar;
 
-  // Traça rota e captura distância pela rota
+  // Traça rota e captura distância
   function routeTo(dest) {
     console.log('routeTo para:', dest);
 
@@ -98,7 +98,6 @@ function initMapApp() {
       alert('Não foi possível obter sua localização.');
       return;
     }
-    console.log('userLocation:', userLocation);
 
     if (routingControl) {
       map.removeControl(routingControl);
@@ -106,41 +105,26 @@ function initMapApp() {
     }
 
     routingControl = L.Routing.control({
-      waypoints: [
-        userLocation,
-        L.latLng(dest.lat, dest.lng)
-      ],
+      waypoints: [ userLocation, L.latLng(dest.lat, dest.lng) ],
       lineOptions: { styles: [{ color: '#0075B7', weight: 5 }] },
       createMarker: () => null,
       fitSelectedRoutes: true,
       show: false
-    })
-    .addTo(map);
+    }).addTo(map);
 
-    // Quando a rota é encontrada, atualiza distância
     routingControl.on('routesfound', e => {
       const summary = e.routes[0].summary;
-      const d = summary.totalDistance;             // em metros
-      const km = (d / 1000).toFixed(2);            // em km
-
-      console.log(`Distância: ${d.toFixed(0)} m (${km} km)`);
-
-      const distEl = document.getElementById('sidebar-distance');
-      if (distEl) {
-        distEl.textContent = `Distância: ${km} km`;
-      }
+      const km = (summary.totalDistance / 1000).toFixed(2);
+      document.getElementById('sidebar-distance').textContent = `Distância: ${km} km`;
     });
 
     routingControl.on('routingerror', err => {
       console.error('Erro no roteamento:', err);
-      const distEl = document.getElementById('sidebar-distance');
-      if (distEl) {
-        distEl.textContent = 'Não foi possível calcular a rota.';
-      }
+      document.getElementById('sidebar-distance').textContent = 'Não foi possível calcular a rota.';
     });
   }
 
-  // Adiciona os marcadores no mapa
+  // Adiciona marcadores
   const allMarkers = [];
   points.forEach(pt => {
     const m = L.marker([pt.lat, pt.lng], { icon: createIcon(pt.category) })
@@ -149,8 +133,19 @@ function initMapApp() {
     allMarkers.push({ marker: m, category: pt.category });
   });
 
-  // Fecha sidebar ao clicar no mapa
   map.on('click', () => sidebarOpen && closeSidebar());
+
+  // Botão EXPLORAR
+  const exploreLink = document.getElementById('explore-link');
+  const sidebar    = document.getElementById('sidebar');
+  if (exploreLink) {
+    exploreLink.addEventListener('click', () => {
+      const placeId = sidebar.dataset.placeId;
+      if (placeId) {
+        window.location.href = `/menu/detalhes/${placeId}`;
+      }
+    });
+  }
 
   // Navegação inferior
   document.querySelectorAll('.bottom-nav .nav-btn').forEach(btn => {
@@ -162,7 +157,7 @@ function initMapApp() {
     });
   });
 
-  // Filtro lateral por categoria
+  // Filtro lateral
   document.querySelectorAll('#category-panel button').forEach(btn => {
     btn.addEventListener('click', () => {
       const cat = btn.dataset.category;
