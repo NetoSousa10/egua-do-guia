@@ -1,3 +1,4 @@
+{# frontend/templates/menu/profile_overview.html #}
 {% extends 'base.html' %}
 {% block title %}Perfil – Égua do Guia{% endblock %}
 
@@ -69,11 +70,7 @@
       <img
         class="avatar"
         id="avatar-img"
-        src="{% if user.avatar %}
-               {{ url_for('static', filename='icons/' + user.avatar) }}
-             {% else %}
-               {{ url_for('static', filename='assets/img/default.jpg') }}
-             {% endif %}"
+        src="{{ url_for('static', filename='icons/' + (user.avatar or 'avatar1.svg')) }}"
         alt="Avatar"
         style="width:120px; height:120px; border-radius:50%; object-fit:cover;"
       >
@@ -191,7 +188,7 @@
     <button id="close-modal" class="close-btn">&times;</button>
     <h3>Escolha seu avatar</h3>
     <div class="icon-grid">
-      {% for icon in ['comentario','cultura','hotel','trophy-prata','trophy-ouro','trophy-bronze'] %}
+      {% for icon in ['avatar1','avatar2','avatar3'] %}
         <img
           src="{{ url_for('static', filename='icons/' ~ icon ~ '.svg') }}"
           class="icon-option"
@@ -219,7 +216,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.icon-option').forEach(imgEl => {
     imgEl.addEventListener('click', async () => {
-      const relative = imgEl.getAttribute('data-filename'); // ex: "icons/trophy-ouro.svg"
+      const relative = imgEl.getAttribute('data-filename');
       try {
         const resp = await fetch("{{ url_for('profile.update_avatar') }}", {
           method: 'POST',
@@ -227,10 +224,7 @@ window.addEventListener('DOMContentLoaded', () => {
           body: JSON.stringify({ avatar: relative })
         });
         const json = await resp.json();
-        if (!resp.ok) {
-          throw new Error(json.error || json.detail || 'Erro desconhecido');
-        }
-        // usa o json.avatar_url retornado pelo backend
+        if (!resp.ok) throw new Error(json.error || json.detail || 'Erro desconhecido');
         avatarImg.src = json.avatar_url + '?t=' + Date.now();
         avatarModal.classList.add('hidden');
       } catch (err) {
@@ -258,4 +252,3 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 {% endblock %}
-
