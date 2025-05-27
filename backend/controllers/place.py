@@ -8,7 +8,6 @@ from datetime import datetime
 
 place_bp = Blueprint('place', __name__, url_prefix='/api/places')
 
-
 def get_place_data(place_id: int) -> dict:
     """
     Consulta no banco os dados de um place específico, incluindo:
@@ -77,7 +76,7 @@ def get_place_data(place_id: int) -> dict:
     # 2) Busca lista completa de avaliações (comentários) juntando com 'usuarios'
     cur.execute("""
         SELECT u.nome       AS user_name,
-               u.avatar_url AS user_avatar_url,
+               u.avatar      AS user_avatar_url,
                r.score,
                r.comment
           FROM ratings r
