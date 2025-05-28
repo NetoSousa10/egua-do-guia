@@ -9,7 +9,7 @@
     rel="stylesheet"
     href="https://unpkg.com/leaflet/dist/leaflet.css"
   />
-  <!-- Seu CSS personalizado só para a home -->
+  <!-- CSS customizado só para a home -->
   <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/home.css') }}"
@@ -43,29 +43,19 @@
 
   <div id="sidebar">
     <button class="close-btn" onclick="closeSidebar()">✕</button>
-    <img
-      id="sidebar-img"
-      src="{{ url_for('static', filename='assets/img/hotel1.jpg') }}"
-      alt="Imagem do local"
-      class="sidebar-img"
-    />
+    <img id="sidebar-img" src="" alt="Imagem do local" class="sidebar-img" />
     <div class="sidebar-card">
-      <div class="sidebar-header">
-        <h2 id="sidebar-title">Título do Local</h2>
-      </div>
-      <div class="sidebar-rating" id="sidebar-rating">★★★★★</div>
+      <h2 id="sidebar-title">Título do Local</h2>
+      <div id="sidebar-rating" class="sidebar-rating">★★★★★</div>
       <div class="sidebar-info">
-        <p><i class="fas fa-clock"></i> <span id="sidebar-hours">Horário</span></p>
-        <p><i class="fas fa-map-marker-alt"></i> <span id="sidebar-address">Endereço</span></p>
-        <p><i class="fas fa-phone"></i> <span id="sidebar-phone">Telefone</span></p>
-        <p><i class="fas fa-dollar-sign"></i> <span id="sidebar-price">Preço</span></p>
-        <p><i class="fas fa-signs-post"></i> <span id="sidebar-distance">Distancia</span></p>
+        <p><i class="fas fa-clock"></i> <span id="sidebar-hours">—</span></p>
+        <p><i class="fas fa-map-marker-alt"></i> <span id="sidebar-address">—</span></p>
+        <p><i class="fas fa-phone"></i> <span id="sidebar-phone">—</span></p>
+        <p><i class="fas fa-dollar-sign"></i> <span id="sidebar-price">—</span></p>
+        <p><i class="fas fa-route"></i> <span id="sidebar-distance">—</span></p>
       </div>
+      <a id="explore-link" class="explore-btn">EXPLORAR</a>
     </div>
-    <!-- Mantém o id="explore-link" que seu home.js procura -->
-    <a id="explore-link" class="explore-btn">
-      EXPLORAR
-    </a>
   </div>
 
   <nav class="bottom-nav">
@@ -89,8 +79,15 @@
 {% endblock %}
 
 {% block extra_js %}
-  <!-- Carrega primeiro os dados de places -->
-  <script src="{{ url_for('static', filename='js/places.js') }}"></script>
-  <!-- Depois inicializa o mapa e sidebar -->
+  <!-- injeta JSON completo dos lugares (inclui hours, address, phone, price) -->
+  <script id="raw-places-data" type="application/json">
+    {{ raw_places | tojson | safe }}
+  </script>
+
+  <!-- Leaflet e Routing Machine -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+  <!-- Lógica do mapa e sidebar -->
   <script src="{{ url_for('static', filename='js/home.js') }}"></script>
 {% endblock %}

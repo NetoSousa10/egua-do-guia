@@ -15,6 +15,7 @@ from backend.controllers.profile import profile_bp
 from backend.controllers.store import store_bp
 from backend.controllers.tutorial import tutorial_bp
 from backend.controllers.place import place_bp, get_place_data
+from backend.controllers.distance import distance_bp  # Blueprint para distância via Google API
 
 # Caminhos absolutos
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -29,7 +30,6 @@ app = Flask(
 )
 
 # ————— Desativa cache de arquivos estáticos —————
-# Para garantir que o browser sempre busque a versão atualizada
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 # ————— No-cache em todas as respostas —————
@@ -45,11 +45,8 @@ def add_no_cache_headers(response):
 def override_url_for():
     return dict(url_for=dated_url_for)
 
+
 def dated_url_for(endpoint, **values):
-    """
-    Se endpoint == 'static', anexa ?v=<mtime> para forçar o browser
-    a buscar a versão mais recente do arquivo.
-    """
     if endpoint == 'static' and 'filename' in values:
         fn = values['filename']
         file_path = os.path.join(app.static_folder, fn)
@@ -69,6 +66,7 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated
 
+
 def create_app():
     load_dotenv()
     app.secret_key = os.getenv("SECRET_KEY", "troque_em_producao")
@@ -80,9 +78,9 @@ def create_app():
     app.register_blueprint(store_bp)
     app.register_blueprint(tutorial_bp)
     app.register_blueprint(place_bp)
+    app.register_blueprint(distance_bp,    url_prefix="/api/distance")
 
     # ——— Rotas públicas e protegidas ———
-
     @app.route("/", methods=["GET"])
     @app.route("/splash", methods=["GET"])
     def splash():
@@ -112,7 +110,7 @@ def create_app():
         session.clear()
         return redirect(url_for('login_form'))
 
-    # ——— Tutorial (protegido) ———
+    # ——— Tutorial ———
     @app.route("/tutorial", methods=["GET"])
     @login_required
     def tutorial():
@@ -137,7 +135,7 @@ def create_app():
     @login_required
     def tutorial_etapa5():
         return render_template("tutorial/tutorial_etapa5.html")
-    
+
     @app.route("/tutorial/etapa6", methods=["GET"])
     @login_required
     def tutorial_etapa6():
@@ -148,44 +146,68 @@ def create_app():
     def reward():
         return render_template("reward.html")
 
-    # ——— Menu principal (protegido) ———
+    # ——— Menu principal ———
+
     @app.route("/menu/home", methods=["GET"])
     @login_required
     def home():
-        return render_template("menu/home.html")
+        # 1) busca todos os campos que você quer exibir:
+        conn = conectar()
+        cur = conn.cursor()
+        cur.execute("""
+            SELECT
+              p.id,
+              p.title,
+              p.category,
+              p.lat,
+              p.lng,
+              p.img_url,
+              p.hours,
+              p.address,
+              p.phone,
+              p.price,
+              COALESCE(r.avg_rating, 0) AS rating
+            FROM places p
+            LEFT JOIN (
+              SELECT place_id, ROUND(AVG(score)::numeric,1) AS avg_rating
+              FROM ratings
+              GROUP BY place_id
+            ) r ON r.place_id = p.id;
+        """)
+        rows = cur.fetchall()
+        cur.close()
+        conn.close()
+
+        # 2) monta o JSON completo (incluindo hours, address, phone, price)
+        raw_places = [
+            {
+                "id": row[0],
+                "name": row[1],
+                "category": row[2],
+                "lat": float(row[3]),
+                "lng": float(row[4]),
+                "img_url": row[5],
+                "hours": row[6] or "",
+                "address": row[7] or "",
+                "phone": row[8] or "",
+                "price": row[9] or "",
+                "rating": float(row[10])
+            }
+            for row in rows
+        ]
+
+        # 3) injeta no template home.html
+        return render_template(
+            "menu/home.html",
+            raw_places=raw_places
+        )
 
     @app.route("/menu/puzzle", methods=["GET"])
     @login_required
     def puzzle():
         return render_template("menu/puzzle.html")
 
-    @app.route("/menu/locais", methods=["GET"])
-    @login_required
-    def locais():
-        return render_template("menu/locais.html")
-
-    @app.route("/menu/lojas", methods=["GET"])
-    def lojas():
-        return render_template("menu/lojas.html")
-
-    # ——— Opções da loja (público) ———
-    @app.route('/opcoes/roupas', methods=['GET'])
-    def opcoes_roupas():
-        return render_template('opcoes/roupas.html')
-
-    @app.route('/opcoes/cupons', methods=['GET'])
-    def opcoes_cupons():
-        return render_template('opcoes/cupons.html')
-
-    @app.route('/opcoes/avatar', methods=['GET'])
-    def opcoes_avatar():
-        return render_template('opcoes/avatar.html')
-
-    @app.route('/opcoes/temas', methods=['GET'])
-    def opcoes_temas():
-        return render_template('opcoes/temas.html')
-
-    # ——— Quiz (protegido) ———
+    # ——— Quiz ———
     @app.route("/quiz/festivais", methods=["GET"])
     @login_required
     def quiz_festivais():
@@ -231,34 +253,66 @@ def create_app():
     def quiz_bairros():
         return render_template("quiz/bairros.html")
 
-    # ——— Detalhes do lugar (protegido) ———
+    # ——— Locais ———
+    @app.route("/menu/locais", methods=["GET"])
+    @login_required
+    def locais():
+        conn = conectar()
+        cur = conn.cursor()
+        cur.execute("""
+            SELECT
+              p.id, p.title, p.category, p.lat, p.lng, p.img_url,
+              COALESCE(r.avg_rating, 0) AS rating
+            FROM places p
+            LEFT JOIN (
+              SELECT place_id, ROUND(AVG(score)::numeric,1) AS avg_rating
+              FROM ratings
+              GROUP BY place_id
+            ) r ON r.place_id = p.id;
+        """
+        )
+        rows = cur.fetchall()
+        cur.close()
+        conn.close()
+
+        raw_places = [
+            {"id":row[0], "name":row[1], "categories":[row[2]],
+             "lat":float(row[3]), "lng":float(row[4]),
+             "img_url":row[5], "rating":float(row[6])}
+            for row in rows
+        ]
+
+        return render_template(
+            "menu/locais.html",
+            raw_places=raw_places
+        )
+
+    @app.route("/menu/lojas", methods=["GET"])
+    def lojas():
+        return render_template("menu/lojas.html")
+
+    # ——— Detalhes ———
     @app.route('/menu/detalhes/<int:place_id>', methods=['GET'])
     @login_required
     def detalhes(place_id):
         place = get_place_data(place_id)
         if not place:
             return render_template('404.html'), 404
-
-        # ——— calcula is_open a partir de place['hours'] "HH:MM–HH:MM" ———
         is_open = False
         hours = place.get('hours') or ""
         try:
             open_str, close_str = hours.split('–')
             now = datetime.now().time()
-            open_t  = datetime.strptime(open_str.strip(), "%H:%M").time()
-            close_t = datetime.strptime(close_str.strip(), "%H:%M").time()
+            open_t = datetime.strptime(open_str.strip(), "%H:%M").time()
+            close_t= datetime.strptime(close_str.strip(), "%H:%M").time()
             is_open = open_t <= now <= close_t
-        except Exception:
-            # se o formato divergir, fica simplesmente fechado
+        except:
             is_open = False
-
         return render_template(
-            'menu/detalhes.html',
-            place=place,
-            is_open=is_open
+            'menu/detalhes.html', place=place, is_open=is_open
         )
 
-    # ——— Perfil (protegido) ———
+    # ——— Perfil ———
     @app.route("/perfil", methods=["GET"])
     @login_required
     def perfil():
@@ -289,7 +343,7 @@ def create_app():
              WHERE id = %s
         """, (user_id,))
         cols = [d[0] for d in cur.description]
-        row = cur.fetchone() or [None] * len(cols)
+        row = cur.fetchone() or [None]*len(cols)
         user = dict(zip(cols, row))
         cur.close()
         conn.close()
@@ -312,29 +366,20 @@ def create_app():
           ORDER BY c.criado_em DESC;
         """, (user_id,))
         comments = [
-            {
-                'place_name': row[0],
-                'place_img':  row[1],
-                'text':       row[2],
-                'date':       row[3].strftime("%d/%m/%Y %H:%M")
-            }
-            for row in cur.fetchall()
+            {'place_name':r[0], 'place_img':r[1], 'text':r[2], 'date':r[3].strftime("%d/%m/%Y %H:%M")} for r in cur.fetchall()
         ]
         cur.close()
         conn.close()
         return render_template("menu/profile_comments.html", comments=comments)
 
-    # ——— PWA: SW e manifest ———
+    # ——— PWA ———
     @app.route('/service-worker.js')
     def service_worker():
         return send_from_directory(app.static_folder, 'service-worker.js')
 
     @app.route('/manifest.json')
     def manifest():
-        return send_from_directory(
-            app.static_folder, 'manifest.json',
-            mimetype='application/manifest+json'
-        )
+        return send_from_directory(app.static_folder, 'manifest.json', mimetype='application/manifest+json')
 
     @app.errorhandler(404)
     def not_found(e):

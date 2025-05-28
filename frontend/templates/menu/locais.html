@@ -18,7 +18,6 @@
     <button data-cat="loja">Comércios</button>
     <button data-cat="mall">Shoppings</button>
     <button data-cat="cultura">Cultural</button>
-    <button data-cat="popular">Populares</button>
   </nav>
 
   <!-- cards serão injetados aqui -->
@@ -47,11 +46,12 @@
 {% endblock %}
 
 {% block extra_js %}
-  <script>
-    window.STATIC_URL = "{{ url_for('static', filename='') }}";
+  <!-- injeta os dados brutos (sem distância) que vão para a IA -->
+  <script id="raw-places-data" type="application/json">
+    {{ raw_places | tojson | safe }}
   </script>
-  <!-- 1) places.js define window.PLACES -->
+
+  <!-- sua lógica de recomendação e renderização -->
   <script src="{{ url_for('static', filename='js/places.js') }}"></script>
-  <!-- 2) locais.js renderiza, filtra e já inclui link para detalhes -->
   <script src="{{ url_for('static', filename='js/locais.js') }}"></script>
 {% endblock %}

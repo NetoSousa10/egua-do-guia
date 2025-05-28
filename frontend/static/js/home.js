@@ -1,15 +1,22 @@
-// frontend/static/js/home.js
-
 function initMapApp() {
-  const points = window.PLACES;
-  if (!points) {
-    console.error('❌ window.PLACES ainda não está definido');
+  // 1) Lê os lugares injetados no HTML
+  let points = [];
+  const rawEl = document.getElementById('raw-places-data');
+  if (rawEl) {
+    try {
+      points = JSON.parse(rawEl.textContent);
+    } catch (e) {
+      console.error('Erro parseando raw-places-data:', e);
+    }
+  }
+  if (!points.length) {
+    console.warn('Nenhum ponto para exibir no mapa');
     return;
   }
 
-  let userLocation   = null;
+  let userLocation = null;
   let routingControl = null;
-  let sidebarOpen    = false;
+  let sidebarOpen = false;
 
   const ICON_MAP = {
     hotel:      '/static/icons/hotel.svg',
@@ -26,21 +33,19 @@ function initMapApp() {
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
 
-  // Obtém localização do usuário
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      pos => {
-        userLocation = L.latLng(pos.coords.latitude, pos.coords.longitude);
-        map.setView(userLocation, 15);
-        L.circle(userLocation, { radius: 10, color: '#0075B7' })
-          .addTo(map)
-          .bindPopup('Você está aqui')
-          .openPopup();
-      },
-      err => console.warn('Erro geolocalização:', err),
-      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-    );
-  }
+  // Geolocalização via Leaflet
+  map.locate({ setView: true, maxZoom: 15, enableHighAccuracy: true });
+  map.on('locationfound', e => {
+    userLocation = e.latlng;
+    L.circle(userLocation, { radius: 10, color: '#0075B7' })
+      .addTo(map)
+      .bindPopup('Você está aqui')
+      .openPopup();
+  });
+  map.on('locationerror', err => {
+    console.warn('Erro geolocalização (Leaflet):', err.message);
+    alert('Não foi possível obter sua localização.');
+  });
 
   // Cria ícone customizado
   function createIcon(cat) {
@@ -55,31 +60,25 @@ function initMapApp() {
 
   // Abre sidebar com os dados do ponto
   function openSidebar(data) {
-    console.log('openSidebar:', data);
     document.body.classList.add('sidebar-open');
     sidebarOpen = true;
 
-    // Preenche informações
     document.getElementById('sidebar').dataset.placeId = data.id;
-    document.getElementById('sidebar-title').textContent   = data.title;
-    document.getElementById('sidebar-img').src             = data.imgUrl;
-    document.getElementById('sidebar-img').alt             = data.title;
+    document.getElementById('sidebar-img').src         = data.img_url;
+    document.getElementById('sidebar-img').alt         = data.name;
+    document.getElementById('sidebar-title').textContent = data.name;
 
-    let stars = '';
-    for (let i = 1; i <= 5; i++) {
-      stars += (i <= data.rating ? '★' : '☆');
-    }
-    document.getElementById('sidebar-rating').textContent  = stars;
-    document.getElementById('sidebar-hours').textContent   = data.hours;
-    document.getElementById('sidebar-address').textContent = data.address;
-    document.getElementById('sidebar-phone').textContent   = data.phone  || '';
-    document.getElementById('sidebar-price').textContent   = data.price;
+    // Rating
+    const stars = Array.from({length:5}, (_,i) => i < data.rating ? '★' : '☆').join('');
+    document.getElementById('sidebar-rating').textContent = stars;
 
-    // Texto inicial de distância
-    const distEl = document.getElementById('sidebar-distance');
-    if (distEl) distEl.textContent = 'Calculando distância…';
+    // Outros campos
+    document.getElementById('sidebar-hours').textContent   = data.hours   || '—';
+    document.getElementById('sidebar-address').textContent = data.address || '—';
+    document.getElementById('sidebar-phone').textContent   = data.phone   || '—';
+    document.getElementById('sidebar-price').textContent   = data.price   || '—';
 
-    // Traça rota e exibe distância
+    document.getElementById('sidebar-distance').textContent = 'Calculando distância…';
     routeTo({ lat: data.lat, lng: data.lng });
   }
 
@@ -89,21 +88,16 @@ function initMapApp() {
   }
   window.closeSidebar = closeSidebar;
 
-  // Traça rota e captura distância
+  // Traça rota e exibe distância
   function routeTo(dest) {
-    console.log('routeTo para:', dest);
-
     if (!userLocation) {
-      console.warn('userLocation não definida ainda');
       alert('Não foi possível obter sua localização.');
       return;
     }
-
     if (routingControl) {
       map.removeControl(routingControl);
       routingControl = null;
     }
-
     routingControl = L.Routing.control({
       waypoints: [ userLocation, L.latLng(dest.lat, dest.lng) ],
       lineOptions: { styles: [{ color: '#0075B7', weight: 5 }] },
@@ -113,13 +107,10 @@ function initMapApp() {
     }).addTo(map);
 
     routingControl.on('routesfound', e => {
-      const summary = e.routes[0].summary;
-      const km = (summary.totalDistance / 1000).toFixed(2);
+      const km = (e.routes[0].summary.totalDistance / 1000).toFixed(2);
       document.getElementById('sidebar-distance').textContent = `Distância: ${km} km`;
     });
-
-    routingControl.on('routingerror', err => {
-      console.error('Erro no roteamento:', err);
+    routingControl.on('routingerror', () => {
       document.getElementById('sidebar-distance').textContent = 'Não foi possível calcular a rota.';
     });
   }
@@ -136,22 +127,15 @@ function initMapApp() {
   map.on('click', () => sidebarOpen && closeSidebar());
 
   // Botão EXPLORAR
-  const exploreLink = document.getElementById('explore-link');
-  const sidebar    = document.getElementById('sidebar');
-  if (exploreLink) {
-    exploreLink.addEventListener('click', () => {
-      const placeId = sidebar.dataset.placeId;
-      if (placeId) {
-        window.location.href = `/menu/detalhes/${placeId}`;
-      }
-    });
-  }
+  document.getElementById('explore-link')?.addEventListener('click', () => {
+    const placeId = document.getElementById('sidebar').dataset.placeId;
+    if (placeId) window.location.href = `/menu/detalhes/${placeId}`;
+  });
 
   // Navegação inferior
   document.querySelectorAll('.bottom-nav .nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.bottom-nav .nav-btn')
-        .forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.bottom-nav .nav-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       window.location.href = btn.dataset.href;
     });
@@ -162,8 +146,7 @@ function initMapApp() {
     btn.addEventListener('click', () => {
       const cat = btn.dataset.category;
       const wasActive = btn.classList.contains('active');
-      document.querySelectorAll('#category-panel button')
-        .forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('#category-panel button').forEach(b => b.classList.remove('active'));
       if (!wasActive) {
         btn.classList.add('active');
         allMarkers.forEach(({ marker, category }) => {
@@ -176,9 +159,5 @@ function initMapApp() {
   });
 }
 
-// Inicia quando PLACES estiver pronto
-if (window.PLACES) {
-  document.addEventListener('DOMContentLoaded', initMapApp);
-} else {
-  document.addEventListener('placesReady', initMapApp);
-}
+// Inicia quando o DOM estiver pronto
+document.addEventListener('DOMContentLoaded', initMapApp);
