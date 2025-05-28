@@ -39,23 +39,23 @@
   <div class="conteudo-aba" id="aba-geral" style="display: block;">
     <hr>
     <div class="icones">
-      <div class="icone-circulo"><img src="{{ url_for('static', filename='icons/save.svg') }}"></div>
-      <div class="icone-circulo"><img src="{{ url_for('static', filename='icons/comp.svg') }}"></div>
+      <div class="icone-circulo"><img src="{{ url_for('static', filename='icons/save.svg') }}" alt="Salvar"></div>
+      <div class="icone-circulo"><img src="{{ url_for('static', filename='icons/comp.svg') }}" alt="Compartilhar"></div>
     </div>
     <hr>
     <div class="info-detalhes">
       <p>
-        <img src="{{ url_for('static', filename='icons/detalhes_local.svg') }}">
+        <img src="{{ url_for('static', filename='icons/detalhes_local.svg') }}" alt="Localização">
         <span>{{ place.address }}</span>
       </p>
       <p>
-        <img src="{{ url_for('static', filename='icons/detalhes_mundo.svg') }}">
+        <img src="{{ url_for('static', filename='icons/detalhes_mundo.svg') }}" alt="Website">
         <a href="{{ place.website or '#' }}" target="_blank">
           {{ place.website or 'Site não disponível' }}
         </a>
       </p>
       <p>
-        <img src="{{ url_for('static', filename='icons/detalhes_telefone.svg') }}">
+        <img src="{{ url_for('static', filename='icons/detalhes_telefone.svg') }}" alt="Telefone">
         <span>{{ place.phone or '—' }}</span>
       </p>
     </div>
@@ -65,7 +65,7 @@
   <div class="conteudo-aba" id="aba-cardapio" style="display: none;">
     {% if place.menu_pdf %}
       <div class="cardapio-pdf-container">
-        <iframe src="{{ url_for('static', filename=place.menu_pdf) }}" frameborder="0"></iframe>
+        <iframe src="{{ url_for('static', filename=place.menu_pdf) }}" frameborder="0" title="Cardápio PDF"></iframe>
       </div>
     {% else %}
       <p style="padding:16px">Cardápio não disponível.</p>
@@ -100,13 +100,13 @@
     <!-- Lista de comentários existentes -->
     <div class="comentario-box">
       {% for r in place.reviews_list %}
-        {% set avatar_file = r.user_avatar_url or 'avatar1.png' %}
         <div class="comentario-usuario">
           <img
-            src="{{ url_for('static', filename='icons/' ~ avatar_file) }}"
+            src="{{ r.user_avatar_url }}"
             class="avatar"
-            alt="{{ r.user_name }}"
-          >
+            alt="Avatar de {{ r.user_name }}"
+            >
+
           <div class="conteudo">
             <div class="topo">
               <span class="nome">{{ r.user_name }}</span>
@@ -135,19 +135,19 @@
 
 <!-- Navbar -->
 <nav class="bottom-nav">
-  <button class="nav-btn"        data-href="{{ url_for('home') }}">
+  <button class="nav-btn" data-href="{{ url_for('home') }}">
     <img src="{{ url_for('static', filename='icons/icon-map.svg') }}" alt="Mapa">
   </button>
-  <button class="nav-btn"        data-href="{{ url_for('puzzle') }}">
+  <button class="nav-btn" data-href="{{ url_for('puzzle') }}">
     <img src="{{ url_for('static', filename='icons/puzzle.svg') }}" alt="Puzzle">
   </button>
   <button class="nav-btn active" data-href="{{ url_for('locais') }}">
     <img src="{{ url_for('static', filename='icons/locais.svg') }}" alt="Locais">
   </button>
-  <button class="nav-btn"        data-href="{{ url_for('static', filename='icons/store.svg') }}">
+  <button class="nav-btn" data-href="{{ url_for('lojas') }}">
     <img src="{{ url_for('static', filename='icons/store.svg') }}" alt="Loja">
   </button>
-  <button class="nav-btn"        data-href="{{ url_for('perfil_overview') }}">
+  <button class="nav-btn" data-href="{{ url_for('perfil_overview') }}">
     <img src="{{ url_for('static', filename='icons/perfil.svg') }}" alt="Perfil">
   </button>
 </nav>

@@ -1,6 +1,6 @@
 # backend/controllers/place.py
 
-from flask import Blueprint, jsonify, request, session
+from flask import Blueprint, jsonify, request, session, url_for
 from backend.utils.db import conectar
 from backend.controllers.profile import login_required
 import json
@@ -8,13 +8,14 @@ from datetime import datetime
 
 place_bp = Blueprint('place', __name__, url_prefix='/api/places')
 
+
 def get_place_data(place_id: int) -> dict:
     """
     Consulta no banco os dados de um place específico, incluindo:
-      - Campos principais de places (id, title, category, img_url, address, phone, hours, price, lat, lng, about)
+      - Campos principais de places
       - Contagem e média de ratings
       - Lista de features
-      - Lista de avaliações completas (comentário, nota, usuário, avatar com fallback)
+      - Lista de avaliações completas (comentário, nota, usuário e URL completa de avatar)
     Retorna um dicionário pronto para Jinja ou JSON.
     """
     conn = conectar()
@@ -75,33 +76,33 @@ def get_place_data(place_id: int) -> dict:
 
     # 2) Busca lista completa de avaliações (comentários) juntando com 'usuarios'
     cur.execute("""
-        SELECT u.nome       AS user_name,
-               u.avatar      AS user_avatar_url,
-               r.score,
-               r.comment
+        SELECT u.nome, u.avatar_url, r.score, r.comment
           FROM ratings r
-          JOIN usuarios u
-            ON u.id = r.user_id
+          JOIN usuarios u ON u.id = r.user_id
          WHERE r.place_id = %s
       ORDER BY r.created_at DESC;
     """, (place_id,))
     reviews = cur.fetchall()
+
     cur.close()
     conn.close()
 
-    # 3) Monta a lista de reviews, aplicando fallback 'avatar1.png' quando necessário
-    place['reviews_list'] = [
-        {
-            'user_name':       r[0],
-            'user_avatar_url': r[1] or 'avatar1.png',
-            'score':           r[2],
-            'comment':         r[3]
-        }
-        for r in reviews
-    ]
+    # 3) Monta a lista de reviews, gerando URL completa do avatar (com fallback)
+    reviews_list = []
+    for user_name, avatar_filename, score, comment in reviews:
+        # se avatar_filename estiver vazio ou None, usa avatar1.png
+        filename = avatar_filename or 'avatar1.png'
+        avatar_full_url = url_for('static', filename='icons/' + filename)
+        reviews_list.append({
+            'user_name':       user_name,
+            'user_avatar_url': avatar_full_url,
+            'score':           score,
+            'comment':         comment
+        })
+    place['reviews_list'] = reviews_list
 
     # Comentário mais recente como texto de destaque
-    place['reviews_text'] = place['reviews_list'][0]['comment'] if place['reviews_list'] else None
+    place['reviews_text'] = reviews_list[0]['comment'] if reviews_list else None
 
     return place
 
