@@ -260,7 +260,7 @@ def create_app():
 
     # ——— Perfil (protegido) ———
     @app.route("/perfil", methods=["GET"])
-    @login_required
+
     def perfil():
         return render_template("perfil/home-perfil.html")
 
@@ -273,6 +273,11 @@ def create_app():
     @login_required
     def perfil_atividade():
         return render_template("perfil/atividade-perfil.html")
+    
+    @app.route("/menu/avatar", methods=["GET"])
+    def avatar():
+        return render_template("menu/avatar.html")
+
 
     @app.route("/menu/perfil", methods=["GET"])
     @login_required
