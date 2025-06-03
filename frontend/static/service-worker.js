@@ -40,28 +40,19 @@ self.addEventListener('fetch', event => {
   const req = event.request;
   const url = new URL(req.url);
 
-  // Se não for GET, só manda para a rede (evita cache.put em POST/PUT/etc.)
-  if (req.method !== 'GET') {
-    return event.respondWith(fetch(req));
-  }
-
   // 1) Network-first para API — sempre tenta a rede antes do cache
   if (url.pathname.startsWith('/api/')) {
     event.respondWith((async () => {
       const cache = await caches.open(CACHE_NAME);
       try {
         const response = await fetch(req);
-        // somente cacheia respostas de GET bem-sucedidas
         if (response.ok) {
           cache.put(req, response.clone());
         }
         return response;
       } catch (err) {
         const cached = await cache.match(req);
-        return cached || new Response(null, {
-          status: 504,
-          statusText: 'Gateway Timeout'
-        });
+        return cached || new Response(null, { status: 504, statusText: 'Gateway Timeout' });
       }
     })());
     return;
