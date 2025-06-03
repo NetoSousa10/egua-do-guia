@@ -8,7 +8,6 @@ from datetime import datetime
 
 place_bp = Blueprint('place', __name__, url_prefix='/api/places')
 
-
 def get_place_data(place_id: int) -> dict:
     """
     Consulta no banco os dados de um place específico, incluindo:
@@ -83,24 +82,27 @@ def get_place_data(place_id: int) -> dict:
       ORDER BY r.created_at DESC;
     """, (place_id,))
     reviews = cur.fetchall()
-
     cur.close()
     conn.close()
 
-    # 3) Monta a lista de reviews, gerando URL completa do avatar (com fallback)
+        # 3) Monta a lista de reviews, garantindo extensão .svg em static/icons
     reviews_list = []
-    for user_name, avatar_filename, score, comment in reviews:
-        # se avatar_filename estiver vazio ou None, usa avatar1.png
-        filename = avatar_filename or 'avatar1.png'
-        avatar_full_url = url_for('static', filename='icons/' + filename)
+    for user_name, avatar_url, score, comment in reviews:
+        # Extrai nome base do arquivo (remove caminho e extensão)
+        base = avatar_url.split('/')[-1] if avatar_url else 'avatar1'
+        name = base.split('.')[0]  # 'avatar1', 'avatar2', etc.
+        svg_name = f"{name}.svg"
+        # Monta URL para static/icons/<svg_name>
+        avatar_full_url = url_for('static', filename='icons/' + svg_name)
+
         reviews_list.append({
             'user_name':       user_name,
             'user_avatar_url': avatar_full_url,
             'score':           score,
             'comment':         comment
         })
-    place['reviews_list'] = reviews_list
 
+    place['reviews_list'] = reviews_list
     # Comentário mais recente como texto de destaque
     place['reviews_text'] = reviews_list[0]['comment'] if reviews_list else None
 
