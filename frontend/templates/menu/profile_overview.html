@@ -2,6 +2,66 @@
 {% extends 'base.html' %}
 {% block title %}Perfil – Égua do Guia{% endblock %}
 
+{% block extra_css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    /* Modal de seleção de avatar */
+    #avatar-modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    #avatar-modal.hidden { display: none; }
+    #avatar-modal .modal-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+    #avatar-modal .modal-content {
+      position: relative;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      z-index: 1001;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+    #avatar-modal .close-btn {
+      position: absolute;
+      top: 0.5rem; right: 0.5rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    #avatar-modal .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    #avatar-modal .icon-option {
+      width: 64px;
+      height: 64px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      transition: border-color .2s;
+    }
+    #avatar-modal .icon-option:hover {
+      border-color: #007BFF;
+    }
+  </style>
+{% endblock %}
+
 {% block content %}
 <div class="profile-screen">
   <!-- Cabeçalho -->
@@ -14,10 +74,7 @@
         alt="Avatar"
         style="width:120px; height:120px; border-radius:50%; object-fit:cover;"
       >
-        <a href="{{ url_for('avatar') }}" class="edit-avatar">
-      <i class="fas fa-pencil-alt"></i>
-        </a>
-
+      <button class="edit-avatar"><i class="fas fa-pencil-alt"></i></button>
     </div>
     <div class="header-row" style="display: flex; align-items: center;">
       <h1 class="username">{{ user.name }}</h1>
@@ -124,6 +181,24 @@
   </nav>
 </div>
 
+<!-- Modal de seleção de avatar -->
+<div id="avatar-modal" class="hidden">
+  <div class="modal-overlay"></div>
+  <div class="modal-content">
+    <button id="close-modal" class="close-btn">&times;</button>
+    <h3>Escolha seu avatar</h3>
+    <div class="icon-grid">
+      {% for icon in ['avatar1','avatar2','avatar3'] %}
+        <img
+          src="{{ url_for('static', filename='icons/' ~ icon ~ '.svg') }}"
+          class="icon-option"
+          data-filename="icons/{{ icon }}.svg"
+          alt="Avatar {{ loop.index }}"
+        >
+      {% endfor %}
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block extra_js %}

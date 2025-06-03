@@ -1,109 +1,141 @@
-/* frontend/static/css/avatar.css */
-
-.avatar-screen {
+.opcoes-screen {
   padding: 16px;
   padding-bottom: 80px;
 }
 
-/* 1) Contêiner da pré-visualização do avatar */
-.avatar-preview {
-  position: relative;
-  width: 200px;
-  height: 350px;      /* Altura suficiente para todo o avatar */
-  margin: 24px auto;  /* Centraliza horizontalmente */
-  z-index: 0;         /* Fica atrás do card rosa */
-}
-
-/* Todas as camadas do avatar são posicionadas absolutamente */
-.avatar-preview img {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  pointer-events: none;
-}
-
-/* Ordem de empilhamento (z-index) e deslocamento vertical (top) */
-
-/* 1) Braços (mesma cor do corpo), atrás da camisa */
-#avatar-bracos  { top: 195px; z-index: 1; width: 125%; }
-
-/* 2) Camisa, atrás do corpo */
-#avatar-camisa  { top: 160px; z-index: 2; }
-
-/* 3) Corpo (pele), na frente da camisa */
-#avatar-corpo   { top: 0;    z-index: 3; }
-
-/* 4) Cabelo */
-#avatar-cabelo  { top: 0;    z-index: 4; }
-
-/* 5) Olhos */
-#avatar-olhos   { top: 70px;  z-index: 5; width: 50%; }
-
-/* 6) Boca */
-#avatar-boca    { top: 110px; z-index: 6; width: 40%; }
-
-/* 2) Card de edição (avatar-editor) */
-.avatar-editor {
-  position: relative;
-  background: #FF8585;
-  border-radius: 16px 16px 0 0;
-  padding: 16px;
-  margin-top: -100px; /* Eleva o card acima a partir do avatar-preview */
-  z-index: 10;        /* Garante que fique acima de .avatar-preview */
-}
-
-/* Ícones de categoria (🧍 😊 👁 💇 👕) */
-.categoria-icons {
+.opcoes-header {
   display: flex;
-  justify-content: space-around;
-  margin-bottom: 12px;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.categoria-icons button {
+.opcoes-title {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.moedas-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: bold;
+}
+
+.moedas-info img {
+  width: 18px;
+  height: auto;
+}
+
+.voltar-btn {
+  margin: 12px 0;
   background: none;
   border: none;
-  font-size: 20px;
+  font-size: 1.2rem;
   cursor: pointer;
-  opacity: 0.5;
 }
 
-.categoria-icons button.active {
-  opacity: 1;
+.avatar-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
 
-/* Área onde as miniaturas aparecem */
-.opcoes-avatar {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 16px;
-}
-
-.opcoes-avatar img {
-  width: 64px;
-  height: 64px;
-  border-radius: 12px;
-  border: 3px solid transparent;
+.avatar-card {
+  background: #f8f8f8;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  position: relative;
   cursor: pointer;
+  text-align: center;
+  padding: 8px;
+}
+
+.avatar-card img {
+  width: 100%;
+  max-height: 100px;
   object-fit: contain;
 }
 
-.opcoes-avatar img.selected {
-  border-color: white;
-}
-
-/* Botão “Finalizar” */
-.btn-finalizar {
+.avatar-card .nome {
   background: #212121;
   color: white;
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
   font-weight: bold;
+  padding: 6px;
+  border-radius: 4px;
+  margin-top: 6px;
+}
+
+.avatar-card .preco {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: #212121;
+  color: white;
+  border-radius: 12px;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85rem;
+}
+
+.avatar-card .preco img {
+  width: 16px;
+  height: auto;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-box {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 85%;
+  max-width: 320px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.modal-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+}
+
+.modal-buttons button {
+  flex: 1;
+  padding: 10px;
   border: none;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
+}
+
+.modal-buttons .cancelar {
+  background: #ccc;
+  color: #000;
+}
+
+.modal-buttons .confirmar {
+  background: #212121;
+  color: white;
+}
+
+.avatar-card {
+  background-color: #57b155;
 }
