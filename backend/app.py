@@ -145,6 +145,10 @@ def create_app():
     @login_required
     def reward():
         return render_template("reward.html")
+    
+    @app.route("/menu/avatar", methods=["GET"])
+    def avatar():
+        return render_template("menu/avatar.html")
 
     # ——— Menu principal ———
 
