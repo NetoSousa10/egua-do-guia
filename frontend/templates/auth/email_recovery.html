@@ -1,0 +1,58 @@
+<!-- frontend/templates/auth/email_recovery.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Recuperar Senha</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .container-email {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #eee;
+        }
+        .titulo-email {
+            color: #38B6FF;
+        }
+        .btn-link {
+            display: inline-block;
+            background: #38B6FF;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .alerta {
+            color: #555;
+            font-size: 0.9rem;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-email">
+        <h2 class="titulo-email">Olá, {{ nome }}!</h2>
+        <p>
+            Recebemos uma solicitação para redefinir sua senha no Égua do Guia.
+            Clique no botão abaixo para criar uma nova senha:
+        </p>
+        <a href="{{ reset_link }}" class="btn-link">Redefinir minha senha</a>
+
+        <p class="alerta">
+            Caso o botão acima não funcione, copie e cole este link no seu navegador:<br>
+            <code>{{ reset_link }}</code>
+        </p>
+
+        <p class="alerta">
+            Se você não solicitou a recuperação de senha, pode ignorar este e-mail.
+            O link expira em 1 hora.
+        </p>
+    </div>
+</body>
+</html>

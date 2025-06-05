@@ -1,5 +1,4 @@
 # backend/app.py
-
 import os
 from functools import wraps
 from datetime import datetime
@@ -8,6 +7,7 @@ from flask import (
     Flask, render_template, jsonify, session, redirect,
     url_for, send_from_directory, request
 )
+from flask_mail import Mail
 from backend.utils.db import conectar
 from backend.controllers.auth import auth_bp
 from backend.controllers.api import api as api_bp
@@ -18,7 +18,7 @@ from backend.controllers.place import place_bp, get_place_data
 from backend.controllers.distance import distance_bp  # Blueprint para distância via Google API
 
 # Caminhos absolutos
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # .../projeto/backend
 FRONTEND_DIR = os.path.join(BASE_DIR, '..', 'frontend')
 
 # Instancia o app Flask
@@ -28,6 +28,9 @@ app = Flask(
     static_folder=os.path.join(FRONTEND_DIR, 'static'),
     static_url_path='/static'
 )
+
+# Instancia o objeto Mail sem vincular ao app ainda
+mail = Mail()
 
 # ————— Desativa cache de arquivos estáticos —————
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
@@ -57,7 +60,6 @@ def dated_url_for(endpoint, **values):
             pass
     return url_for(endpoint, **values)
 
-# Decorator para rotas que exigem login
 def login_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -68,8 +70,22 @@ def login_required(f):
 
 
 def create_app():
-    load_dotenv()
+    # Carrega o .env que está dentro de backend/
+    dotenv_path = os.path.join(BASE_DIR, '.env')
+    load_dotenv(dotenv_path)
+
     app.secret_key = os.getenv("SECRET_KEY", "troque_em_producao")
+
+    app.config['MAIL_SERVER']        = os.getenv('MAIL_SERVER',   'smtp.gmail.com')
+    app.config['MAIL_PORT']          = int(os.getenv('MAIL_PORT', 587))
+    app.config['MAIL_USERNAME']      = os.getenv('MAIL_USERNAME')     # ex.: seu_email@gmail.com
+    app.config['MAIL_PASSWORD']      = os.getenv('MAIL_PASSWORD')     # App Password de 16 caracteres
+    app.config['MAIL_USE_TLS']       = os.getenv('MAIL_USE_TLS',  'true').lower() in ['true', '1', 't']
+    app.config['MAIL_USE_SSL']       = os.getenv('MAIL_USE_SSL',  'false').lower() in ['true', '1', 't']
+    app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_DEFAULT_SENDER', app.config['MAIL_USERNAME'])
+
+    mail.init_app(app)
+    # ————————————————————————————————
 
     # ——— Registra blueprints ———
     app.register_blueprint(auth_bp,       url_prefix="/auth")
@@ -145,17 +161,15 @@ def create_app():
     @login_required
     def reward():
         return render_template("reward.html")
-    
+
     @app.route("/menu/avatar", methods=["GET"])
     def avatar():
         return render_template("menu/avatar.html")
 
     # ——— Menu principal ———
-
     @app.route("/menu/home", methods=["GET"])
     @login_required
     def home():
-        # 1) busca todos os campos que você quer exibir:
         conn = conectar()
         cur = conn.cursor()
         cur.execute("""
@@ -182,7 +196,6 @@ def create_app():
         cur.close()
         conn.close()
 
-        # 2) monta o JSON completo (incluindo hours, address, phone, price)
         raw_places = [
             {
                 "id": row[0],
@@ -200,7 +213,6 @@ def create_app():
             for row in rows
         ]
 
-        # 3) injeta no template home.html
         return render_template(
             "menu/home.html",
             raw_places=raw_places
