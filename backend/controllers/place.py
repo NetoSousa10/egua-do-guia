@@ -41,7 +41,7 @@ recommend_task = Task(
 
     **Se preferences estiver vazio**, retorne **todas** as stores ordenadas por:
       1. Menor distance_km
-      2. Em caso de empate, maior rating
+      2. Maior rating
     **Se preferences não estiver vazio**, ordene por:
       1. Quantidade de categorias em comum com preferences (maior primeiro)
       2. Menor distance_km
