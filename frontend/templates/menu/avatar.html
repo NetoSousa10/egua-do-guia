@@ -1,0 +1,92 @@
+{# frontend/templates/menu/avatar/avatar.html #}
+{% extends 'base.html' %}
+
+{% block title %}Editor de Avatar{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/avatar.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="avatar-screen">
+  <!-- Visualização do avatar montado a-->
+  <div class="avatar-preview">
+    <!-- 1) Corpo (pele) -->
+    <img
+      id="avatar-corpo"
+      src="{{ url_for('static', filename='assets/avatar/corpo1.svg') }}"
+      alt="Corpo">
+
+    <!-- 2) Braços (mesma cor do corpo) -->
+    <img
+      id="avatar-bracos"
+      src="{{ url_for('static', filename='assets/avatar/bracos1.svg') }}"
+      alt="Braços">
+
+    <!-- 3) Cabelo (representa a “cabeça”) -->
+    <img
+      id="avatar-cabelo"
+      src="{{ url_for('static', filename='assets/avatar/cabelo1.svg') }}"
+      alt="Cabelo">
+
+    <!-- 4) Camisa -->
+    <img
+      id="avatar-camisa"
+      src="{{ url_for('static', filename='assets/avatar/camisa1.svg') }}"
+      alt="Camisa">
+
+    <!-- 5) Olhos -->
+    <img
+      id="avatar-olhos"
+      src="{{ url_for('static', filename='assets/avatar/olhos1.svg') }}"
+      alt="Olhos">
+
+    <!-- 6) Boca -->
+    <img
+      id="avatar-boca"
+      src="{{ url_for('static', filename='assets/avatar/boca1.svg') }}"
+      alt="Boca">
+  </div>
+
+  <!-- Editor (card rosa) -->
+  <div class="avatar-editor">
+    <!-- Ícones de categoria -->
+    <div class="categoria-icons">
+      <button data-cat="corpo"  class="active">🧍</button>
+      <button data-cat="boca">😊</button>
+      <button data-cat="olhos">👁</button>
+      <button data-cat="cabelo">💇</button>
+      <button data-cat="camisa">👕</button>
+    </div>
+
+    <!-- Miniaturas de opções serão injetadas via JavaScript -->
+    <div id="opcoes-avatar" class="opcoes-avatar"></div>
+
+    <!-- Botão “Finalizar” -->
+    <button id="btn-finalizar" class="btn-finalizar">Finalizar</button>
+  </div>
+</div>
+
+<!-- NavBar -->
+<nav class="bottom-nav">
+  <button class="nav-btn" data-href="{{ url_for('home') }}">
+    <img src="{{ url_for('static', filename='icons/icon-map.svg') }}" alt="Mapa">
+  </button>
+  <button class="nav-btn" data-href="{{ url_for('puzzle') }}">
+    <img src="{{ url_for('static', filename='icons/puzzle.svg') }}" alt="Puzzle">
+  </button>
+  <button class="nav-btn" data-href="{{ url_for('locais') }}">
+    <img src="{{ url_for('static', filename='icons/locais.svg') }}" alt="Locais">
+  </button>
+  <button class="nav-btn" data-href="{{ url_for('lojas') }}">
+    <img src="{{ url_for('static', filename='icons/store.svg') }}" alt="Loja">
+  </button>
+  <button class="nav-btn active" data-href="{{ url_for('perfil_overview') }}">
+    <img src="{{ url_for('static', filename='icons/perfil.svg') }}" alt="Perfil">
+  </button>
+</nav>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/avatar.js') }}"></script>
+{% endblock %}
